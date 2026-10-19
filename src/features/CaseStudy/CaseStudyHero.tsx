@@ -29,7 +29,7 @@ export function CaseStudyHero() {
           <div className="hero-meta">
             <span>React Native</span>
             <span>Headless Drupal</span>
-            <span>Typed JSON</span>
+            <span>Structured content</span>
           </div>
         </div>
         <figure className="hero-evidence">
