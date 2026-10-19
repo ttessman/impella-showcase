@@ -82,4 +82,4 @@ Source references use a reusable Radix preview popover: hover/focus to inspect, 
 
 Do not deploy the workspace root, original React Native repository, original HTML, ZIP, unapproved internal docs, environment/configuration files or repository history. Do not add those paths to `public/`. To share the new source, share this `portfolio/` directory excluding `node_modules`, test artifacts and caches. Nothing was published by this task.
 
-See `AUDIT.md`, `EVIDENCE.md`, `PUBLIC_RESEARCH.md` and `VERIFICATION.md` for findings, provenance, independently checked product history and verification results.
+See `EVIDENCE.md`, `PUBLIC_RESEARCH.md` and `VERIFICATION.md` for provenance, independently checked product history and verification results.

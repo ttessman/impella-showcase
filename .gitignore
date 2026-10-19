@@ -8,3 +8,6 @@ playwright-report/
 .env.*
 !.env.example
 *.local
+
+# Private working context belongs outside the portfolio repository.
+/AUDIT.md
