@@ -1,0 +1,8 @@
+.preview-popover {
+  z-index: 60;
+  max-height: min(
+    460px,
+    calc(100dvh - 32px),
+    var(--radix-popover-content-available-height)
+  );
+}

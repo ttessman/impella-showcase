@@ -36,3 +36,14 @@ Authoring usability follow-up: moved properties directly beneath the selected bl
 Workspace follow-up: added collapsible Compose, side-by-side/stacked Inspect + Preview, adjustable split dividers with pointer/touch/keyboard controls, size limits and layout reset. Layout state is independent of content and JSON drafts. Responsive container rules stack narrow workspaces and hide unusable dividers. Panel sizing keeps JSON actions and the phone inside their respective areas.
 
 Content studio refinement: replaced the large toolbar with pane-header icon controls and tooltips; retained Compose as a full-height labeled rail when collapsed; grouped both reset actions in the compact header; made preview-first stacked mode the default. The studio is capped at the viewport height with internal workspace scrolling. The disclaimer is in the header. Preview uses a fixed 390 × 844 uniformly scaled device canvas, with a smaller stacked rendering and a 48/52 default split favoring JSON. Verified focus timing, scroll-aware dragging and preservation of mounted editor state when reordering panes.
+
+## Architecture refactor and contextual reading navigation
+
+- Large page/editor components mixed content, commands, layout and rendering. The app now separates editorial definitions, shared contracts, feature hooks/models, named layout slots and individual CMS renderers. Component folders and colocated styles describe their responsibilities; `ARCHITECTURE.md` documents extension points.
+- Repeated overlay logic is replaced by shared Radix Dialog, Popover and Tooltip components; Button supports Radix Slot composition. Source references and image evidence use those shared surfaces. Original production code remains outside the portfolio.
+- Styles previously depended on workspace ancestry. Compose fields now scope to the composer itself, including when portalled into the mobile dialog. Browser assertions check the modal field layout. JSON editor foundation styles remain owned by the inspector.
+- The old website menu did not show reading location. Its replacement derives numbered destinations from the actual section definitions, tracks the current section, provides a primary renderer link and shows document progress. The header retains direction-aware visibility and stays visible while Sections is open.
+- Dropdown dismissal initially restored focus with scrolling, which displaced the selected anchor. Focus now restores without scrolling; tests verify the resulting section location and heading clearance.
+- Tests are grouped by editor, dragging, workspace, evidence, reading navigation and source references, with shared studio helpers. No case-study section content or intended builder behavior changed during this refactor.
+
+Current verification results are recorded in `VERIFICATION.md`. Changes are committed locally only; no push or publication.

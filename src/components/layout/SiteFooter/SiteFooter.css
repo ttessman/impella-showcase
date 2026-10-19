@@ -1,0 +1,38 @@
+footer {
+  max-width: 1360px;
+  margin: auto;
+  padding: 45px 64px 65px;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+footer b {
+  font:
+    20px/1.5 Georgia,
+    serif;
+}
+footer p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 14px;
+}
+footer > a {
+  font-size: 12px;
+  white-space: nowrap;
+  align-self: start;
+}
+@media (max-width: 1100px) {
+  footer {
+    padding: 40px 38px;
+  }
+}
+@media (max-width: 760px) {
+  footer {
+    padding: 35px 24px;
+    flex-direction: column;
+    gap: 25px;
+  }
+  footer b {
+    font-size: 18px;
+  }
+}

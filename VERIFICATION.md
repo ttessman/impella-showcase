@@ -115,3 +115,19 @@ all three viewport sizes. Type checking, linting and the production build passed
 The desktop article figure also received more internal padding, a larger gutter
 and a narrower explanation column; its full-height diagram and enlargement
 checks were rerun after that adjustment. Nothing was committed or pushed.
+
+## Final architecture and contextual header verification — October 19, 2026
+
+The portfolio was reorganized into typed content definitions, feature models/hooks, named composition slots, reusable CMS renderers and shared Radix overlay/action components. Colocated component styles replace the accumulated monolithic stylesheet. `ARCHITECTURE.md` describes ownership and extension workflows.
+
+The contextual header uses the same definitions as the actual eleven case-study sections. It shows the active number/label, provides Overview and Explore the renderer links, and exposes a numbered Sections dropdown with active indication. Tests cover IntersectionObserver section tracking, document progress, header clearance, downward hiding/upward reveal, jitter tolerance, keyboard reveal, pinning while open, arrows/Home/End/Escape, dismissal and focus restoration without page displacement. Mobile navigation and reduced-motion behavior are included.
+
+Final checks:
+
+- Clean dependency installation: `npm ci --offline --no-audit` completed.
+- `npm run typecheck`, `npm run lint`, `npm run build` and `git diff --check` passed.
+- Production-build Playwright suite in local Google Chrome: **59 passed, 7 expected skips**, across desktop (1440 × 1000), tablet (820 × 1180) and mobile (390 × 844, touch). Seven skips are two non-touch projects and five desktop-only scenarios covered instead by the mobile modal workflow.
+- Existing complete visual/JSON/preview workflows, validation, recursive nesting, mouse/touch/keyboard dragging, cycle protection, layout resizing, fixed device proportions, mobile Compose, image loading, console checks and automated accessibility checks passed. The mobile Compose test additionally checks styled field height and vertical label layout after the dialog portal refactor.
+- Final desktop/mobile header, studio and mobile Compose screenshots were visually reviewed. Review caught and corrected ancestry-dependent field styles before the final run.
+
+`dist/` contains the static production build and remains ignored by Git. Original production source and private workspace resources were not modified or added. Public evidence assets and the approved original article diagram are unchanged. Browser checks cover Chrome at the listed sizes; they are not a claim of testing every browser or assistive technology. No push or deployment was performed.

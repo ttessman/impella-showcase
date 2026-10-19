@@ -1,0 +1,61 @@
+.source-reference-trigger {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  line-height: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: underline dotted;
+  text-underline-offset: 4px;
+}
+.source-reference-trigger:hover {
+  color: var(--ink);
+}
+.source-reference-popup {
+  margin: 0;
+  width: min(520px, calc(100vw - 32px));
+  max-height: min(460px, calc(100dvh - 32px));
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid #b7c9db;
+  border-radius: 6px;
+  background: white;
+  color: #172b43;
+  box-shadow: 0 12px 40px #12395d26;
+  font: 12px/1.6 var(--sans);
+}
+
+.source-reference-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.source-reference-heading button {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: white;
+  font-size: 22px;
+}
+.source-reference-popup pre {
+  margin: 16px 0;
+  padding: 16px;
+  overflow: auto;
+  background: #102e4b;
+  color: #e9f1fa;
+  line-height: 1.65;
+}
+.source-reference-popup code {
+  font-size: 11px;
+}
+.source-reference-popup .source-reference-disclaimer {
+  margin: 0;
+  font-size: 10px;
+  color: var(--muted);
+}

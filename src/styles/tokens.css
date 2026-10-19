@@ -1,0 +1,14 @@
+:root {
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  color: #172b43;
+  background: #f7f9fc;
+  font-synthesis: none;
+  font-weight: 400;
+  --ink: #12395d;
+  --muted: #52647a;
+  --line: #d5dfe9;
+  --paper: #ffffff;
+  --preview-surface: #f0f1f3;
+  --gold: #ffbc0a;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+}

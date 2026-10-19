@@ -25,24 +25,25 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 
 ## Structure
 
-- `src/data/caseStudy.ts`: source summaries, screenshot metadata, links and ownership data.
-- `src/components/`: editorial sections, independently recreated diagrams and accessible product screenshot dialog.
-- `src/components/SiteHeader.tsx`: scroll-direction header with a small movement threshold, keyboard reveal and reduced-motion support.
-- `src/builder/model.ts`: discriminated union, example data, defaults and runtime parser.
-- `src/builder/tree.ts`: immutable traversal, updates, removal, sibling reordering and cycle-safe subtree moves.
-- `src/builder/useBlockDrag.ts`: mouse, touch, pen and keyboard dragging across page and section containers.
-- `src/builder/BlockFields.tsx`, `BlockList.tsx`: selected block properties and recursive authoring tree.
-- `src/builder/ContentRenderer.tsx`: bundle dispatch and recursive section rendering.
-- `src/builder/Playground.tsx`: state coordination, draft lifecycle, validation and preview.
-- `src/builder/PanelWorkspace.tsx`: pane headers, full-height collapsed Compose rail and shared output controls.
-- `src/builder/workspaceLayout.ts`: initial preview-first stacked layout and panel proportions.
-- `src/builder/MobilePreview.tsx`: fixed 390 × 844 device canvas, uniformly scaled to fit the pane with internal content scrolling.
-- `src/components/ResizableSplit.tsx`: reusable pointer/touch/keyboard separator with limits and reset.
-- `src/styles.css`: shared styles, responsive layouts, reduced-motion and focus rules.
-- `public/assets/production/`: five production screenshots extracted from the supplied HTML plus five user-provided Apple listing images, named by feature.
-- `public/assets/documentation/`: the original article layout diagram, explicitly approved by the user for inclusion in the deployable build.
-- `public/assets/demo/`: independently authored, fictional SVG illustrations and favicon.
-- `tests/portfolio.spec.ts`: complete builder sequence, nested/media edits, strict validation, keyboard, image, console, accessibility and responsive checks.
+- `src/app/App.tsx`: the application shell and shared providers.
+- `src/content/`: section definitions, editorial copy, diagram models, evidence metadata, source illustrations and fictional studio assets/examples.
+- `src/features/CaseStudy/`: the narrative composition and its contextual navigation.
+- `src/features/ContentStudio/ContentStudio.tsx`: composes named toolbar, composer, inspector, preview and feedback slots.
+- `src/features/ContentStudio/hooks/`: content editing, JSON draft lifecycle, workspace layout and dragging.
+- `src/features/ContentStudio/model/`: validation, block definitions/factories, immutable tree operations and layout defaults.
+- `src/types/`: shared content, editorial and source-reference contracts.
+- `src/components/CMS/`: ordered ContentView, typed BundleRender dispatch and individual block renderers.
+- `src/components/layout/`: reading header, section frame, footer and resizable split.
+- `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
+- `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
+- `src/components/media/`: evidence views and one shared image dialog.
+- `src/components/source/`: source-specific content composed into the shared popover.
+- `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
+- `src/styles/`: tokens, global foundations and the explicit stylesheet manifest. Component and feature styles are colocated with their owners and scoped by class selectors.
+- `public/assets/`: reviewed production screenshots, the approved original article diagram and fictional demo artwork.
+- `tests/*.spec.ts`: scenarios grouped by editor, dragging, workspace, evidence, reading header and source previews; shared interaction helpers live in `tests/helpers/`.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for responsibilities, dependency direction, slot APIs and extension workflows.
 
 React/TypeScript is warranted here because recursive editing, synchronized JSON drafts and runtime validation have meaningful state complexity. Vite produces a static deployment; no backend, authentication, external font service or CMS access is needed.
 
@@ -54,11 +55,17 @@ Add any supported bundle at page root or in a section using the destination sele
 
 **Content studio** has a 740px minimum height, capped at `100dvh` (`100vh` fallback) on shorter screens. The surrounding section uses one full-width blue background while its content stays aligned with the case study. Its compact header keeps the disclaimer beneath the title and places icon-and-text **Reset layout** / **Reset example** actions together. The workspace scrolls inside the frame; pane headers stay available while scrolling.
 
-Use the tooltip-equipped icon in Compose’s upper-right corner to collapse it into a full-height rail with an expand icon and vertical title. The shared Output header has one state-aware icon that switches between side-by-side and stacked views. **Stacked is the default, with the mobile preview above JSON**, using 48% for preview and 52% for the inspector. Drag dividers to adjust those proportions. A focused divider responds to arrow keys (Shift increases the step), Home/End set limits, and Enter or double-click restores its initial split. Horizontal widths and stacked proportions are remembered separately during the session. **Reset layout** restores the initial view without discarding edits or JSON drafts. Narrow workspaces always keep Preview above JSON. At viewport widths of 650px or less, only output occupies the workspace: Compose opens from an icon button beside the two reset actions. These mobile actions use icons with accessible names and native tooltips. The native Compose dialog supports Escape, keyboard focus cycling, background scroll locking and focus restoration. It keeps edits, selection and pending JSON drafts across close/reopen and breakpoint changes; status and error feedback are available inside it. Mobile has no Compose rail or redundant output layout button. Unavailable dividers are hidden.
+Use the tooltip-equipped icon in Compose’s upper-right corner to collapse it into a full-height rail with an expand icon and vertical title. The shared Output header has one state-aware icon that switches between side-by-side and stacked views. **Stacked is the default, with the mobile preview above JSON**, using 48% for preview and 52% for the inspector. Drag dividers to adjust those proportions. A focused divider responds to arrow keys (Shift increases the step), Home/End set limits, and Enter or double-click restores its initial split. Horizontal widths and stacked proportions are remembered separately during the session. **Reset layout** restores the initial view without discarding edits or JSON drafts. Narrow workspaces always keep Preview above JSON. At viewport widths of 650px or less, only output occupies the workspace: Compose opens from an icon button beside the two reset actions. These mobile actions use icons with accessible names and native tooltips. The shared Radix Compose dialog supports Escape, keyboard focus cycling, background scroll locking and focus restoration. It keeps edits, selection and pending JSON drafts across close/reopen and breakpoint changes; status and error feedback are available inside it. Mobile has no Compose rail or redundant output layout button. Unavailable dividers are hidden.
 
 The mobile mockup renders a fixed 390 × 844 canvas and scales it uniformly to fit its available space. Its maximum rendered width is slightly smaller in stacked mode (300px versus 320px side by side). Changing content or panel dimensions cannot stretch the device: content scrolls inside the fixed frame. Desktop layout transitions keep the editors mounted. Mobile/desktop breakpoint changes preserve controlled content, selection and JSON draft state.
 
 Validation rejects unknown bundles and properties, duplicate/invalid IDs, wrong types, missing required fields, unsafe/unbundled media sources and excessive size/depth/count. Errors name the failing field path. Bounds: 100 KB JSON, 100 blocks, 5 section levels, 5,000 characters per string, 30 reference entries. Drafts and invalid changes never replace the last valid page. All image choices are local and nonclinical. References are fictional text, not source links. No calculator or clinical rules are reproduced.
+
+## Reading navigation and source previews
+
+The header shows Impella and the current section number/label. Its Sections dropdown is generated from the same definitions as the page, highlights the active section and supports arrows, Home/End and Escape. Overview returns to the opening; Explore the renderer jumps to the studio. IntersectionObserver tracks section transitions, while a passive, frame-batched listener updates document progress. The header hides down, reveals up and stays visible while the dropdown is open. Scroll offsets account for its measured height, and reduced-motion preferences disable smooth scrolling and header transitions.
+
+Source references use a reusable Radix preview popover: hover/focus to inspect, click/tap to keep open, and Escape or the close button to dismiss. Examples are independently written explanations of verified mechanisms; they do not distribute the original source or clinical formulas.
 
 ## Evidence and publishing boundary
 
@@ -73,6 +80,6 @@ Validation rejects unknown bundles and properties, duplicate/invalid IDs, wrong 
 
 `npm run build` creates `dist/`. Upload **only the contents of `dist/`** to a static host. Relative Vite base paths support a subdirectory as well as a root deployment; serve `index.html` over HTTP. The app uses anchor navigation, so no SPA route rewrite is needed. It works without an external API or runtime network service. Source maps are disabled.
 
-Do not deploy the workspace root, original React Native repository, original HTML, ZIP, unapproved internal docs, environment/configuration files or repository history. Do not add those paths to `public/`. To share the new source, share this `portfolio/` directory excluding `node_modules`, test artifacts and caches. The workspace contains `../impella-portfolio-static.zip` (production files only) and `../impella-portfolio-source.zip` (new application source and local assets). Nothing was published by this task.
+Do not deploy the workspace root, original React Native repository, original HTML, ZIP, unapproved internal docs, environment/configuration files or repository history. Do not add those paths to `public/`. To share the new source, share this `portfolio/` directory excluding `node_modules`, test artifacts and caches. Nothing was published by this task.
 
 See `AUDIT.md`, `EVIDENCE.md` and `VERIFICATION.md` for findings, provenance and check results.
