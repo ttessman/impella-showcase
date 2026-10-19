@@ -34,10 +34,6 @@ export function CaseStudyHero() {
         </div>
         <figure className="hero-evidence">
           <div className="hero-grid-lines" aria-hidden="true" />
-          <div className="hero-evidence-label">
-            <span>THE DELIVERED EXPERIENCE</span>
-            <span>01 / 08</span>
-          </div>
           <img
             src={`${import.meta.env.BASE_URL}assets/production/apple-home.webp`}
             alt="Apple listing screenshot: Impella home with six authored collection tiles"
