@@ -65,7 +65,7 @@ export const sectionDefinitions = {
     label: "Interactive content",
     title: "Clinical tools within the same mobile experience.",
     intro:
-      "I built native calculator interfaces that brought user inputs and calculated outputs into the same app as clinical reference material.",
+      "I built native calculator interfaces alongside the app’s clinical reference content. Reusable controls and CMS-managed copy gave the team a shared foundation; tool-specific behavior and integration with provided calculation helpers stayed in native code.",
   },
   product: {
     id: "product",
@@ -146,11 +146,8 @@ export const caseStudyCopy = {
     checklistTitle: "Author-configured checklists",
     checklists:
       "Authors configured questions and conditional results. The app evaluated selections on submit and brought matching result content into view, with supporting references.",
-    valueTitle: "Practical tools, shared foundations",
-    value:
-      "The product combined reference material with practical tools. Shared controls reduced repeated UI implementation; authors maintained supported copy while tool-specific behavior remained in native code.",
     clinicalBoundary:
-      "My work covered calculator interfaces and helper integration. Clinical formulas were provided; clinical validation was outside my role.",
+      "Clinical formulas were provided; clinical validation was outside my role.",
   },
   product: {
     workflowTitle: "A complete mobile workflow",

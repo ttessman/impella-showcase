@@ -99,7 +99,7 @@ test("responsive layout, images, console and accessible controls", async ({
       /^https:\/\/(apps\.apple\.com|play\.google\.com)\//,
     );
   }
-  await page.locator("footer").screenshot({
+  await page.locator(".site-footer").screenshot({
     path: info.outputPath("footer-public-evidence.png"),
   });
   await page.locator("#navigation").screenshot({

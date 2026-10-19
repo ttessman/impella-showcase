@@ -45,25 +45,31 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
     : stacked
       ? "Preview above JSON · Show side by side"
       : "Side by side · Stack preview above JSON";
+  const composeHeading = (
+    <h3 id="compose-heading">
+      <span>01</span> Compose
+    </h3>
+  );
+  const composeAction = (
+    <IconButton
+      type="button"
+      ref={collapseButton}
+
+      label={mobile ? "Close Compose" : "Collapse Compose"}
+      aria-expanded={mobile ? undefined : true}
+      aria-controls="compose-panel"
+      title={mobile ? undefined : "Collapse Compose"}
+      tooltip={mobile ? "Close Compose" : "Collapse Compose"}
+      onClick={mobile ? onCloseCompose : toggleCompose}
+    >
+      <WorkspaceIcon name={mobile ? "close" : "collapse"} />
+    </IconButton>
+  );
   const composePanel = (
     <div className="compose-pane-shell" id="compose-panel">
       <div className="workspace-pane-header">
-        <h3 id="compose-heading">
-          <span>01</span> Compose
-        </h3>
-        <IconButton
-          type="button"
-          ref={collapseButton}
-
-          label={mobile ? "Close Compose" : "Collapse Compose"}
-          aria-expanded={mobile ? undefined : true}
-          aria-controls="compose-panel"
-          title={mobile ? "Close Compose" : "Collapse Compose"}
-          tooltip={mobile ? "Close Compose" : "Collapse Compose"}
-          onClick={mobile ? onCloseCompose : toggleCompose}
-        >
-          <WorkspaceIcon name={mobile ? "close" : "collapse"} />
-        </IconButton>
+        {composeHeading}
+        {composeAction}
       </div>
       <div className="workspace-panel" data-editor-scroll>
         {compose}
@@ -127,6 +133,7 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
           {outputPanel}
           <Dialog
             id="mobile-compose"
+            variant="workspace"
             onEscapeKeyDown={controller.escapeCompose}
             className="compose-dialog"
             state={{
@@ -136,7 +143,20 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
               },
             }}
             definition={{ title: "01 Compose" }}
-            slots={{ body: composePanel }}
+            slots={{
+              header: composeHeading,
+              actions: composeAction,
+              body: (
+                <div
+                  id="compose-panel"
+                  className="workspace-panel"
+                  data-editor-scroll
+                >
+                  {compose}
+                </div>
+              ),
+              footer: composeFeedback,
+            }}
           />
         </>
       ) : (

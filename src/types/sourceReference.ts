@@ -1,7 +1,11 @@
+export type SourceFileIllustration = {
+  path: string;
+  context: string;
+  example: string;
+};
 export type SourceReferenceData = {
   title: string;
-  paths: string[];
-  fileNotes?: Record<string, string>;
   summary: string;
-  example: string;
+  files: readonly SourceFileIllustration[];
+  initialFile?: string;
 };

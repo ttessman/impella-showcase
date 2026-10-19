@@ -1,0 +1,204 @@
+{
+  "title": "Pack a tiny adventure.",
+  "description": "A fictional checklist. Choose your kit and watch your creative prompt change.",
+  "groups": [
+    {
+      "id": "kit",
+      "title": "Build your field kit",
+      "questions": [
+        {
+          "id": "supplies",
+          "title": "What’s coming with you?",
+          "options": [
+            {
+              "id": "notebook",
+              "label": "A trusty notebook"
+            },
+            {
+              "id": "pencil",
+              "label": "A pencil with big plans"
+            },
+            {
+              "id": "camera",
+              "label": "A camera for tiny discoveries"
+            }
+          ]
+        },
+        {
+          "id": "setting",
+          "title": "Where could you explore?",
+          "options": [
+            {
+              "id": "outside",
+              "label": "Somewhere under the sky"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "operator": "and",
+      "required": ["notebook", "pencil", "camera", "outside"],
+      "outcome": {
+        "id": "expedition",
+        "title": "Make a pocket expedition.",
+        "body": "Step outside with the whole kit. Photograph a detail, sketch its shape, and give your tiny discovery a story.",
+        "explanation": "Notebook + Pencil + Camera + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "pencil", "camera"],
+      "outcome": {
+        "id": "story",
+        "title": "Collect a tiny story.",
+        "body": "Photograph one ordinary thing, sketch what the camera missed, and write the caption only you could give it.",
+        "explanation": "Notebook + Pencil + Camera · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "pencil", "outside"],
+      "outcome": {
+        "id": "sky-sketch",
+        "title": "Sketch under open skies.",
+        "body": "Find a comfortable spot outdoors. Let one page collect a shape, a few words, and a little fresh air.",
+        "explanation": "Notebook + Pencil + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "camera", "outside"],
+      "outcome": {
+        "id": "wandering-report",
+        "title": "Make a wandering field report.",
+        "body": "Take a short walk. Pair one photograph with a notebook observation about the place you found it.",
+        "explanation": "Notebook + Camera + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["pencil", "camera", "outside"],
+      "outcome": {
+        "id": "outdoor-shapes",
+        "title": "Chase a shape outdoors.",
+        "body": "Photograph a shape you notice outside, then draw a wonderfully imperfect version beside it.",
+        "explanation": "Pencil + Camera + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "pencil"],
+      "outcome": {
+        "id": "sketch",
+        "title": "Sketch something ordinary.",
+        "body": "Give a familiar object five minutes of your attention. Its wonky corners count as character.",
+        "explanation": "Notebook + Pencil · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "camera"],
+      "outcome": {
+        "id": "field-report",
+        "title": "Make a tiny field report.",
+        "body": "Pair a photograph with three notebook observations. Look for something the picture cannot explain on its own.",
+        "explanation": "Notebook + Camera · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["pencil", "camera"],
+      "outcome": {
+        "id": "photo-sketch",
+        "title": "See it. Sketch it.",
+        "body": "Take a photograph, then sketch the same scene from memory. The differences are the interesting part.",
+        "explanation": "Pencil + Camera · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["notebook", "outside"],
+      "outcome": {
+        "id": "sky-note",
+        "title": "Write a sky-side note.",
+        "body": "Head outside and record one sound, one color, and one thing you almost walked past.",
+        "explanation": "Notebook + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["pencil", "outside"],
+      "outcome": {
+        "id": "fresh-air",
+        "title": "Draw a little fresh air.",
+        "body": "Step outdoors and trace the outline of something nearby. No perfect lines required.",
+        "explanation": "Pencil + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "and",
+      "required": ["camera", "outside"],
+      "outcome": {
+        "id": "outdoor-color",
+        "title": "Find a color in the wild.",
+        "body": "Take your camera outside. Collect three shades of the same color, from a leaf to a wonderfully ordinary wall.",
+        "explanation": "Camera + Outdoor setting · AND rule"
+      }
+    },
+    {
+      "operator": "or",
+      "required": ["notebook"],
+      "outcome": {
+        "id": "notice",
+        "title": "Catch one tiny detail.",
+        "body": "Save a shape, a sound or a stray idea in your notebook. It doesn’t have to become anything yet.",
+        "explanation": "Notebook · OR rule"
+      }
+    },
+    {
+      "operator": "or",
+      "required": ["pencil"],
+      "outcome": {
+        "id": "line",
+        "title": "Follow a wandering line.",
+        "body": "Let your pencil explore the edge of an ordinary object. Keep the wobbles; they are part of the discovery.",
+        "explanation": "Pencil · OR rule"
+      }
+    },
+    {
+      "operator": "or",
+      "required": ["camera"],
+      "outcome": {
+        "id": "color",
+        "title": "Hunt for a color.",
+        "body": "Find three different things in the same shade. A tiny collection, entirely yours.",
+        "explanation": "Camera · OR rule"
+      }
+    }
+  ],
+  "fallback": {
+    "id": "curiosity",
+    "title": "Bring your curiosity.",
+    "body": "No kit required. Step outside and notice something you’ve walked past a hundred times before.",
+    "explanation": "No matching kit rule · fallback prompt"
+  },
+  "resetLabel": "Start over",
+  "emptyTitle": "A small adventure awaits.",
+  "emptyBody": "Choose any option. Your prompt changes as your kit comes together.",
+  "introLabel": "Try the checklist pattern · Fictional example",
+  "emptyResultLabel": "Your prompt",
+  "resultLabel": "Your mini adventure",
+  "resultRegionLabel": "Creative checklist result",
+  "caption": "Independent, nonclinical web example. Groups contain questions; JSON-authored AND/OR conditions choose the prompt as selections change. First matching rule wins.",
+  "requiresJavaScriptLabel": "Enable JavaScript to try the fictional checklist.",
+  "dialog": {
+    "title": "Fictional checklist example",
+    "description": "Explore grouped questions and live conditional creative prompts. An independent, nonclinical demonstration.",
+    "heading": "Checklist example",
+    "closeLabel": "Close checklist example",
+    "launchLabel": "Try a checklist"
+  }
+}

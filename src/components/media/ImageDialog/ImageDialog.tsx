@@ -33,13 +33,11 @@ export function ImageDialog({
       definition={{ title }}
       className={`image-dialog ${className}`}
       slots={{
-        header: (
-          <div className="dialog-toolbar">
-            <h3>{title}</h3>
-            <DialogClose asChild>
-              <Button>{closeLabel} ×</Button>
-            </DialogClose>
-          </div>
+        header: <h3>{title}</h3>,
+        actions: (
+          <DialogClose asChild>
+            <Button>{closeLabel} ×</Button>
+          </DialogClose>
         ),
         body: (
           <>

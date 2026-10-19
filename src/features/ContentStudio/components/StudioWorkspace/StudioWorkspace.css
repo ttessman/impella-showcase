@@ -20,22 +20,6 @@
   font-weight: 650;
   color: var(--ink);
 }
-.workspace-icon-button {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  flex: 0 0 30px;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #b7c9db;
-  border-radius: 3px;
-  background: white;
-  color: var(--ink);
-}
-.workspace-icon-button:hover {
-  background: #e3f0fb;
-  border-color: #0068a8;
-}
 .compose-pane-shell {
   display: flex;
   flex-direction: column;
@@ -220,13 +204,8 @@
   overflow: hidden;
 }
 
-.compose-dialog .compose-pane-shell {
-  height: 100%;
-}
-.compose-dialog .workspace-pane-header {
-  flex-shrink: 0;
-}
 .compose-dialog .workspace-panel {
+  flex: 1;
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;

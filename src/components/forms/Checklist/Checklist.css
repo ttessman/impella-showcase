@@ -61,28 +61,6 @@
   flex-shrink: 0;
   accent-color: var(--ink);
 }
-.checklist-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.checklist-actions button {
-  min-height: 44px;
-  padding: 10px 14px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: white;
-  font: 12px var(--sans);
-}
-.checklist-actions button + button {
-  background: white;
-  color: var(--ink);
-  border-color: var(--line);
-}
-.checklist-actions button:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
 .checklist-result {
   padding: 24px;
   background: #f7f9fc;
@@ -113,16 +91,6 @@
   margin-top: 24px;
   font: 10px/1.6 monospace;
 }
-.checklist-result .checklist-pending {
-  color: var(--ink);
-  font-size: 11px;
-  font-weight: 600;
-}
-.checklist-showcase .checklist-caption {
-  font-size: 10px;
-  color: var(--muted);
-  margin: 24px 0 0;
-}
 @media (max-width: 650px) {
   .checklist-showcase {
     padding: 20px;
@@ -133,5 +101,59 @@
   }
   .checklist-intro h3 {
     font-size: 28px;
+  }
+}
+
+.checklist-launch {
+  margin-top: 16px;
+  padding: 10px 14px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #edf3f9;
+  color: var(--ink);
+  font: 12px var(--sans);
+}
+.checklist-launch:disabled {
+  opacity: 0.6;
+}
+.checklist-dialog {
+  width: min(960px, calc(100vw - 32px));
+  max-height: 90dvh;
+}
+.checklist-dialog .checklist-showcase {
+  margin-top: 0;
+}
+.checklist-caption {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 0;
+}
+.checklist-group {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.checklist-group > summary {
+  padding: 14px;
+  color: var(--ink);
+  background: #edf3f9;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.checklist-questions {
+  padding: 16px;
+}
+.checklist-questions > fieldset:last-child {
+  margin-bottom: 0;
+}
+.checklist-questions > fieldset + fieldset {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+@media (max-width: 650px) {
+  .checklist-dialog .checklist-showcase {
+    padding: 16px;
   }
 }

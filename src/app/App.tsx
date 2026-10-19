@@ -1,3 +1,4 @@
+import { CaseStudyReader } from "../features/CaseStudy/components/CaseStudyReader/CaseStudyReader";
 import { TooltipProvider } from "../components/overlays/Tooltip/Tooltip";
 import { CaseStudyNavigation } from "../features/CaseStudy/components/CaseStudyNavigation/CaseStudyNavigation";
 import { caseStudySections } from "../content/caseStudy";
@@ -13,7 +14,9 @@ export default function App() {
       </a>
       <CaseStudyNavigation sections={caseStudySections} />
       <CaseStudyPage />
-      <SiteFooter slots={{ evidence: <PublicEvidence /> }} />
+      <SiteFooter
+        slots={{ evidence: <PublicEvidence />, reader: <CaseStudyReader /> }}
+      />
     </TooltipProvider>
   );
 }

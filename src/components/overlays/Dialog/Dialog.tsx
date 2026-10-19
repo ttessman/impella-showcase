@@ -9,7 +9,13 @@ export type DialogState = {
 type Props = {
   state: DialogState;
   definition: { title: string; description?: string };
-  slots: { header?: ReactNode; body: ReactNode; footer?: ReactNode };
+  slots: {
+    header?: ReactNode;
+    actions?: ReactNode;
+    body: ReactNode;
+    footer?: ReactNode;
+  };
+  variant?: "standard" | "workspace";
   className?: string;
   id?: string;
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
@@ -21,6 +27,7 @@ export function Dialog({
   definition,
   slots,
   className = "",
+  variant = "standard",
   id,
   onEscapeKeyDown,
 }: Props) {
@@ -32,7 +39,7 @@ export function Dialog({
         <Primitive.Content
           id={id}
           onEscapeKeyDown={onEscapeKeyDown}
-          className={`dialog-surface ${className}`}
+          className={`dialog-surface dialog-${variant} ${className}`}
           {...(!definition.description
             ? { "aria-describedby": undefined }
             : {})}
@@ -54,9 +61,25 @@ export function Dialog({
               {definition.description}
             </Primitive.Description>
           )}
-          {slots.header}
-          {slots.body}
-          {slots.footer}
+          <header className="dialog-header">
+            <div className="dialog-heading">
+              {slots.header ?? <h3>{definition.title}</h3>}
+            </div>
+            {slots.actions && (
+              <div className="dialog-header-actions">{slots.actions}</div>
+            )}
+          </header>
+          <div
+            className="dialog-body"
+            role="region"
+            aria-label={`${definition.title} content`}
+            tabIndex={0}
+          >
+            {slots.body}
+          </div>
+          {slots.footer != null && (
+            <footer className="dialog-footer">{slots.footer}</footer>
+          )}
         </Primitive.Content>
       </Primitive.Portal>
     </Primitive.Root>

@@ -15,11 +15,28 @@ export type ChecklistDefinition = {
   groups: readonly {
     id: string;
     title: string;
-    options: readonly { id: string; label: string }[];
+    questions: readonly {
+      id: string;
+      title: string;
+      options: readonly { id: string; label: string }[];
+    }[];
   }[];
   rules: readonly ChecklistRule[];
   fallback: ChecklistOutcome;
-  submitLabel: string;
+  resetLabel: string;
+  introLabel: string;
+  emptyResultLabel: string;
+  resultLabel: string;
+  resultRegionLabel: string;
+  caption: string;
+  requiresJavaScriptLabel: string;
+  dialog: {
+    title: string;
+    description: string;
+    heading: string;
+    closeLabel: string;
+    launchLabel: string;
+  };
   emptyTitle: string;
   emptyBody: string;
 };

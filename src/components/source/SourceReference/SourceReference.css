@@ -1,3 +1,6 @@
+.source-reference {
+  position: relative;
+}
 .source-reference-trigger {
   padding: 6px 0;
   border: 0;
@@ -14,11 +17,18 @@
   color: var(--ink);
 }
 .source-reference-popup {
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  width: min(520px, calc(100vw - 32px));
-  max-height: min(460px, calc(100dvh - 32px));
-  overflow: auto;
-  padding: 20px;
+  width: min(580px, calc(100vw - 32px));
+  height: min(
+    var(--source-preview-height, 380px),
+    calc(100dvh - 32px),
+    var(--radix-popover-content-available-height)
+  );
+  max-height: min(380px, calc(100dvh - 32px));
+  overflow: visible;
+  padding: 10px;
   border: 1px solid #b7c9db;
   border-radius: 6px;
   background: white;
@@ -26,55 +36,99 @@
   box-shadow: 0 12px 40px #12395d26;
   font: 12px/1.6 var(--sans);
 }
-
 .source-reference-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 10px;
+  gap: 12px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+.source-reference-heading h4 {
+  font-size: 13px;
+  margin: 0;
 }
 .source-reference-heading button {
-  flex: 0 0 36px;
-  width: 36px;
-  height: 36px;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--line);
   border-radius: 3px;
   background: white;
-  font-size: 22px;
+  font-size: 20px;
+}
+.source-code-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.source-file-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 4px;
+  background: #edf3f9;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+}
+.source-file-tabs button {
+  min-height: 36px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--muted);
+  font: 10px/1.4 monospace;
+}
+.source-file-tabs button[aria-selected="true"] {
+  border-color: var(--line);
+  background: white;
+  color: var(--ink);
+  box-shadow: inset 0 -2px var(--gold);
 }
 .source-reference-popup pre {
-  margin: 16px 0;
-  padding: 16px;
+  margin: 0;
+  padding: 12px;
+  min-height: 0;
+  flex: 1;
   overflow: auto;
   background: #102e4b;
   color: #e9f1fa;
-  line-height: 1.65;
+  line-height: 1.6;
+  tab-size: 2;
 }
 .source-reference-popup code {
   font-size: 11px;
 }
-.source-reference-popup .source-reference-disclaimer {
-  margin: 0;
+.source-file-context {
   font-size: 10px;
-  color: var(--muted);
+  margin-top: 6px;
+  flex-shrink: 0;
 }
-
-.source-reference-files {
-  display: grid;
-  gap: 12px;
-  margin: 16px 0;
-}
-.source-reference-files > div {
-  padding-left: 10px;
-  border-left: 2px solid var(--line);
-}
-.source-reference-files dt {
-  overflow-wrap: anywhere;
+.source-file-context summary {
+  cursor: pointer;
   color: var(--ink);
 }
-.source-reference-files dd {
-  margin: 4px 0 0;
-  color: var(--muted);
+.source-file-context[open] {
+  max-height: 90px;
+  overflow: auto;
+}
+.source-file-context p {
+  margin: 6px 0;
   font-size: 11px;
+}
+.source-reference-popup .source-reference-disclaimer {
+  margin: 8px 0 0;
+  font-size: 9px;
+  color: var(--muted);
+  flex-shrink: 0;
 }

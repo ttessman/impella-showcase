@@ -8,8 +8,6 @@
   display: grid;
   grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
   gap: 24px;
-  padding: 24px;
-  background: #edf3f9;
   align-items: start;
 }
 .navigation-evidence img {
@@ -37,7 +35,6 @@
 @media (max-width: 650px) {
   .navigation-evidence figure {
     grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
-    padding: 16px;
     gap: 16px;
   }
   .navigation-evidence h3 {

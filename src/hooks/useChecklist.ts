@@ -4,15 +4,12 @@ import { evaluateChecklist } from "../components/forms/Checklist/checklistModel"
 
 export function useChecklist(definition: ChecklistDefinition) {
   const [selected, setSelected] = useState<string[]>([]);
-  const [submitted, setSubmitted] = useState<string[] | null>(null);
+  const [resetKey, setResetKey] = useState(0);
   return {
+    resetKey,
     selected,
     result:
-      submitted === null ? null : evaluateChecklist(definition, submitted),
-    pending:
-      submitted !== null &&
-      (selected.length !== submitted.length ||
-        selected.some((id) => !submitted.includes(id))),
+      selected.length === 0 ? null : evaluateChecklist(definition, selected),
     toggle(id: string) {
       setSelected((current) =>
         current.includes(id)
@@ -20,12 +17,11 @@ export function useChecklist(definition: ChecklistDefinition) {
           : [...current, id],
       );
     },
-    submit() {
-      setSubmitted([...selected]);
-    },
     reset() {
       setSelected([]);
-      setSubmitted(null);
+      setResetKey((current) => current + 1);
     },
   };
 }
+
+export type ChecklistState = ReturnType<typeof useChecklist>;

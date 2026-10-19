@@ -25,7 +25,12 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
   await expect(popup).toBeVisible();
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(popup).toContainText("Independently written illustration");
-  await expect(popup.locator(".source-reference-files > div")).toHaveCount(4);
+  await expect(popup.getByRole("tab")).toHaveCount(4);
+  const componentTab = popup.getByRole("tab", {
+    name: "components/{AKI,PAPi,CPO,Heparin}Calculator",
+    exact: true,
+  });
+  await expect(componentTab).toHaveAttribute("aria-selected", "true");
   for (const mechanism of [
     "no clinical math",
     "watch()",
@@ -37,6 +42,67 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
   ]) {
     await expect(popup.locator("pre")).toContainText(mechanism);
   }
+  const tabRows = await popup
+    .getByRole("tab")
+    .evaluateAll((elements) =>
+      elements.map((element) => Math.round(element.getBoundingClientRect().y)),
+    );
+  expect(new Set(tabRows).size).toBe(1);
+  const closeIcon = popup.getByRole("button", { name: "Close source preview" });
+  const centered = await closeIcon.evaluate((element) => {
+    const button = element.getBoundingClientRect();
+    const icon = element.querySelector("svg")!.getBoundingClientRect();
+    return (
+      Math.abs(button.x + button.width / 2 - icon.x - icon.width / 2) < 1 &&
+      Math.abs(button.y + button.height / 2 - icon.y - icon.height / 2) < 1
+    );
+  });
+  expect(centered).toBe(true);
+  const initialPopup = (await popup.boundingBox())!;
+  await expect(popup.locator(".preview-popover-arrow")).toBeAttached();
+  await componentTab.focus();
+  await page.keyboard.press("Home");
+  await expect(
+    popup.getByRole("tab", {
+      name: "screens/CalculatorScreen.tsx",
+      exact: true,
+    }),
+  ).toBeFocused();
+  await expect(popup.getByRole("tabpanel")).toContainText("supportedTools");
+  await page.keyboard.press("End");
+  await expect(popup.getByRole("tabpanel")).toContainText("Fixed order");
+  await expect
+    .poll(async () =>
+      popup
+        .getByRole("tab")
+        .last()
+        .evaluate((element) => {
+          const tab = element.getBoundingClientRect();
+          const list = element.parentElement!.getBoundingClientRect();
+          return tab.right <= list.right + 1 && tab.left >= list.left - 1;
+        }),
+    )
+    .toBe(true);
+
+  await expect
+    .poll(async () => {
+      const bounds = (await popup.boundingBox())!;
+      return Math.max(
+        Math.abs(bounds.y - initialPopup.y),
+        Math.abs(bounds.height - initialPopup.height),
+      );
+    })
+    .toBeLessThan(1);
+  await popup.getByText("About this file", { exact: true }).click();
+  await expect(popup.locator(".source-file-context")).toContainText(
+    "CMS-authored labels",
+  );
+  await popup.getByText("About this file", { exact: true }).click();
+  await componentTab.click();
+  await expect(popup.getByRole("tabpanel")).toContainText("watch()");
+  await popup.screenshot({
+    path: test.info().outputPath("source-code-preview.png"),
+  });
   await expect
     .poll(async () => {
       const bounds = (await popup.boundingBox())!;

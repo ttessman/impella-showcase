@@ -55,60 +55,99 @@ test("tool screenshots lead with compact copy and disclose the implementation on
   expect(errors).toEqual([]);
 });
 
-test("fictional checklist evaluates on submit with priority, fallback, reset and keyboard access", async ({
+test("JSON-defined checklist updates live for every selection combination inside its modal", async ({
   page,
 }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/#tools");
-  const demo = page.getByRole("region", { name: "Pack a tiny adventure." });
+  const launch = page
+    .locator(".tool-experiences > article")
+    .nth(1)
+    .getByRole("button", { name: "Try a checklist" });
+  await launch.click();
+  const dialog = page.getByRole("dialog", {
+    name: "Fictional checklist example",
+    exact: true,
+  });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toHaveClass(/dialog-standard/);
+  await expect(
+    dialog.locator(":scope > .dialog-header .dialog-header-actions button"),
+  ).toHaveCount(2);
+  await expect(dialog.locator(":scope > .dialog-body")).toHaveCount(1);
+  await expect(dialog.locator(":scope > .dialog-footer")).toHaveCount(1);
+  await expect(page.locator("body")).toHaveAttribute("data-scroll-locked", "1");
+  const demo = dialog.getByRole("region", { name: "Pack a tiny adventure." });
+  const group = demo.locator("details.checklist-group");
+  await expect(group.locator("fieldset")).toHaveCount(2);
+  await group.locator("summary").click();
+  await expect(demo.getByRole("checkbox").first()).not.toBeVisible();
+  await group.locator("summary").click();
+  const options = demo.getByRole("checkbox");
   const result = demo.getByRole("region", {
     name: "Creative checklist result",
   });
-  const submit = demo.getByRole("button", { name: "Find my mini adventure" });
-  const notebook = demo.getByRole("checkbox", { name: "A trusty notebook" });
-  const pencil = demo.getByRole("checkbox", {
-    name: "A pencil with big plans",
-  });
-  const camera = demo.getByRole("checkbox", {
-    name: "A camera for tiny discoveries",
-  });
-  await expect(submit).toBeEnabled();
-  await expect(result).toContainText("A small adventure awaits.");
-  await submit.click();
-  await expect(result).toContainText("Bring your curiosity.");
-  await expect(result).toBeFocused();
-  await notebook.focus();
+  await options.nth(0).focus();
   await page.keyboard.press("Space");
-  await expect(notebook).toBeChecked();
-  await expect(result).toContainText("Choices changed.");
-  await expect(result).toContainText("Bring your curiosity.");
-  await submit.focus();
-  await page.keyboard.press("Enter");
   await expect(result).toContainText("Catch one tiny detail.");
-  await expect(result).not.toContainText("Choices changed.");
-  await notebook.uncheck();
-  await camera.check();
-  await submit.click();
-  await expect(result).toContainText("Hunt for a color.");
-  await notebook.check();
-  await pencil.check();
-  await submit.click();
-  await expect(result).toContainText("Sketch something ordinary.");
-  await expect(result).toContainText("AND rule");
-  await demo.screenshot({
-    path: info.outputPath("visual-checklist-result.png"),
+  await expect(options.nth(0)).toBeFocused();
+  const titles = [
+    "A small adventure awaits.",
+    "Catch one tiny detail.",
+    "Follow a wandering line.",
+    "Sketch something ordinary.",
+    "Hunt for a color.",
+    "Make a tiny field report.",
+    "See it. Sketch it.",
+    "Collect a tiny story.",
+    "Bring your curiosity.",
+    "Write a sky-side note.",
+    "Draw a little fresh air.",
+    "Sketch under open skies.",
+    "Find a color in the wild.",
+    "Make a wandering field report.",
+    "Chase a shape outdoors.",
+    "Make a pocket expedition.",
+  ];
+  for (let mask = 0; mask < titles.length; mask++) {
+    for (let bit = 0; bit < 4; bit++)
+      await options.nth(bit).setChecked(Boolean(mask & (1 << bit)));
+    await expect(result.getByRole("heading")).toHaveText(titles[mask]);
+  }
+  await dialog.screenshot({
+    path: info.outputPath("visual-checklist-modal.png"),
   });
   const accessibility = await new AxeBuilder({ page })
-    .include(".checklist-showcase")
+    .include(".checklist-dialog")
     .analyze();
   expect(accessibility.violations).toEqual([]);
-  await demo.getByRole("button", { name: "Start over" }).click();
-  await expect(notebook).toBeFocused();
-  await expect(notebook).not.toBeChecked();
-  await expect(pencil).not.toBeChecked();
-  await expect(camera).not.toBeChecked();
-  await expect(result).toContainText("A small adventure awaits.");
+  await group.locator("summary").click();
+  await dialog.getByRole("button", { name: "Start over" }).click();
+  await expect(
+    dialog.getByRole("button", { name: "Start over" }),
+  ).toBeFocused();
+  await expect(group).toHaveAttribute("open");
+  for (const option of await options.all())
+    await expect(option).not.toBeChecked();
+  await expect(result).toContainText(titles[0]);
+  const close = dialog.getByRole("button", { name: "Close checklist example" });
+  await close.focus();
+  await page.keyboard.press("Shift+Tab");
+  expect(
+    await dialog.evaluate((element) =>
+      element.contains(document.activeElement),
+    ),
+  ).toBe(true);
+  await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await expect(launch).toBeFocused();
+  await launch.click();
+  await expect(
+    dialog.getByRole("region", { name: "Creative checklist result" }),
+  ).toContainText(titles[0]);
+  await close.click();
+  await expect(launch).toBeFocused();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,

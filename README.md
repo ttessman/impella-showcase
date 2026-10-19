@@ -37,7 +37,7 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 - `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
 - `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
 - `src/components/media/`: evidence views and one shared image dialog.
-- `src/components/forms/Checklist/`: definition-driven grouped options, submitted rule evaluation and fictional result presentation.
+- `src/components/forms/Checklist/`: definition-driven grouped options, live rule evaluation and fictional result presentation.
 - `src/components/source/`: source-specific content composed into the shared popover.
 - `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
 - `src/styles/`: tokens, global foundations and the explicit stylesheet manifest. Component and feature styles are colocated with their owners and scoped by class selectors.
@@ -103,8 +103,18 @@ Replace the example with the actual public page URL. This generates the canonica
 
 The approach follows [Google’s JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) and [structured-data guidance](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data). Metadata helps describe the content; it does not assert rankings, clinical validation or measured business outcomes.
 
-## Fictional checklist showcase
+## Checklist showcase and source illustrations
 
-The tools section pairs equal-height evidence cards with compact source references. Source popups explain each file’s responsibility and illustrate frontend behavior without publishing private code. The calculator illustration covers watched inputs, reusable controls, an existing helper boundary, conditional results and reset on navigation blur.
+Tool evidence uses a reusable Card with header, content and footer slots. Headers carry the tint; compact source triggers stay in plain footers. The section introduction explains purpose and shared foundations without a separate summary subsection.
 
-“Pack a tiny adventure” is a separately labeled, playful nonclinical checklist. `content/checklistExample.ts` defines its groups, options, ordered AND/OR rules and fallback. `Checklist` renders that definition; `useChecklist` keeps selection separate from the submitted result. First matching rule wins. Editing selections marks the old result as pending until another submit; Start over clears both. Native checkboxes, result focus, polite announcements and reduced-motion-aware scrolling support keyboard and screen-reader use. This is an independently written demonstration of the documented interaction pattern, not the production checklist schema or clinical logic. It does not change the content studio.
+“Try a checklist” opens the shared accessible Dialog from the checklist card. `content/checklistExample.json` contains all example copy, modal labels, accordion groups, question labels/options and ordered AND/OR outcomes. A thin TypeScript adapter checks the operator boundary; the rest of its imported shape is checked against `ChecklistDefinition`. The generic Checklist renderer receives definition and state; useChecklist owns selections and reset state. Neither contains creative prompts or option-specific branches. Each change immediately re-evaluates the rules. Single choices, pairs, triples and the full kit have distinct prompts; the first matching rule wins. A fallback handles an unmatched selection. The initial empty state and Start over are also defined by the data. Checking options preserves keyboard focus; the live result is announced politely. Start over sits beside Close as a reusable icon button in the modal toolbar. Closing the modal resets the example on reopening.
+
+The JSON format and creative prompts are independently authored, nonclinical portfolio material. The example exposes conditional results as live feedback; the historical account continues to describe the original submit-triggered workflow verified in the private repository. It does not change the content studio.
+
+Source references open a compact code preview with file tabs. Each file definition owns its path, context and independent illustration. Hover/focus explains a tab; About this file provides the same context on touch. Tabs stay on one horizontally scrolling row. Arrow keys, Home and End navigate the files and bring the active tab into view. Code appears immediately, with scrolling confined to the code canvas. Private paths are descriptive labels rather than public links. No original source or clinical formula is published.
+
+## Shared modal and reading view
+
+The Dialog contract exposes `header`, right-aligned `actions`, scrollable `body`, and optional `footer` slots. Standard and workspace variants share focus containment, Escape dismissal, background locking and opener focus restoration. Compose uses workspace sizing; checklist, images and the reading view use the standard frame. IconButton extends the shared Button with an accessible label, tooltip and explicit overlay Escape action. Card similarly supports optional header/content/footer slots and outlined/tinted variants; navigation evidence reuses the tinted headerless form.
+
+Footer attribution comes before the blue product-history band. Read case-study summary opens a shared reading modal populated from existing editorial definitions and ownership copy. Print / Save as PDF uses the browser print dialog and a document-only print stylesheet. Download plain text preserves the generated companion route; without JavaScript, the footer link opens that text directly.

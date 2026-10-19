@@ -5,11 +5,14 @@ import { Tooltip } from "../../overlays/Tooltip/Tooltip";
 type Props = ComponentProps<typeof Button> & {
   label: string;
   tooltip?: string;
+  onEscape?: () => void;
 };
 export function IconButton({
   label,
   tooltip,
   className = "",
+  onEscape,
+  onKeyDown,
   ...props
 }: Props) {
   return (
@@ -17,7 +20,15 @@ export function IconButton({
       <Button
         {...props}
         aria-label={label}
-        className={`workspace-icon-button ${className}`}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          if (event.key === "Escape" && onEscape) {
+            event.preventDefault();
+            event.stopPropagation();
+            onEscape();
+          }
+        }}
+        className={`icon-button workspace-icon-button ${className}`}
       />
     </Tooltip>
   );

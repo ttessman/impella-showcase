@@ -20,7 +20,7 @@ export const toolExperiences = [
   {
     kind: "calculator",
     title: caseStudyCopy.tools.calculatorTitle,
-    body: caseStudyCopy.tools.calculators,
+    body: `${caseStudyCopy.tools.calculators} ${caseStudyCopy.tools.clinicalBoundary}`,
     evidence: screenshot("apple-aki.webp", "AKI calculator input"),
     source: sourceExamples.calculators,
     disclosure: "How the calculator works",

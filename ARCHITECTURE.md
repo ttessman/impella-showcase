@@ -33,10 +33,10 @@ Its commands validate mutations before applying them. A pending JSON draft locks
 visual mutations until applied or discarded. Stable IDs and immutable tree
 operations preserve nested content through moves and deletion.
 
-`Dialog` exposes header/body/footer slots and delegates modality, focus containment
+`Dialog` exposes header/actions/body/footer slots and delegates modality, focus containment
 and dismissal to Radix. `ImageDialog` supplies the image-viewing composition used
 by both product screenshots and the original article diagram. Mobile Compose
-uses the same dialog surface. Escape first cancels an active drag, then dismisses
+uses the workspace variant of the same dialog frame. The standard variant is used by checklist, reader and image views. The frame owns a fixed header with right-aligned actions, a keyboard-focusable scrolling body and an optional fixed footer. Features supply slot content and size constraints rather than recreating the frame. Escape first cancels an active drag, then dismisses
 the dialog on a subsequent press.
 
 `SourceReference` supplies trigger/body/footer content to `PreviewPopover`.
@@ -128,8 +128,12 @@ Reading order is overview → architectural decision → content studio → impl
 
 Tools use `content/toolExperiences.ts` to compose reviewed screenshots, short captions and expandable flow details and compact source references through one reusable EvidenceScreenshot component. The footer places the compact public-evidence slot before attribution, on a blue surface spanning the viewport while preserving the content column.
 
-## Definition-driven checklist showcase
+## Definition-driven cards, checklist and source preview
 
-`types/checklist.ts` defines groups, options, ordered conditions and outcomes. `content/checklistExample.ts` supplies fictional creative prompts. `components/forms/Checklist/checklistModel.ts` evaluates the first matching AND/OR rule or fallback; `hooks/useChecklist.ts` owns selections, submitted state and pending changes. The reusable form renders groups and results without owning example content. `useClientReady` supplies the shared server/client hydration boundary used by both the showcase and StudioIsland.
+`components/card/Card` owns the header, content and optional footer regions through named ReactNode slots. Tool definitions compose the shared frame, evidence renderer, disclosure and source footer. CSS Grid stretch and a flexible card content region keep neighboring cards and footer edges aligned. Site-footer styles are scoped independently from article footers.
 
-Tool evidence cards use CSS Grid stretch with column flex interiors and bottom-aligned source references. `SourceReference` stays an inline trigger; its shared popover contains file responsibilities and an independent code illustration. Private file paths are explanatory labels, not public repository links.
+`content/checklistExample.json` owns every example label, grouped question, option and conditional outcome, including modal copy. `content/checklistExample.ts` adapts the JSON to `types/checklist.ts` with an operator check and compile-time shape checking. The independently written checklistModel evaluates the first matching AND/OR condition or fallback. `useChecklist` owns selected IDs, reset generation and a derived live result; Checklist renders the supplied definition and state. ChecklistDialog connects the controller to shared toolbar reset/close icons and the existing Radix Dialog shell; the generic form remains usable outside a modal. `useClientReady` provides the shared server/client snapshot used by both the modal trigger and StudioIsland.
+
+`SourceReference` composes the reusable PreviewPopover. `SourceCodePreview` renders typed file definitions containing path, context and independent illustration. It owns file selection, roving keyboard focus, horizontal tab scrolling and code scrolling. Content lives in sourceExamples.ts; initialFile can select the most useful implementation rather than its entry point. Tooltip handles hover/focus context and an inline disclosure supports touch. The shared IconButton extends Button with a tooltip and accessible label; its styles live beside the component. Popover close controls reuse that centered icon treatment. No private source links are fabricated.
+
+The footer receives reader and public-evidence slots from App. Attribution precedes the colored evidence band. CaseStudyReader composes Dialog and the definition-driven Document renderer from the same section/ownership data. Its print stylesheet exports only the reading document through the browser’s Print / Save as PDF flow; no prebuilt PDF or external rendering service is required. The plain-text route remains directly available with a no-JavaScript fallback.
