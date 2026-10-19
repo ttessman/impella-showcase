@@ -16,12 +16,14 @@ export function InteractiveTools() {
             <h3>{tool.title}</h3>
             <div className="tool-example">
               <EvidenceScreenshot definition={tool.evidence} />
-              <p>{tool.body}</p>
+              <div className="tool-description">
+                <p>{tool.body}</p>
+                <details className="tool-implementation">
+                  <summary>{tool.disclosure}</summary>
+                  <Diagram kind={tool.kind} />
+                </details>
+              </div>
             </div>
-            <details className="tool-implementation">
-              <summary>{tool.disclosure}</summary>
-              <Diagram kind={tool.kind} />
-            </details>
             <SourceReference source={tool.source} />
           </article>
         ))}

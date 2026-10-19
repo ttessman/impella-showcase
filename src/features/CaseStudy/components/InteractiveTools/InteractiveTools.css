@@ -112,3 +112,17 @@
   margin-top: auto;
   padding-top: 16px;
 }
+
+.tool-description {
+  min-width: 0;
+}
+.tool-description > p {
+  margin: 0;
+}
+.tool-description .tool-flow-figure {
+  padding: 14px;
+}
+.tool-description .tool-flow li {
+  grid-template-columns: 1fr;
+  gap: 2px;
+}
