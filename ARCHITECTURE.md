@@ -111,3 +111,9 @@ repository contains neither that implementation nor its credentials or history.
 ## Inline citations
 
 `TextBlockFields` inserts numeric `<sup>` markers at the textarea selection into the existing `text_body` string contract. Shared `CitedText` recognizes only numeric superscripts and creates React elements; arbitrary HTML remains escaped. The original app rendered richer HTML fragments through its native HTML renderer; this portfolio supports only the citation convention. Source order and inline numbers remain author-managed, with no automatic citation linking or renumbering.
+
+## Narrative and public evidence
+
+Reading order is overview → architectural decision → content studio → implementation → original documentation → collections/navigation → interactive tools → production → impact/evidence → reflection. `sectionDefinitions` follows that order and supplies the numbering/labels used by both page sections and the contextual navigation. Anchor IDs remain stable. The studio is relocated as an intact feature; its model, hooks and renderers are unchanged by the narrative revision.
+
+`content/publicEvidence.ts` stores linked external product facts separately from individual contribution statements and private-repository summaries. `PublicEvidence` renders that compact list inside the existing impact section. Research dates and omissions are documented in `PUBLIC_RESEARCH.md`; externally reported product facts do not become individual performance metrics.

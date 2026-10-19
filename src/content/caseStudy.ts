@@ -8,7 +8,7 @@ export const sectionDefinitions = {
     label: "Context & ownership",
     title: "A more useful app needed a stronger foundation.",
     intro:
-      "Impella was an existing clinical mobile application for healthcare professionals. The modernization was an opportunity to bring information and tools into a more cohesive experience.",
+      "Abiomed’s Impella application gave healthcare professionals resources for working with its heart pumps. Modernizing the existing app was an opportunity to bring clinical information, training and interactive tools into a more cohesive mobile experience.",
   },
   architecture: {
     id: "architecture",
@@ -18,9 +18,18 @@ export const sectionDefinitions = {
     intro:
       "I wanted the modernization to address the maintenance problems behind the old app. When full-page webviews were proposed, I questioned whether a second presentation layer would recreate those difficulties.",
   },
+  playground: {
+    id: "playground",
+    number: "03",
+    label: "Content studio",
+    title: "One content model. Many native experiences.",
+    intro:
+      "I designed a content model so authors could assemble pages from reusable components. The app interpreted that content as native React Native interfaces. Explore the approach below in an independent web reconstruction with fictional content; generic nested sections are a demo extension.",
+    tone: "demo-section",
+  },
   contract: {
     id: "contract",
-    number: "03",
+    number: "04",
     label: "Content architecture",
     title: "A small contract. A reusable rendering system.",
     intro:
@@ -28,7 +37,7 @@ export const sectionDefinitions = {
   },
   articles: {
     id: "articles",
-    number: "04",
+    number: "05",
     label: "Article composition",
     title: "Authors compose. Components render.",
     intro:
@@ -36,7 +45,7 @@ export const sectionDefinitions = {
   },
   collections: {
     id: "collections",
-    number: "05",
+    number: "06",
     label: "Dynamic collections",
     title: "Shared resources. Different reading paths.",
     intro:
@@ -44,7 +53,7 @@ export const sectionDefinitions = {
   },
   navigation: {
     id: "navigation",
-    number: "06",
+    number: "07",
     label: "Dynamic navigation",
     title: "Navigation could adapt to the region.",
     intro:
@@ -52,7 +61,7 @@ export const sectionDefinitions = {
   },
   tools: {
     id: "tools",
-    number: "07",
+    number: "08",
     label: "Interactive content",
     title: "More than a place to read.",
     intro:
@@ -60,7 +69,7 @@ export const sectionDefinitions = {
   },
   product: {
     id: "product",
-    number: "08",
+    number: "09",
     label: "Production application",
     title: "Information and tools, brought together.",
     intro:
@@ -68,20 +77,11 @@ export const sectionDefinitions = {
   },
   ownership: {
     id: "ownership",
-    number: "09",
-    label: "Impact & ownership",
-    title: "A foundation the team could keep building on.",
-    intro:
-      "My contribution connected content authoring, native presentation and interactive functionality. The source verifies the reusable mechanisms; the screenshots show their place in the broader product.",
-  },
-  playground: {
-    id: "playground",
     number: "10",
-    label: "Try the architecture",
-    title: "One content model. Many native experiences.",
+    label: "Impact & ownership",
+    title: "Building for the people using and maintaining the product.",
     intro:
-      "Try composing a page from supported content types. The JSON describes the content; the renderer turns it into components. This independent web reconstruction illustrates my original approach using fictional content. Generic nested sections extend the original article model for demonstration.",
-    tone: "demo-section",
+      "The product brought resources and tools together. My content architecture supported that experience by giving authors and developers a shared way to build and maintain it.",
   },
   reflection: {
     id: "reflection",
@@ -96,8 +96,8 @@ export const caseStudyCopy = {
     background:
       "The previous app was outdated, buggy and difficult to maintain, with much of its value delivered through links to external clinical resources. The client wanted a modern experience where professionals could browse information and use tools together. A CMS could help keep information current; the choice of CMS and its delivery model were still open.",
     contribution:
-      "I focused on how content and interactive functionality would reach the user. I proposed the native rendering approach, defined the JSON contracts, implemented reusable React Native components, and created sample pages and authoring documentation. I also developed calculators and interactive tools, collaborating with the team on content organization and navigation.",
-    team: "The product was a team effort spanning the mobile app, CMS services and clinical content. This account describes my contributions; the source and documentation establish how the systems worked.",
+      "As a frontend engineer at Bounteous, I proposed native rendering for CMS-managed content, defined the JSON contracts and built the reusable React Native renderer. I also built calculator interfaces, favorites and their local app state, and the Okta employee sign-in frontend. Sample Drupal pages and documentation helped authors work with the system.",
+    team: "I collaborated on content organization and navigation. The wider team delivered the application, CMS services and production content; I was not its sole developer or designer.",
   },
   architecture: {
     initialLabel: "INITIAL PROPOSAL",
@@ -155,12 +155,17 @@ export const caseStudyCopy = {
       "These tools supported healthcare professionals alongside clinical judgment and local protocols. My contribution was interactive implementation, not authorship or independent validation of the underlying clinical formulas.",
   },
   product: {
+    workflowTitle: "A complete mobile workflow",
+    workflowBody:
+      "I implemented favorites and their local app state, along with the Okta employee sign-in frontend. Identity tenant setup was handled separately. The team’s application also supported customer sign-in, profile-based content and local search across resource titles and tags.",
+    offlineBody:
+      "Downloaded article media and attachments could be read from local storage. Cache updates depended on connectivity and content changes; this supported reading after download, rather than making every account or synchronization action available offline.",
     evidenceNote:
-      "Historical captures and Apple listing images show the broader team’s product. Their dates and app versions are unverified, so later visual differences are not attributed to my implementation.",
+      "Historical captures and Apple listing images show the broader team’s product. Their capture dates and app versions are unverified. Current listings still describe articles, media, calculators and checklists; recognizable patterns do not establish that the original implementation is unchanged.",
   },
   ownership: {
     impact:
-      "For authors, this established a supported vocabulary for maintaining pages. For developers, it centralized presentation instead of hardcoding each article. For users, it brought resources and tools into a shared interface. These are architectural capabilities; I do not have measured maintenance, usage or performance outcomes.",
+      "This flexibility required upfront work on the schema, renderer and component library, followed by ongoing coordination as the content model changed. The capabilities shipped; reduced maintenance effort was an architectural aim, not a measured result.",
   },
   playground: {},
   reflection: {

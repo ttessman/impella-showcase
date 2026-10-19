@@ -61,8 +61,8 @@ test("contextual header tracks actual sections, document progress and renderer n
   await expect(progress).toHaveAttribute("aria-valuenow", "0");
   for (const [id, label] of [
     ["architecture", "02 / The architectural decision"],
-    ["navigation", "06 / Dynamic navigation"],
-    ["ownership", "09 / Impact & ownership"],
+    ["navigation", "07 / Dynamic navigation"],
+    ["ownership", "10 / Impact & ownership"],
   ]) {
     await page.evaluate((id) => {
       const target = document.getElementById(id)!;
@@ -81,7 +81,7 @@ test("contextual header tracks actual sections, document progress and renderer n
     .focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#playground$/);
-  await expect(location).toHaveText("10 / Try the architecture");
+  await expect(location).toHaveText("03 / Content studio");
   const heading = (await page.locator("#playground-heading").boundingBox())!;
   const head = (await header.boundingBox())!;
   expect(heading.y).toBeGreaterThanOrEqual(head.y + head.height);
@@ -111,6 +111,34 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
       number: section.querySelector(".eyebrow span")!.textContent,
     })),
   );
+  expect(actual.map((section) => section.id)).toEqual([
+    "overview",
+    "architecture",
+    "playground",
+    "contract",
+    "articles",
+    "collections",
+    "navigation",
+    "tools",
+    "product",
+    "ownership",
+    "reflection",
+  ]);
+  expect(actual.map((section) => section.number)).toEqual(
+    Array.from({ length: 11 }, (_, index) =>
+      String(index + 1).padStart(2, "0"),
+    ),
+  );
+  await expect(
+    page
+      .locator(".hero-actions")
+      .getByRole("link", { name: "Explore the content studio" }),
+  ).toHaveAttribute("href", "#playground");
+  await expect(
+    page
+      .locator("#overview")
+      .getByRole("heading", { name: "My role in the modernization" }),
+  ).toBeAttached();
   for (let index = 0; index < actual.length; index++) {
     await expect(links.nth(index)).toHaveAttribute(
       "href",

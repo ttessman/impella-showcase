@@ -47,3 +47,13 @@ Content studio refinement: replaced the large toolbar with pane-header icon cont
 - Tests are grouped by editor, dragging, workspace, evidence, reading navigation and source references, with shared studio helpers. No case-study section content or intended builder behavior changed during this refactor.
 
 Current verification results are recorded in `VERIFICATION.md`. Changes are committed locally only; no push or publication.
+
+## Final narrative and public evidence audit
+
+- Ownership is spread across the hero, overview and six late deliverables; make the frontend role and Bounteous context explicit early, then use outcomes to explain value rather than repeat responsibilities.
+- Studio is section 10, after the production gallery; relocate it to section 03 after the decision/pipeline, preserving its implementation and IDs. Renumber the remaining sections and keep navigation derived from the same ordered definitions.
+- Product scope underrepresents account state, saved resources, search and offline article media. Add a brief repository-verified explanation of these broader team capabilities, with appropriate cache/session limits.
+- Impact collapses three audiences into one paragraph. Replace the repeated deliverables with concise audience outcomes and a compact linked public-evidence area. Avoid measured savings or clinical outcomes.
+- Research leads contain a release-note mismatch: the redesign note belongs to iOS 3.3.1, not 3.3.2. Record the primary-source findings and limits in PUBLIC_RESEARCH.md.
+
+Narrative resolutions: the studio now follows the architecture decision as section 03; all eleven numbered navigation targets remain generated from the ordered definitions. Early role copy names the Bounteous frontend role, renderer, calculator interfaces, sample authoring work, Okta sign-in frontend and favorites/local state. Identity tenant setup and offline caching ownership remain separate. The outcomes area now distinguishes three audiences and links compact public product evidence. Original source, clinical formulas, documentation image and production screenshots are unchanged. A custom SVG favicon replaces the old tab icon reference.

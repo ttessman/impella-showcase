@@ -14,16 +14,16 @@ export function CaseStudyHero() {
             keeping its content current.
           </p>
           <p className="hero-detail">
-            I helped shape the technical direction of Impella’s modernization:
-            proposing native CMS rendering, building the content system, and
-            developing interactive tools alongside the wider product team.
+            As a frontend engineer at Bounteous, I proposed and built the native
+            content-rendering system and developed clinical tool interfaces
+            alongside the wider product team.
           </p>
           <div className="hero-actions">
-            <a className="button primary" href="#architecture">
-              Explore the architecture <span aria-hidden="true">↓</span>
+            <a className="button primary" href="#playground">
+              Explore the content studio <span aria-hidden="true">↓</span>
             </a>
-            <a className="text-link" href="#playground">
-              Open content studio ↓
+            <a className="text-link" href="#architecture">
+              Read the architectural decision ↓
             </a>
           </div>
           <div className="hero-meta">

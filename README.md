@@ -40,7 +40,7 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 - `src/components/source/`: source-specific content composed into the shared popover.
 - `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
 - `src/styles/`: tokens, global foundations and the explicit stylesheet manifest. Component and feature styles are colocated with their owners and scoped by class selectors.
-- `public/assets/`: reviewed production screenshots, the approved original article diagram and fictional demo artwork.
+- `public/assets/`: reviewed production screenshots, the approved original article diagram, fictional demo artwork and a custom navy/gold portfolio favicon.
 - `tests/*.spec.ts`: scenarios grouped by editor, dragging, workspace, evidence, reading header and source previews; shared interaction helpers live in `tests/helpers/`.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for responsibilities, dependency direction, slot APIs and extension workflows.
@@ -82,4 +82,4 @@ Source references use a reusable Radix preview popover: hover/focus to inspect, 
 
 Do not deploy the workspace root, original React Native repository, original HTML, ZIP, unapproved internal docs, environment/configuration files or repository history. Do not add those paths to `public/`. To share the new source, share this `portfolio/` directory excluding `node_modules`, test artifacts and caches. Nothing was published by this task.
 
-See `AUDIT.md`, `EVIDENCE.md` and `VERIFICATION.md` for findings, provenance and check results.
+See `AUDIT.md`, `EVIDENCE.md`, `PUBLIC_RESEARCH.md` and `VERIFICATION.md` for findings, provenance, independently checked product history and verification results.

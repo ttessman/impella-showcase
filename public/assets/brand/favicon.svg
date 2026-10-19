@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Impella case study</title>
+  <rect width="64" height="64" rx="14" fill="#12395d"/>
+  <path d="M20 13h24v6h-7v26h7v6H20v-6h7V19h-7z" fill="#fff"/>
+  <path d="M20 55h24" stroke="#ffbc0a" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -145,3 +145,19 @@ Replaced the large four-row regional navigation diagram with a compact three-ste
 Added an Insert citation control to paragraph properties. It inserts positive reference numbers at the textarea cursor/selection using the original `<sup>1,2</sup>` string convention. Shared `CitedText` converts only numeric superscripts into React elements; arbitrary HTML remains literal escaped text. The nested default paragraph demonstrates citation 1. References remain a separate ordered block, with numbering managed by the author rather than automatically resolved IDs or links. The hero label now reads JSON - TYPESCRIPT as requested.
 
 Type checking, linting and production build passed. Full browser suite: **62 passed, 7 expected skips** across desktop, tablet and mobile. New scenarios cover insertion position, cursor focus restoration, invalid number feedback, multiple citations, nested rendering, References entries, JSON application, escaping unsupported markup, accessibility and reset. Existing drag, layout, JSON and reading-header checks passed. Original production source remains unchanged.
+
+## Final narrative, ownership and public evidence revision
+
+The reading sequence now places the unchanged Content studio at section 03, immediately after the architectural decision/pipeline. The original implementation, approved article diagram, collections/navigation, tools and production evidence follow it. All eleven section IDs remain stable; numbering, dropdown order and active labels now follow the revised definitions. The hero’s primary action is Explore the content studio.
+
+The opening identifies the contributor’s Bounteous frontend role. Ownership includes the proposed native renderer, JSON contracts, reusable components, authoring examples/documentation, calculator interfaces, Okta employee sign-in frontend and favorites/local app state. Okta tenant setup remains outside that scope; downloaded article caching is described as a verified broader product feature without individual attribution. The outcomes section replaces repeated deliverables with healthcare-professional, author and developer benefits plus a compact public-evidence list. `PUBLIC_RESEARCH.md` records primary sources and omitted claims. The new custom navy/gold SVG favicon is served locally.
+
+Checks:
+
+- Type checking, linting, formatting and production build passed; `git diff --check` is clean.
+- Final full production-build Chrome suite: **62 passed, 7 expected device-specific skips in 25.9 seconds**, across desktop, tablet and mobile. Existing authoring, citations, nesting, dragging, JSON validation/reset, pane controls, mobile modal and preview tests passed.
+- Navigation assertions verify the new exact section order, sequential numbers, hero studio target, active-section labels, progress and heading clearance. Responsive checks verify local favicon response/content type, all page images, console output, accessibility and primary evidence-link destinations.
+- Public source URLs were opened independently during research. Store pages support the facts displayed; no production login or install was performed. The unverified reviews query URL was replaced with the accessible Apple listing containing those reviews.
+- Desktop hero/impact and mobile impact captures were visually reviewed. Original approved diagram hash remains unchanged. No studio implementation, clinical formula, original production code or authentic screenshot was modified. No dependency was added.
+
+Changes are local only. The static build is in ignored `dist/`; no push, deployment or external publication was performed.

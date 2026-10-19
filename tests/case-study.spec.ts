@@ -15,6 +15,13 @@ test("responsive layout, images, console and accessible controls", async ({
     if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`);
   });
   await page.goto("/");
+  const favicon = await page.locator('link[rel="icon"]').getAttribute("href");
+  expect(favicon).toBe("./assets/brand/favicon.svg");
+  const iconResponse = await page.request.get(
+    new URL(favicon!, page.url()).href,
+  );
+  expect(iconResponse.ok()).toBe(true);
+  expect(iconResponse.headers()["content-type"]).toContain("image/svg+xml");
   await page
     .getByRole("heading", {
       name: "Modernization starts with why the old system struggled.",
@@ -83,6 +90,17 @@ test("responsive layout, images, console and accessible controls", async ({
   await page
     .getByRole("button", { name: "Reset example", exact: false })
     .click();
+  const evidence = page.locator(".public-evidence");
+  await expect(evidence.getByRole("listitem")).toHaveCount(3);
+  for (const link of await evidence.getByRole("link").all()) {
+    await expect(link).toHaveAttribute(
+      "href",
+      /^https:\/\/(apps\.apple\.com|play\.google\.com)\//,
+    );
+  }
+  await page.locator("#ownership").screenshot({
+    path: info.outputPath("impact-and-public-evidence.png"),
+  });
   await page.locator("#navigation").screenshot({
     path: info.outputPath("dynamic-navigation.png"),
   });

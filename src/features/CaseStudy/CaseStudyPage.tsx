@@ -3,6 +3,7 @@ import { sectionDefinitions, caseStudyCopy } from "../../content/caseStudy";
 import { CaseStudyHero } from "./CaseStudyHero";
 import { SourceReference } from "../../components/source/SourceReference/SourceReference";
 import { sourceExamples } from "../../content/sourceExamples";
+import { PublicEvidence } from "./components/PublicEvidence/PublicEvidence";
 import { NavigationEvidence } from "../../components/media/NavigationEvidence/NavigationEvidence";
 import { ArticleEvidence } from "../../components/media/ArticleEvidence/ArticleEvidence";
 import ContentStudio from "../ContentStudio/ContentStudio";
@@ -10,7 +11,7 @@ import { Section } from "../../components/layout/Section/Section";
 import { Diagram } from "../../components/diagrams/Diagram/Diagram";
 import { ProductGallery } from "../../components/media/ProductGallery/ProductGallery";
 import {
-  deliverables,
+  impactAudiences,
   sourceModules,
   storeLinks,
 } from "../../content/evidence";
@@ -25,6 +26,7 @@ export function CaseStudyPage() {
               <RichText content={caseStudyCopy.overview.background} />
             </p>
             <div>
+              <h3>My role in the modernization</h3>
               <p>
                 <RichText content={caseStudyCopy.overview.contribution} />
               </p>
@@ -63,6 +65,9 @@ export function CaseStudyPage() {
           <p className="note">
             <RichText content={caseStudyCopy.architecture.tradeoff} />
           </p>
+        </Section>
+        <Section definition={sectionDefinitions.playground}>
+          <ContentStudio />
         </Section>
         <Section definition={sectionDefinitions.contract}>
           <div className="source-grid">
@@ -135,6 +140,19 @@ export function CaseStudyPage() {
         </Section>
         <Section definition={sectionDefinitions.product}>
           <ProductGallery />
+          <div className="product-workflow">
+            <h3>
+              <RichText content={caseStudyCopy.product.workflowTitle} />
+            </h3>
+            <div className="two-column">
+              <p>
+                <RichText content={caseStudyCopy.product.workflowBody} />
+              </p>
+              <p>
+                <RichText content={caseStudyCopy.product.offlineBody} />
+              </p>
+            </div>
+          </div>
           <p className="note">
             <RichText content={caseStudyCopy.product.evidenceNote} />
           </p>
@@ -149,8 +167,8 @@ export function CaseStudyPage() {
           </p>
         </Section>
         <Section definition={sectionDefinitions.ownership}>
-          <div className="deliverable-list">
-            {deliverables.map(([title, body], i) => (
+          <div className="impact-list">
+            {impactAudiences.map(([title, body], i) => (
               <div key={title}>
                 <span className="diagram-index">0{i + 1}</span>
                 <h3>{title}</h3>
@@ -161,9 +179,7 @@ export function CaseStudyPage() {
           <p className="note">
             <RichText content={caseStudyCopy.ownership.impact} />
           </p>
-        </Section>
-        <Section definition={sectionDefinitions.playground}>
-          <ContentStudio />
+          <PublicEvidence />
         </Section>
         <Section definition={sectionDefinitions.reflection}>
           <div className="two-column">

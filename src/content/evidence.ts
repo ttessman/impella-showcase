@@ -75,30 +75,18 @@ export const screenshots = [
     alt: "Apple listing screenshot showing heparin calculator sliders and displayed input values",
   },
 ];
-export const deliverables = [
+export const impactAudiences = [
   [
-    "Architecture proposal",
-    "I proposed native rendering of CMS-managed content to give authors flexibility while keeping presentation within the app.",
+    "Healthcare professionals",
+    "The broader team brought clinical resources, training media, documentation, favorites and interactive tools into one mobile experience.",
   ],
   [
-    "Content contracts",
-    "I defined JSON content contracts and types connecting authored blocks, resources and their relationships.",
+    "Content authors",
+    "My content model and renderer let authors arrange supported article blocks, media and references without a separately coded screen for each article. Related resources and purpose-specific nested structures connected that content; sample pages and documentation made the patterns tangible.",
   ],
   [
-    "Rendering system",
-    "I designed and implemented the typed React Native renderer, reusable components and supported composition patterns.",
-  ],
-  [
-    "Content organization",
-    "I supported flexible collections and navigation so shared resources could appear in different reading paths and product contexts.",
-  ],
-  [
-    "Interactive tools",
-    "I developed calculators and interactive functionality using dedicated components and existing math helpers, alongside the wider team’s product work.",
-  ],
-  [
-    "Authoring workflow",
-    "I supported Drupal authoring workflows with sample pages and documentation explaining how components formed a page.",
+    "Development team",
+    "Shared native components centralized presentation and interaction behavior. Developers could extend a supported vocabulary rather than recreate each article layout, while new component types and native behaviors still required engineering work.",
   ],
 ];
 
