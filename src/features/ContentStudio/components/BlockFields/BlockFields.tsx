@@ -1,3 +1,4 @@
+import { TextBlockFields } from "./TextBlockFields";
 import { imageOptions } from "../../../../content/studioAssets";
 import type { ContentBlock } from "../../../../types/content";
 export function BlockFields({
@@ -36,15 +37,7 @@ export function BlockFields({
       );
     case "text_block":
       return (
-        <label>
-          Paragraph text
-          <textarea
-            aria-label="Paragraph text"
-            maxLength={5000}
-            value={block.text_body}
-            onChange={(e) => onChange({ ...block, text_body: e.target.value })}
-          />
-        </label>
+        <TextBlockFields key={block.id} block={block} onChange={onChange} />
       );
     case "demo_section":
       return (

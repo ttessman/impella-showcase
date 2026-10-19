@@ -153,3 +153,10 @@
 .preview-device-fit .preview-content figcaption {
   font-size: 11px;
 }
+
+.preview-content sup {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 1px;
+}

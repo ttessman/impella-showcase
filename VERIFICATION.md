@@ -139,3 +139,9 @@ Section headings, current reading location and dropdown destinations now share `
 ## Dynamic navigation editorial reduction
 
 Replaced the large four-row regional navigation diagram with a compact three-step flow: menu records → region/language selection → supported native screens. Removed its enclosing blue panel and shortened repeated prose while retaining the documented regional example, source reference, screenshot provenance and application-code boundary. Other diagrams and the interactive builder are unchanged. Type checking, linting, production build and **15 case-study/navigation browser checks** passed across desktop, tablet and mobile, including images, console, accessibility and active-section tracking. Responsive section captures are saved with the ignored browser artifacts.
+
+## Inline citation authoring
+
+Added an Insert citation control to paragraph properties. It inserts positive reference numbers at the textarea cursor/selection using the original `<sup>1,2</sup>` string convention. Shared `CitedText` converts only numeric superscripts into React elements; arbitrary HTML remains literal escaped text. The nested default paragraph demonstrates citation 1. References remain a separate ordered block, with numbering managed by the author rather than automatically resolved IDs or links. The hero label now reads JSON - TYPESCRIPT as requested.
+
+Type checking, linting and production build passed. Full browser suite: **62 passed, 7 expected skips** across desktop, tablet and mobile. New scenarios cover insertion position, cursor focus restoration, invalid number feedback, multiple citations, nested rendering, References entries, JSON application, escaping unsupported markup, accessibility and reset. Existing drag, layout, JSON and reading-header checks passed. Original production source remains unchanged.

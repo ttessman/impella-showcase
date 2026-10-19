@@ -35,7 +35,7 @@ export function defaultPage(): ContentPage {
             id: "prompt",
             bundle: "text_block",
             text_body:
-              "Choose an ordinary object. Describe its texture without naming the object.",
+              "Choose an ordinary object. Describe its texture without naming the object.<sup>1</sup>",
           },
         ],
       },

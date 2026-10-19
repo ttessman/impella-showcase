@@ -107,3 +107,7 @@ images, console errors and axe accessibility checks.
 
 The original production source remains read-only outside `portfolio/`. This
 repository contains neither that implementation nor its credentials or history.
+
+## Inline citations
+
+`TextBlockFields` inserts numeric `<sup>` markers at the textarea selection into the existing `text_body` string contract. Shared `CitedText` recognizes only numeric superscripts and creates React elements; arbitrary HTML remains escaped. The original app rendered richer HTML fragments through its native HTML renderer; this portfolio supports only the citation convention. Source order and inline numbers remain author-managed, with no automatic citation linking or renumbering.
