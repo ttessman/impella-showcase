@@ -43,12 +43,18 @@ return items.map(item => ({
   },
   checklists: {
     title: "Authored questions and conditional results",
+    fileNotes: {
+      "components/CheckListContent/ChecklistContent.tsx":
+        "Renders question groups, collects selections and evaluates result conditions on submit. Matching content uses ContentView and is scrolled into view.",
+      "architecture/content/checklists.md":
+        "Documents author-configured question groups, selectable options, AND/OR conditions, result content and supporting references.",
+    },
     paths: [
       "components/CheckListContent/ChecklistContent.tsx",
       "architecture/content/checklists.md",
     ],
     summary:
-      "Selected options are matched against authored conditions on submit; matching result blocks render through ContentView and scroll into view.",
+      "On submit, selected options are matched against authored AND/OR conditions. The first matching result or fallback renders through ContentView and scrolls into view.",
     example: `// Independent illustration; no clinical rules
 const outcome = selectAuthoredOutcome({
   selectedOptions,
@@ -59,6 +65,16 @@ return <ContentView blocks={outcome.blocks} />;`,
   },
   calculators: {
     title: "Dedicated calculator behavior",
+    fileNotes: {
+      "screens/CalculatorScreen.tsx":
+        "Chooses a dedicated tool component from the calculator record.",
+      "components/{AKI,PAPi,CPO,Heparin}Calculator":
+        "Connects watched form values, shared input controls, helper calls and result presentation; resets on navigation blur.",
+      "util/*_calculator.js":
+        "Existing calculation helpers integrated by the frontend. Formula authorship and clinical validation are outside the portfolio claim.",
+      "architecture/content/calculators.md":
+        "Explains the expected field order and CMS-authored labels, descriptions and units. Tool behavior remains in native application code.",
+    },
     paths: [
       "screens/CalculatorScreen.tsx",
       "components/{AKI,PAPi,CPO,Heparin}Calculator",
@@ -66,14 +82,41 @@ return <ContentView blocks={outcome.blocks} />;`,
       "architecture/content/calculators.md",
     ],
     summary:
-      "A calculator type selects a dedicated component. Its form inputs feed existing deterministic helpers; CMS fields supply presentation copy.",
-    example: `// Illustrative dispatch; no clinical math
-const tool = supportedTools[record.toolType];
+      "Dedicated components watch form values, call existing helpers and share result presentation. CMS fields supply copy in a fixed order; forms reset when users leave the screen.",
+    example: `// Independent frontend illustration; no clinical math
+// A dedicated two-input tool, rather than generic CMS dispatch.
+function CalculatorExample({ record, navigation }) {
+  const [first, second, output] = record.calculator_components;
+  const { control, watch, reset } = useForm({
+    defaultValues: { first: 0, second: 0 },
+  });
+  const values = watch();
 
-return <tool.View
-  labels={record.labels}
-  values={formValues}
-  result={tool.evaluate(formValues)}
-/>;`,
+  useEffect(() => navigation.addListener(
+    "blur", () => reset()
+  ), [navigation, reset]);
+
+  // Provided helper; formula deliberately omitted.
+  const result = providedCalculationHelper(values);
+  const showResult = toolSpecificResultCheck(values);
+
+  return <>
+    <CalculatorSlider
+      name="first" control={control}
+      title={first.header} unit={first.unit}
+    />
+    <CalculatorSlider
+      name="second" control={control}
+      title={second.header} unit={second.unit}
+    />
+    {showResult && <ResultsBlock
+      header={output.results_header}
+      results={[{
+        name: output.results_labels[0],
+        score: result,
+      }]}
+    />}
+  </>;
+}`,
   },
 } satisfies Record<string, SourceReferenceData>;

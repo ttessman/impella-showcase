@@ -1,17 +1,9 @@
-import { useSyncExternalStore } from "react";
+import { useClientReady } from "../../../../hooks/useClientReady";
 import ContentStudio from "../../ContentStudio";
-
-const subscribe = () => () => {};
-const getClientSnapshot = () => true;
-const getServerSnapshot = () => false;
 
 /** Keep the narrative readable without JS; mount the unchanged editor after hydration. */
 export function StudioIsland() {
-  const interactive = useSyncExternalStore(
-    subscribe,
-    getClientSnapshot,
-    getServerSnapshot,
-  );
+  const interactive = useClientReady();
   return interactive ? (
     <ContentStudio />
   ) : (

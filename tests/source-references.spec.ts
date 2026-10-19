@@ -25,7 +25,18 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
   await expect(popup).toBeVisible();
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(popup).toContainText("Independently written illustration");
-  await expect(popup.locator("pre")).toContainText("no clinical math");
+  await expect(popup.locator(".source-reference-files > div")).toHaveCount(4);
+  for (const mechanism of [
+    "no clinical math",
+    "watch()",
+    "CalculatorSlider",
+    "providedCalculationHelper",
+    "toolSpecificResultCheck",
+    "ResultsBlock",
+    '"blur", () => reset()',
+  ]) {
+    await expect(popup.locator("pre")).toContainText(mechanism);
+  }
   await expect
     .poll(async () => {
       const bounds = (await popup.boundingBox())!;

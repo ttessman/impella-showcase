@@ -37,6 +37,7 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 - `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
 - `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
 - `src/components/media/`: evidence views and one shared image dialog.
+- `src/components/forms/Checklist/`: definition-driven grouped options, submitted rule evaluation and fictional result presentation.
 - `src/components/source/`: source-specific content composed into the shared popover.
 - `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
 - `src/styles/`: tokens, global foundations and the explicit stylesheet manifest. Component and feature styles are colocated with their owners and scoped by class selectors.
@@ -101,3 +102,9 @@ SITE_URL=https://your-domain.example/impella/ npm run build
 Replace the example with the actual public page URL. This generates the canonical URL, `og:url`, `sitemap.xml` and its robots entry. Without `SITE_URL`, those URL-specific fields are omitted. If deployed in a subdirectory, merge the generated robots rules/sitemap reference into the host’s root `robots.txt` as appropriate. Deploy the full generated `dist/` contents; no Node server is required in production.
 
 The approach follows [Google’s JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) and [structured-data guidance](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data). Metadata helps describe the content; it does not assert rankings, clinical validation or measured business outcomes.
+
+## Fictional checklist showcase
+
+The tools section pairs equal-height evidence cards with compact source references. Source popups explain each file’s responsibility and illustrate frontend behavior without publishing private code. The calculator illustration covers watched inputs, reusable controls, an existing helper boundary, conditional results and reset on navigation blur.
+
+“Pack a tiny adventure” is a separately labeled, playful nonclinical checklist. `content/checklistExample.ts` defines its groups, options, ordered AND/OR rules and fallback. `Checklist` renders that definition; `useChecklist` keeps selection separate from the submitted result. First matching rule wins. Editing selections marks the old result as pending until another submit; Start over clears both. Native checkboxes, result focus, polite announcements and reduced-motion-aware scrolling support keyboard and screen-reader use. This is an independently written demonstration of the documented interaction pattern, not the production checklist schema or clinical logic. It does not change the content studio.

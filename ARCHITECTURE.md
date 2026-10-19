@@ -126,4 +126,10 @@ Reading order is overview → architectural decision → content studio → impl
 
 `content/siteIdentity.ts` derives personal role/team text from the same editorial copy and supplies explicit attribution boundaries. `features/CaseStudy/metadata/buildMetadata.ts` creates escaped metadata, JSON-LD and the plain-text outline. Canonical and sitemap fields require an explicit validated SITE_URL. Case-study authorship is modeled separately from Abiomed’s product and the independently written demo.
 
-Tools use `content/toolExperiences.ts` to compose reviewed screenshots, short captions and expandable flow/source details through one reusable EvidenceScreenshot component. The footer places the compact public-evidence slot before attribution, on a blue surface spanning the viewport while preserving the content column.
+Tools use `content/toolExperiences.ts` to compose reviewed screenshots, short captions and expandable flow details and compact source references through one reusable EvidenceScreenshot component. The footer places the compact public-evidence slot before attribution, on a blue surface spanning the viewport while preserving the content column.
+
+## Definition-driven checklist showcase
+
+`types/checklist.ts` defines groups, options, ordered conditions and outcomes. `content/checklistExample.ts` supplies fictional creative prompts. `components/forms/Checklist/checklistModel.ts` evaluates the first matching AND/OR rule or fallback; `hooks/useChecklist.ts` owns selections, submitted state and pending changes. The reusable form renders groups and results without owning example content. `useClientReady` supplies the shared server/client hydration boundary used by both the showcase and StudioIsland.
+
+Tool evidence cards use CSS Grid stretch with column flex interiors and bottom-aligned source references. `SourceReference` stays an inline trigger; its shared popover contains file responsibilities and an independent code illustration. Private file paths are explanatory labels, not public repository links.

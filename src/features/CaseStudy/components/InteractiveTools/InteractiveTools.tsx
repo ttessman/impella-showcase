@@ -1,3 +1,5 @@
+import { Checklist } from "../../../../components/forms/Checklist/Checklist";
+import { checklistExample } from "../../../../content/checklistExample";
 import { Diagram } from "../../../../components/diagrams/Diagram/Diagram";
 import { SourceReference } from "../../../../components/source/SourceReference/SourceReference";
 import { EvidenceScreenshot } from "../../../../components/media/EvidenceScreenshot/EvidenceScreenshot";
@@ -19,11 +21,12 @@ export function InteractiveTools() {
             <details className="tool-implementation">
               <summary>{tool.disclosure}</summary>
               <Diagram kind={tool.kind} />
-              <SourceReference source={tool.source} />
             </details>
+            <SourceReference source={tool.source} />
           </article>
         ))}
       </div>
+      <Checklist definition={checklistExample} />
       <div className="tool-value">
         <h3>{copy.valueTitle}</h3>
         <p>{copy.value}</p>

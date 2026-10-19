@@ -59,3 +59,22 @@
   font-size: 10px;
   color: var(--muted);
 }
+
+.source-reference-files {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+.source-reference-files > div {
+  padding-left: 10px;
+  border-left: 2px solid var(--line);
+}
+.source-reference-files dt {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+.source-reference-files dd {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}

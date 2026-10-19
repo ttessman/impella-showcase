@@ -187,3 +187,11 @@ Verification:
 - Desktop/mobile tools and the new footer screenshots were visually reviewed. Original production screenshots and the approved documentation image are unchanged. The build is deployable static output; no backend or production CMS access is required.
 
 Search/agent discoverability is supported through readable HTML, semantic metadata and plain text, without a guarantee that any search engine or agent will index or use it. No push or deployment was performed.
+
+## Tool cards, source detail and fictional checklist
+
+Calculator and checklist evidence now sit in equal-height CSS Grid cards, with compact source triggers aligned at the bottom. How-it-works disclosures remain below the short product copy. Popups contain a file-by-file responsibility guide and independent code illustrations. The calculator illustration now shows watched inputs, shared sliders, a provided-helper boundary, conditional result presentation and reset on blur instead of stopping at dispatch.
+
+Added a reusable definition-driven checklist with fictional creative prompts. Browser scenarios cover no-selection fallback, OR matching, AND priority when multiple rules match, submit-only updates, pending edits, reset, keyboard activation, result focus, accessibility and overflow. Server-rendered controls are disabled with a JavaScript explanation until hydration; no-JavaScript reading remains available. StudioIsland now uses the same extracted client-ready snapshot helper; builder state and rendering behavior are unchanged.
+
+Type checking, linting, formatting, production build and diff checks passed. The full production Chrome suite passed **77 tests with 7 expected device-specific skips** across desktop, tablet and mobile. Following the final illustration revision, all **9 targeted source-preview/tool checks passed**, including file-guide content, frontend mechanisms, hover/tap/keyboard dismissal and popup bounds. Desktop cards and mobile checklist result captures were visually reviewed. Production source and historical assets remain unchanged. No dependency, clinical formula, private source or audit document was added. Local commit only; no push.

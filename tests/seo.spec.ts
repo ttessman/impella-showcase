@@ -65,6 +65,12 @@ test("case study remains readable without JavaScript", async ({
   await expect(page.locator(".studio-summary")).toContainText(
     "requires JavaScript",
   );
+  await expect(
+    page.getByRole("checkbox", { name: "A trusty notebook" }),
+  ).toBeDisabled();
+  await expect(page.locator(".checklist-showcase")).toContainText(
+    "Enable JavaScript",
+  );
   await expect(page.locator("footer .public-evidence")).toBeAttached();
   await page.getByRole("link", { name: "Explore the content studio" }).click();
   await expect(page).toHaveURL(/#playground$/);
