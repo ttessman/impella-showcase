@@ -131,3 +131,7 @@ Final checks:
 - Final desktop/mobile header, studio and mobile Compose screenshots were visually reviewed. Review caught and corrected ancestry-dependent field styles before the final run.
 
 `dist/` contains the static production build and remains ignored by Git. Original production source and private workspace resources were not modified or added. Public evidence assets and the approved original article diagram are unchanged. Browser checks cover Chrome at the listed sizes; they are not a claim of testing every browser or assistive technology. No push or deployment was performed.
+
+## Navigation label styling follow-up
+
+Section headings, current reading location and dropdown destinations now share `SectionLabel`, using the existing editorial eyebrow treatment: gold number, slash, uppercase concise label and matching typography/letter spacing. Section content and builder behavior are unchanged. Type checking, linting and production build passed; all **9 reading-header browser checks** passed across desktop, tablet and mobile, including computed-style comparisons against section 01. Desktop/mobile dropdown captures were visually reviewed.

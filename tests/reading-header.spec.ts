@@ -107,7 +107,7 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
   const actual = await page.locator(".case-section").evaluateAll((sections) =>
     sections.map((section) => ({
       id: section.id,
-      title: section.querySelector("h2")!.textContent,
+      label: section.querySelector(".eyebrow")!.textContent,
       number: section.querySelector(".eyebrow span")!.textContent,
     })),
   );
@@ -116,9 +116,33 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
       "href",
       `#${actual[index].id}`,
     );
-    await expect(links.nth(index)).toContainText(actual[index].title!);
+    await expect(links.nth(index)).toHaveText(actual[index].label!);
     await expect(links.nth(index)).toContainText(actual[index].number!);
   }
+  const sectionLabel = page.locator("#overview .section-heading .eyebrow");
+  for (const property of [
+    "font-size",
+    "font-weight",
+    "letter-spacing",
+    "text-transform",
+    "color",
+  ]) {
+    const expected = await sectionLabel.evaluate(
+      (el, key) => getComputedStyle(el).getPropertyValue(key),
+      property,
+    );
+    await expect(links.nth(0).locator(".eyebrow")).toHaveCSS(
+      property,
+      expected,
+    );
+  }
+  await expect(links.nth(0).locator(".eyebrow span")).toHaveCSS(
+    "color",
+    "rgb(138, 100, 30)",
+  );
+  await popup.screenshot({
+    path: test.info().outputPath("section-label-menu.png"),
+  });
   await expect(links.nth(0)).toBeFocused();
   await page.keyboard.press("ArrowDown");
   await expect(links.nth(1)).toBeFocused();
@@ -133,7 +157,7 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
   await expect(trigger).toBeFocused();
   await trigger.click();
   await popup
-    .getByRole("link", { name: /02 Separate content authoring/ })
+    .getByRole("link", { name: /02 \/ The architectural decision/ })
     .click();
   await expect(popup).not.toBeVisible();
   await expect(page).toHaveURL(/#architecture$/);
@@ -142,7 +166,7 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
   );
   await trigger.click();
   await expect(
-    popup.getByRole("link", { name: /02 Separate content authoring/ }),
+    popup.getByRole("link", { name: /02 \/ The architectural decision/ }),
   ).toHaveAttribute("aria-current", "location");
   const a11y = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])

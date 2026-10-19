@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { SectionLabel } from "../../../../components/content/SectionLabel/SectionLabel";
 import * as Popover from "@radix-ui/react-popover";
 import { ReadingHeader } from "../../../../components/layout/ReadingHeader/ReadingHeader";
 import { Button } from "../../../../components/actions/Button/Button";
@@ -29,7 +30,7 @@ export function CaseStudyNavigation({ sections }: Props) {
         ),
         context: (
           <span className="reading-location" aria-label="Current section">
-            {current.number} / {current.label}
+            <SectionLabel definition={current} />
           </span>
         ),
         actions: (
@@ -106,10 +107,7 @@ export function CaseStudyNavigation({ sections }: Props) {
                             }
                             onClick={() => setExpanded(false)}
                           >
-                            <span className="reading-section-number">
-                              {section.number}
-                            </span>
-                            <span>{section.title}</span>
+                            <SectionLabel definition={section} />
                           </a>
                         </li>
                       ))}
