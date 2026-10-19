@@ -161,3 +161,11 @@ Checks:
 - Desktop hero/impact and mobile impact captures were visually reviewed. Original approved diagram hash remains unchanged. No studio implementation, clinical formula, original production code or authentic screenshot was modified. No dependency was added.
 
 Changes are local only. The static build is in ignored `dist/`; no push, deployment or external publication was performed.
+
+## Compact footer evidence and scroll-direction correction
+
+Moved the external product evidence out of Impact and into the footer’s evidence slot. Three compact columns become stacked rows on mobile. Shortened copy retains verified release context, mixed feedback, source links and the distinction between lifetime distribution and individual contribution. The audience impact explanation stays in the main narrative. PublicEvidence styles are colocated with the component.
+
+Fixed persistent header visibility after navigation: retained link focus previously pinned it via both a focus-within CSS override and a scroll-hook condition. Focus can now reveal the header once for keyboard access, but subsequent downward scrolling hides it; upward scrolling and the page top reveal it. An open Sections dropdown still keeps it visible. A regression assertion verifies actual offscreen position while a header link retains focus.
+
+Type checking, linting and production build passed. All **15 case-study/reading-navigation browser checks passed** at desktop, tablet and mobile sizes, covering footer placement/links, images, console, accessibility, section tracking, focus, transitions and scroll direction. Desktop/mobile footer screenshots were visually reviewed. No builder or source-evidence assets changed. Local commit only; no push.

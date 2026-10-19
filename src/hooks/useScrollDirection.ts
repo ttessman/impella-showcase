@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { RefObject } from "react";
 
-/** Scroll-direction visibility with jitter tolerance and keyboard focus protection. */
+/** Scroll-direction visibility with jitter tolerance; focus can reveal without pinning the header. */
 export function useScrollDirection(root: RefObject<HTMLElement | null>) {
   const [hidden, setHidden] = useState(false);
   const [floating, setFloating] = useState(false);
@@ -23,9 +23,7 @@ export function useScrollDirection(root: RefObject<HTMLElement | null>) {
         setHidden(false);
         anchor = y;
       } else if (Math.abs(y - anchor) >= 10) {
-        setHidden(
-          y > anchor && !root.current?.contains(document.activeElement),
-        );
+        setHidden(y > anchor);
         anchor = y;
       }
     }

@@ -90,7 +90,8 @@ test("responsive layout, images, console and accessible controls", async ({
   await page
     .getByRole("button", { name: "Reset example", exact: false })
     .click();
-  const evidence = page.locator(".public-evidence");
+  const evidence = page.locator("footer .public-evidence");
+  await expect(page.locator("#ownership .public-evidence")).toHaveCount(0);
   await expect(evidence.getByRole("listitem")).toHaveCount(3);
   for (const link of await evidence.getByRole("link").all()) {
     await expect(link).toHaveAttribute(
@@ -98,8 +99,8 @@ test("responsive layout, images, console and accessible controls", async ({
       /^https:\/\/(apps\.apple\.com|play\.google\.com)\//,
     );
   }
-  await page.locator("#ownership").screenshot({
-    path: info.outputPath("impact-and-public-evidence.png"),
+  await page.locator("footer").screenshot({
+    path: info.outputPath("footer-public-evidence.png"),
   });
   await page.locator("#navigation").screenshot({
     path: info.outputPath("dynamic-navigation.png"),

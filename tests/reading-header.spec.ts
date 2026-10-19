@@ -39,6 +39,17 @@ test("floating site header hides down, reveals up and stays reachable by keyboar
   await expect
     .poll(async () => (await header.boundingBox())!.y)
     .toBeCloseTo(0, 0);
+  // Using navigation must not leave focus pinning the header during later scrolling.
+  await scrollTo(850);
+  await expect(header).toHaveAttribute("data-hidden", "true");
+  await expect
+    .poll(async () => {
+      const box = (await header.boundingBox())!;
+      return box.y + box.height;
+    })
+    .toBeLessThanOrEqual(1);
+  await scrollTo(790);
+  await expect(header).toHaveAttribute("data-hidden", "false");
   await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
   await scrollTo(0);
   await expect(header).toHaveAttribute("data-floating", "false");

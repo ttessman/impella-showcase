@@ -2,6 +2,8 @@ footer {
   max-width: 1360px;
   margin: auto;
   padding: 45px 64px 65px;
+}
+.footer-summary {
   display: flex;
   gap: 40px;
   justify-content: space-between;
@@ -16,7 +18,7 @@ footer p {
   color: var(--muted);
   margin-top: 14px;
 }
-footer > a {
+.footer-summary > a {
   font-size: 12px;
   white-space: nowrap;
   align-self: start;
@@ -29,6 +31,8 @@ footer > a {
 @media (max-width: 760px) {
   footer {
     padding: 35px 24px;
+  }
+  .footer-summary {
     flex-direction: column;
     gap: 25px;
   }

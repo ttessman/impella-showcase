@@ -20,3 +20,5 @@
 @import "../components/overlays/PreviewPopover/PreviewPopover.css";
 @import "../components/overlays/Tooltip/Tooltip.css";
 @import "../features/CaseStudy/components/CaseStudyNavigation/CaseStudyNavigation.css";
+
+@import "../features/CaseStudy/components/PublicEvidence/PublicEvidence.css";

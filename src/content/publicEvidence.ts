@@ -2,18 +2,18 @@ import { storeLinks } from "./evidence";
 
 /** Primary public sources checked October 19, 2026; product facts, not personal metrics. */
 export const publicEvidence = {
-  title: "From modernization to a production release.",
+  title: "Product history & public sources",
   items: [
     {
       label: "March 6, 2023",
       title: "A documented redesign",
-      body: "Apple’s history identifies version 3.3.1 as the application redesign. Version 3.3.2 followed on March 10 with bug fixes.",
+      body: "Apple records the redesign in version 3.3.1. Version 3.3.2 followed with bug fixes.",
       sources: [{ title: "Apple version history", href: storeLinks.apple }],
     },
     {
       label: "Public feedback",
-      title: "Encouragement, with unresolved friction",
-      body: "A March 17, 2023 review praised the new layout. Other visible Apple reviews raised video issues in 2021 and sign-in eligibility concerns on March 9, 2023. This small, mixed sample does not establish overall satisfaction.",
+      title: "Mixed user feedback",
+      body: "Apple reviews include praise for the layout in March 2023, alongside video and sign-in complaints. This small sample is mixed.",
       sources: [
         {
           title: "Apple ratings and reviews",
@@ -23,13 +23,13 @@ export const publicEvidence = {
     },
     {
       label: "Later releases",
-      title: "Availability beyond the project",
-      body: "Apple records updates in 2024 and December 2025. Both store pages remain available; Google Play lists the same Android package as Clinical Care, with 10K+ lifetime downloads and a December 2025 update. That total is not redesign-era adoption or active usage.",
+      title: "Later updates & availability",
+      body: "Both listings remain available, with updates through December 2025. Google Play lists the Android package as Clinical Care and reports 10K+ lifetime downloads.",
       sources: [
         { title: "Apple App Store", href: storeLinks.apple },
         { title: "Google Play", href: storeLinks.google },
       ],
     },
   ],
-  note: "Public product evidence reviewed October 19, 2026. Release history supports later updates; it does not verify that the original rendering engine remains unchanged or attribute those releases to my work.",
+  note: "Reviewed October 19, 2026. Product-level context: reviews and lifetime downloads do not measure my contribution or redesign-era adoption; later releases do not establish unchanged source code.",
 } as const;

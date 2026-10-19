@@ -3,7 +3,6 @@ import { sectionDefinitions, caseStudyCopy } from "../../content/caseStudy";
 import { CaseStudyHero } from "./CaseStudyHero";
 import { SourceReference } from "../../components/source/SourceReference/SourceReference";
 import { sourceExamples } from "../../content/sourceExamples";
-import { PublicEvidence } from "./components/PublicEvidence/PublicEvidence";
 import { NavigationEvidence } from "../../components/media/NavigationEvidence/NavigationEvidence";
 import { ArticleEvidence } from "../../components/media/ArticleEvidence/ArticleEvidence";
 import ContentStudio from "../ContentStudio/ContentStudio";
@@ -179,7 +178,6 @@ export function CaseStudyPage() {
           <p className="note">
             <RichText content={caseStudyCopy.ownership.impact} />
           </p>
-          <PublicEvidence />
         </Section>
         <Section definition={sectionDefinitions.reflection}>
           <div className="two-column">

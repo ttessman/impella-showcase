@@ -15,10 +15,6 @@
   transform: translateY(-100%);
   pointer-events: none;
 }
-.site-header-shell:focus-within {
-  transform: translateY(0);
-  pointer-events: auto;
-}
 @media (prefers-reduced-motion: reduce) {
   .site-header-shell {
     transition: none;
