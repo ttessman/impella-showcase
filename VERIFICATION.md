@@ -169,3 +169,21 @@ Moved the external product evidence out of Impact and into the footer’s eviden
 Fixed persistent header visibility after navigation: retained link focus previously pinned it via both a focus-within CSS override and a scroll-hook condition. Focus can now reveal the header once for keyboard access, but subsequent downward scrolling hides it; upward scrolling and the page top reveal it. An open Sections dropdown still keeps it visible. A regression assertion verifies actual offscreen position while a header link retains focus.
 
 Type checking, linting and production build passed. All **15 case-study/reading-navigation browser checks passed** at desktop, tablet and mobile sizes, covering footer placement/links, images, console, accessibility, section tracking, focus, transitions and scroll direction. Desktop/mobile footer screenshots were visually reviewed. No builder or source-evidence assets changed. Local commit only; no push.
+
+## Screenshot-led tools, footer band and machine-readable case study
+
+Section 08 now explains calculator purpose and personal frontend ownership with short copy and authentic AKI/checklist captures already present in the portfolio. A reusable EvidenceScreenshot opens the shared image dialog. Native details/summary controls reveal compact calculator/checklist flows and source previews. The business benefit is shared implementation and practical utility within the reference app; no measured adoption, time savings or clinical outcome is inferred. Calculator formulas remain provided dependencies. Checklist behavior is described without extending unconfirmed personal ownership.
+
+The footer now places public history/sources first on a full-bleed pale-blue surface, followed by attribution and Back to top. Its content remains aligned to the existing column, with stacked mobile items.
+
+The static build now writes the full case-study narrative into the initial HTML through React DOM Server, then hydrates the same App. A StudioIsland boundary renders a clearly labeled reconstruction summary during server rendering/hydration before mounting the unchanged browser editor. The content model, validation, dragging and preview logic are unchanged. Metadata and generated plain-text companions explicitly separate Tyler Tessmann’s original contributions, team ownership, private source and the fictional web demo. No proprietary implementation or clinical math was added.
+
+Verification:
+
+- Type checking, linting and production build passed, with no added dependency. The build loader uses middleware mode with WebSockets disabled and requires no listening server.
+- Full production-build Chrome suite: **74 passed, 7 expected skips in 28.6 seconds** across desktop, tablet and mobile. Existing studio, JSON, citations, drag, responsive, accessibility, images and console tests passed. Source-preview tests now account for the additional checklist reference and open its calculator disclosure before interaction.
+- New checks verify tools screenshots/enlargement/focus/disclosures, no-JavaScript reading, initial response content and structured attribution, plain-text routes, robots output and deployment-URL validation. No hydration console errors occurred in the existing responsive checks.
+- A build with a reserved example SITE_URL verified canonical URL, social URL, sitemap and robots linkage. A clean default build restored the final artifacts with URL-specific fields omitted. The actual deployment address remains undecided.
+- Desktop/mobile tools and the new footer screenshots were visually reviewed. Original production screenshots and the approved documentation image are unchanged. The build is deployable static output; no backend or production CMS access is required.
+
+Search/agent discoverability is supported through readable HTML, semantic metadata and plain text, without a guarantee that any search engine or agent will index or use it. No push or deployment was performed.

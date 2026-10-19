@@ -6,11 +6,12 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
 }) => {
   await page.goto("/");
   const triggers = page.locator(".source-reference-trigger");
-  await expect(triggers).toHaveCount(3);
+  await expect(triggers).toHaveCount(4);
   const popup = page.getByRole("dialog", {
     name: "Dedicated calculator behavior",
   });
-  const trigger = triggers.nth(2);
+  await page.getByText("How the calculator works", { exact: true }).click();
+  const trigger = page.locator("#tools .source-reference-trigger").first();
   await trigger.scrollIntoViewIfNeeded();
   if (test.info().project.name !== "mobile") {
     await trigger.hover();

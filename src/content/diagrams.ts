@@ -25,19 +25,31 @@ export const flowDiagrams = {
     caption:
       "Configuration changes the menu; new route types and native behavior still require application code.",
   },
-  checklist: {
-    figureClass: "anatomy-figure",
-    listClass: "checklist-diagram",
-    label: "CHECKLIST / STRUCTURED INTERACTION",
+  calculator: {
+    figureClass: "tool-flow-figure",
+    listClass: "tool-flow",
+    label: "CALCULATOR / NATIVE IMPLEMENTATION",
     steps: [
-      ["Heading components", "Optional headers and text"],
-      ["Question groups", "Accordion → label + option + spacer"],
-      ["Result display logic", "Operator + required checkbox combinations"],
-      ["Result components", "Headers and text for matching results"],
-      ["Supporting context", "References accordion + disclaimer"],
+      ["Configured copy", "CMS labels, descriptions and units"],
+      ["Native inputs", "Shared sliders, numeric entry and selections"],
+      ["Existing helpers", "Tool-specific calculation integration"],
+      ["Results", "Shared presentation, with conditional visibility"],
     ],
     caption:
-      "Recreated from architecture/content/checklists.md. The model connects authored questions to conditional result components, with references and disclaimer context. Clinical rules are not reproduced.",
+      "Calculator fields had a fixed expected order. Changing a tool’s structure or behavior required application code.",
+  },
+  checklist: {
+    figureClass: "tool-flow-figure",
+    listClass: "tool-flow",
+    label: "CHECKLIST / AUTHORED INTERACTION",
+    steps: [
+      ["Question groups", "Optional headings, labels and selectable options"],
+      ["Selection rules", "Authored AND/OR conditions, evaluated on submit"],
+      ["Result content", "Matching headers and text, scrolled into view"],
+      ["Supporting context", "References and disclaimer copy"],
+    ],
+    caption:
+      "Recreated from the checklist documentation and renderer. Question and result content shared the CMS composition system.",
   },
 } as const;
 export const articleDiagram = {

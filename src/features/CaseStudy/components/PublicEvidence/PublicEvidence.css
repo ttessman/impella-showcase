@@ -1,7 +1,9 @@
 .public-evidence {
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
+  margin: 0;
+  padding: 28px 0;
+  background: #e8f0f7;
+  box-shadow: 0 0 0 100vmax #e8f0f7;
+  clip-path: inset(0 -100vmax);
 }
 .public-evidence > h3 {
   font-size: 14px;

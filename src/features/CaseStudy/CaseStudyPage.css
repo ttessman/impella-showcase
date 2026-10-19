@@ -84,20 +84,6 @@
   margin-top: 22px;
   overflow-wrap: anywhere;
 }
-.tools-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 45px;
-}
-.tools-grid h3 {
-  margin: 0 0 14px;
-}
-.tools-grid p {
-  font-size: 14px;
-}
-.tools-grid h3:not(:first-child) {
-  margin-top: 28px;
-}
 .store-links {
   display: flex;
   align-items: center;
@@ -146,9 +132,6 @@
   }
   .impact-list > div {
     grid-template-columns: 30px 180px 1fr;
-  }
-  .tools-grid {
-    gap: 25px;
   }
 }
 @media (max-width: 760px) {

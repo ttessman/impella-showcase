@@ -41,6 +41,22 @@ return items.map(item => ({
   destination: resolveSupportedRoute(item),
 }));`,
   },
+  checklists: {
+    title: "Authored questions and conditional results",
+    paths: [
+      "components/CheckListContent/ChecklistContent.tsx",
+      "architecture/content/checklists.md",
+    ],
+    summary:
+      "Selected options are matched against authored conditions on submit; matching result blocks render through ContentView and scroll into view.",
+    example: `// Independent illustration; no clinical rules
+const outcome = selectAuthoredOutcome({
+  selectedOptions,
+  configuredConditions,
+});
+
+return <ContentView blocks={outcome.blocks} />;`,
+  },
   calculators: {
     title: "Dedicated calculator behavior",
     paths: [

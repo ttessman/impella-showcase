@@ -1,0 +1,90 @@
+.tool-experiences {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px;
+}
+.tool-experiences > article {
+  min-width: 0;
+}
+.tool-experiences h3,
+.tool-value h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.tool-experiences p,
+.tool-value p {
+  font-size: 13px;
+}
+.tool-flow-figure {
+  margin-top: 20px;
+  padding: 20px;
+  background: #edf3f9;
+}
+.tool-flow-figure .diagram-label {
+  margin-bottom: 16px;
+}
+.tool-flow {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.tool-flow li {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--ink);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.tool-flow li > span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.tool-value {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 20px;
+  max-width: 850px;
+}
+@media (max-width: 760px) {
+  .tool-experiences {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 400px) {
+  .tool-flow li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+.tool-example {
+  display: grid;
+  grid-template-columns: minmax(110px, 180px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+.tool-implementation {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.tool-implementation > summary {
+  cursor: pointer;
+  font-size: 12px;
+  min-height: 30px;
+  color: var(--ink);
+}
+@media (max-width: 400px) {
+  .tool-example {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .tool-example > p {
+    font-size: 12px;
+  }
+}

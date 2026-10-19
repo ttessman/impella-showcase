@@ -63,9 +63,9 @@ export const sectionDefinitions = {
     id: "tools",
     number: "08",
     label: "Interactive content",
-    title: "More than a place to read.",
+    title: "Clinical tools within the same mobile experience.",
     intro:
-      "I also developed interactive tools that brought user input and calculated results into the experience. Articles provided information; checklists and calculators supported workflows beyond reading.",
+      "I built native calculator interfaces that brought user inputs and calculated outputs into the same app as clinical reference material.",
   },
   product: {
     id: "product",
@@ -140,19 +140,17 @@ export const caseStudyCopy = {
       "These captures show different navigation layouts. Their regions and versions are unverified, so they illustrate the product’s range rather than a confirmed US/Japan comparison. Regional menu selection is verified in the source; the images do not establish how later changes were deployed.",
   },
   tools: {
-    checklistTitle: "Authored rules, native behavior",
-    checklists:
-      "Checklists extended structured authoring to grouped questions, selectable options and conditional results. Authors supplied the rules and supporting references; native components handled the interaction. The diagram shows how those pieces fit together without reproducing the clinical rules.",
     calculatorTitle: "Purpose-built calculators",
-    calculators: [
-      " AKI, PAPi, CPO and heparin tools used dedicated React Native components. CMS records supplied labels, units and results copy in a fixed structure; the components managed inputs and called existing deterministic math helpers under ",
-      {
-        code: "src/util/",
-      },
-      " . Unlike articles, these layouts required code changes when their expected structure changed. ",
-    ],
+    calculators:
+      "AKI, CPO, PAPi and heparin tools combined native inputs with existing calculation helpers. My frontend implementation connected shared controls, changing values and result presentation.",
+    checklistTitle: "Author-configured checklists",
+    checklists:
+      "Authors configured questions and conditional results. The app evaluated selections on submit and brought matching result content into view, with supporting references.",
+    valueTitle: "Practical tools, shared foundations",
+    value:
+      "The product combined reference material with practical tools. Shared controls reduced repeated UI implementation; authors maintained supported copy while tool-specific behavior remained in native code.",
     clinicalBoundary:
-      "These tools supported healthcare professionals alongside clinical judgment and local protocols. My contribution was interactive implementation, not authorship or independent validation of the underlying clinical formulas.",
+      "My work covered calculator interfaces and helper integration. Clinical formulas were provided; clinical validation was outside my role.",
   },
   product: {
     workflowTitle: "A complete mobile workflow",

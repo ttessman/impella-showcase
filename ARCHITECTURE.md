@@ -117,3 +117,13 @@ repository contains neither that implementation nor its credentials or history.
 Reading order is overview → architectural decision → content studio → implementation → original documentation → collections/navigation → interactive tools → production → impact/evidence → reflection. `sectionDefinitions` follows that order and supplies the numbering/labels used by both page sections and the contextual navigation. Anchor IDs remain stable. The studio is relocated as an intact feature; its model, hooks and renderers are unchanged by the narrative revision.
 
 `content/publicEvidence.ts` stores linked external product facts separately from individual contribution statements and private-repository summaries. `PublicEvidence` renders that compact list through the footer’s evidence slot, with three columns on desktop and stacked items on mobile. Research dates and omissions are documented in `PUBLIC_RESEARCH.md`; externally reported product facts do not become individual performance metrics.
+
+## Build-time reading and hydration
+
+`src/entry-server.ts` renders the same App tree through React DOM Server. `scripts/prerender.mjs` uses Vite’s existing module loader with HTTP middleware mode and WebSockets disabled, then writes the initial HTML and reader companions. No server, browser automation dependency or proprietary reference repository is needed at deployment/build time. All content is local portfolio data.
+
+`StudioIsland` exposes a fixed server/hydration snapshot through `useSyncExternalStore`, then mounts the existing browser-only ContentStudio. This boundary prevents server execution of window-dependent editor hooks while preserving matching hydration markup. The editing model, JSON validation, dragging and renderer are unchanged. The narrative stays visible with JavaScript disabled; interactive controls require JavaScript.
+
+`content/siteIdentity.ts` derives personal role/team text from the same editorial copy and supplies explicit attribution boundaries. `features/CaseStudy/metadata/buildMetadata.ts` creates escaped metadata, JSON-LD and the plain-text outline. Canonical and sitemap fields require an explicit validated SITE_URL. Case-study authorship is modeled separately from Abiomed’s product and the independently written demo.
+
+Tools use `content/toolExperiences.ts` to compose reviewed screenshots, short captions and expandable flow/source details through one reusable EvidenceScreenshot component. The footer places the compact public-evidence slot before attribution, on a blue surface spanning the viewport while preserving the content column.

@@ -83,3 +83,21 @@ Source references use a reusable Radix preview popover: hover/focus to inspect, 
 Do not deploy the workspace root, original React Native repository, original HTML, ZIP, unapproved internal docs, environment/configuration files or repository history. Do not add those paths to `public/`. To share the new source, share this `portfolio/` directory excluding `node_modules`, test artifacts and caches. Nothing was published by this task.
 
 See `EVIDENCE.md`, `PUBLIC_RESEARCH.md` and `VERIFICATION.md` for provenance, independently checked product history and verification results.
+
+## Search and machine-readable content
+
+`npm run build` also pre-renders the case study into `dist/index.html`. Readers receive the original narrative, ownership, screenshots and diagrams in the initial HTML, without needing to run JavaScript. React hydrates that content; a small `StudioIsland` replaces the static, clearly labeled demo summary with the unchanged interactive editor. Development mode still mounts directly through Vite.
+
+Metadata includes Tyler Tessmann as the case-study author, a descriptive title, social descriptions and Schema.org `CreativeWork` data. It separates the original Impella contributions, broader team responsibilities and independent fictional reconstruction. The original application is the subject of the case study, not a product wholly authored by the portfolio owner.
+
+The build generates `case-study.txt`, a small `llms.txt` index and `robots.txt`. A footer link and an HTML alternate link expose the plain-text companion to both people and software. `llms.txt` is a convenience index; crawler use, indexing and search appearance are not guaranteed. No user-agent-specific content or private source is served.
+
+The deployment URL is intentionally unset. When it is known, build with:
+
+```sh
+SITE_URL=https://your-domain.example/impella/ npm run build
+```
+
+Replace the example with the actual public page URL. This generates the canonical URL, `og:url`, `sitemap.xml` and its robots entry. Without `SITE_URL`, those URL-specific fields are omitted. If deployed in a subdirectory, merge the generated robots rules/sitemap reference into the host’s root `robots.txt` as appropriate. Deploy the full generated `dist/` contents; no Node server is required in production.
+
+The approach follows [Google’s JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) and [structured-data guidance](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data). Metadata helps describe the content; it does not assert rankings, clinical validation or measured business outcomes.

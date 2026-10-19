@@ -22,3 +22,6 @@
 @import "../features/CaseStudy/components/CaseStudyNavigation/CaseStudyNavigation.css";
 
 @import "../features/CaseStudy/components/PublicEvidence/PublicEvidence.css";
+@import "../features/CaseStudy/components/InteractiveTools/InteractiveTools.css";
+@import "../features/ContentStudio/components/StudioIsland/StudioIsland.css";
+@import "../components/media/EvidenceScreenshot/EvidenceScreenshot.css";

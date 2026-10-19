@@ -1,3 +1,4 @@
+import { InteractiveTools } from "./components/InteractiveTools/InteractiveTools";
 import { RichText } from "../../components/content/RichText/RichText";
 import { sectionDefinitions, caseStudyCopy } from "../../content/caseStudy";
 import { CaseStudyHero } from "./CaseStudyHero";
@@ -5,7 +6,7 @@ import { SourceReference } from "../../components/source/SourceReference/SourceR
 import { sourceExamples } from "../../content/sourceExamples";
 import { NavigationEvidence } from "../../components/media/NavigationEvidence/NavigationEvidence";
 import { ArticleEvidence } from "../../components/media/ArticleEvidence/ArticleEvidence";
-import ContentStudio from "../ContentStudio/ContentStudio";
+import { StudioIsland } from "../ContentStudio/components/StudioIsland/StudioIsland";
 import { Section } from "../../components/layout/Section/Section";
 import { Diagram } from "../../components/diagrams/Diagram/Diagram";
 import { ProductGallery } from "../../components/media/ProductGallery/ProductGallery";
@@ -66,7 +67,7 @@ export function CaseStudyPage() {
           </p>
         </Section>
         <Section definition={sectionDefinitions.playground}>
-          <ContentStudio />
+          <StudioIsland />
         </Section>
         <Section definition={sectionDefinitions.contract}>
           <div className="source-grid">
@@ -115,27 +116,7 @@ export function CaseStudyPage() {
           <SourceReference source={sourceExamples.navigation} />
         </Section>
         <Section definition={sectionDefinitions.tools}>
-          <div className="tools-grid">
-            <Diagram kind="checklist" />
-            <div>
-              <h3>
-                <RichText content={caseStudyCopy.tools.checklistTitle} />
-              </h3>
-              <p>
-                <RichText content={caseStudyCopy.tools.checklists} />
-              </p>
-              <h3>
-                <RichText content={caseStudyCopy.tools.calculatorTitle} />
-              </h3>
-              <p>
-                <RichText content={caseStudyCopy.tools.calculators} />
-              </p>
-              <p className="note">
-                <RichText content={caseStudyCopy.tools.clinicalBoundary} />
-              </p>
-            </div>
-          </div>
-          <SourceReference source={sourceExamples.calculators} />
+          <InteractiveTools />
         </Section>
         <Section definition={sectionDefinitions.product}>
           <ProductGallery />
