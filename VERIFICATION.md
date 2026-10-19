@@ -47,3 +47,71 @@ The final studio has a compact title/disclaimer header with icon-and-text reset 
 The studio is capped at 100dvh (100vh fallback); workspace scrolling happens below its header. Scroll-aware dragging, sticky headers, reset placement, icon names, tooltip state, rail height, mounted editor preservation and draft state were tested. The mobile preview renders a fixed 390 × 844 canvas with uniform scale, fitting its pane and using a smaller cap in stacked mode. Tests confirm its aspect ratio and containment through long content, internal scrolling, collapse and layout changes. Desktop and mobile captures were reviewed.
 
 Final complete suite: 46 passed, 2 skipped. The skipped cases remain the touch-only scenario on desktop and tablet projects; mobile touch passed. Both deployable and source archives were refreshed and checked for integrity and allowed asset boundaries.
+
+## Final editorial refinement
+
+Revised the product history, first-person ownership, architectural tradeoffs,
+calculator explanation, visual captions, impact and reflection. The modernization
+context and contributions come from the contributor’s final brief. Calculator
+mechanics were checked against the screen dispatch, all four native components,
+math helpers and original documentation (see EVIDENCE.md).
+
+Type checking, linting and the production build passed. The complete Chrome
+suite passed again: 46 tests, with the same two touch-only skips on desktop and
+tablet. The responsive/image/console/accessibility checks were also rerun against
+the final build after the source-caption and metadata edits. Screenshots and
+architecture diagrams were preserved. Builder logic, interactions and styling
+were not changed; one test locator follows the revised reflection heading.
+
+## Mobile Compose and full-width studio
+
+The studio now has a 740px minimum height capped by the viewport height, and
+its section has a full-width blue background with aligned content and no outer
+studio border. At 650px and below, output fills the workspace and Compose opens
+in a native modal. Header actions use 44px icon buttons with accessible names
+and native tooltips. The modal locks background scrolling, cycles keyboard
+focus, supports Escape, restores trigger focus, and includes status/error
+feedback. Controlled content, selection and JSON drafts survive close/reopen
+and breakpoint changes.
+
+The expanded full browser suite passed: **47 passed, 7 skipped**. Two skips
+remain the desktop/tablet touch scenario. The other five are desktop pane
+scenarios replaced on mobile by the modal workflow; the full modal authoring
+and JSON scenario runs in all three projects. Mouse/keyboard/touch dragging,
+inline properties, empty-section drops, viewport bounds, phone proportions,
+images, console and accessibility checks passed. The modal workflow and touch
+and responsive checks were rerun after adding feedback inside the modal.
+Mobile output and Compose screenshots were visually reviewed. Type checking,
+linting and the final production build passed. Changes remain local; no push.
+
+## Hero contrast and integrated article explanation
+
+The hero and its summary use a full-width navy surface, followed by the plain
+white overview section; the site header is unchanged. Article evidence and the
+recreated content model now share one figure. The original image renders at its
+full aspect ratio with no internal scroll frame. Repeated prose beneath the
+figure was integrated into the model annotations. The original asset is
+unchanged, and enlargement, Escape and focus restoration remain available.
+
+Type checking, linting and the production build passed. The complete browser
+suite passed again: **47 passed, 7 expected skips in 20.2 seconds**. Tests verify
+full image height, a single integrated model, white overview surface, image
+loading, console output, responsive overflow, accessibility and the existing
+studio flows. Desktop hero/article captures were visually reviewed. No commit
+or push was made for these refinements.
+
+## Floating navigation and desktop spacing
+
+The site header stays at the viewport top, slides away on downward page scroll,
+and returns on upward scroll. A 10px direction threshold avoids jitter, and
+keyboard focus reveals the links. Near the page top it remains visible.
+Reduced-motion preferences disable the transition. Passive scroll events are
+batched with requestAnimationFrame and cleaned up on unmount.
+
+The complete suite passed: **50 passed, 7 expected skips in 21.4 seconds**.
+Header tests cover downward hiding, small-scroll tolerance, upward reveal,
+keyboard access, top restoration, unchanged height and reduced motion across
+all three viewport sizes. Type checking, linting and the production build passed.
+The desktop article figure also received more internal padding, a larger gutter
+and a narrower explanation column; its full-height diagram and enlargement
+checks were rerun after that adjustment. Nothing was committed or pushed.

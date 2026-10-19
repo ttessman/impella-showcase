@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { bundles, defaultPage, makeBlock, parsePage } from "./model";
 import type { Bundle, ContentPage } from "./model";
 import {
@@ -18,6 +18,19 @@ import { initialWorkspaceLayout } from "./workspaceLayout";
 import { PanelWorkspace } from "./PanelWorkspace";
 import { MobilePreview } from "./MobilePreview";
 export default function Playground() {
+  const [mobile, setMobile] = useState(
+    () => window.matchMedia("(max-width: 650px)").matches,
+  );
+  const [composeOpen, setComposeOpen] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 650px)");
+    const update = () => {
+      setMobile(media.matches);
+      setComposeOpen(false);
+    };
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
   const [workspace, setWorkspace] = useState(initialWorkspaceLayout);
   const [page, setPage] = useState<ContentPage>(defaultPage);
   const [selected, setSelected] = useState<string | null>("intro");
@@ -119,18 +132,39 @@ export default function Playground() {
           <span className="live-dot" /> Content studio
         </span>
         <div className="playground-actions">
+          {mobile && (
+            <button
+              type="button"
+              aria-label="Open Compose"
+              title="Open Compose"
+              aria-haspopup="dialog"
+              aria-expanded={composeOpen}
+              aria-controls="mobile-compose"
+              onClick={() => {
+                drag.cancel();
+                setComposeOpen(true);
+              }}
+            >
+              <WorkspaceIcon name="compose" />
+              <span className="action-label">Compose</span>
+            </button>
+          )}
           <button
             type="button"
+            aria-label="Reset layout"
+            title="Reset layout"
             onClick={() => {
               drag.cancel();
               setWorkspace(initialWorkspaceLayout);
             }}
           >
             <WorkspaceIcon name="reset-layout" />
-            Reset layout
+            <span className="action-label">Reset layout</span>
           </button>
           <button
             type="button"
+            aria-label="Reset example"
+            title="Reset example"
             onClick={() => {
               drag.cancel();
               setPage(defaultPage());
@@ -142,7 +176,7 @@ export default function Playground() {
             }}
           >
             <WorkspaceIcon name="reset-example" />
-            Reset example
+            <span className="action-label">Reset example</span>
           </button>
         </div>
         <p className="demo-note">
@@ -151,11 +185,29 @@ export default function Playground() {
         </p>
       </div>
       <PanelWorkspace
+        mobile={mobile}
+        composeOpen={composeOpen}
+        onCloseCompose={() => {
+          drag.cancel();
+          setComposeOpen(false);
+        }}
         value={workspace}
         onChange={(patch) => {
           drag.cancel();
           setWorkspace((current) => ({ ...current, ...patch }));
         }}
+        composeFeedback={
+          <>
+            {error && (
+              <p className="validation-error" role="alert">
+                {error}
+              </p>
+            )}
+            <p className="builder-status" role="status">
+              {message}
+            </p>
+          </>
+        }
         compose={
           <div className="author-pane">
             {dirty && (

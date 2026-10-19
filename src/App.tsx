@@ -1,3 +1,7 @@
+import { SourceReference } from "./components/SourceReference";
+import { sourceExamples } from "./data/sourceExamples";
+import { NavigationEvidence } from "./components/NavigationEvidence";
+import { SiteHeader } from "./components/SiteHeader";
 import { ArticleEvidence } from "./components/ArticleEvidence";
 import Playground from "./builder/Playground";
 import { Section } from "./components/Section";
@@ -10,121 +14,121 @@ export default function App() {
       <a className="skip-link" href="#main">
         Skip to case study
       </a>
-      <header className="site-header">
-        <a href="#top" className="wordmark">
-          TYLER TESSMANN<span>Design engineering / Selected work</span>
-        </a>
-        <nav aria-label="Case study">
-          <a href="#architecture">Architecture</a>
-          <a href="#product">Product</a>
-          <a className="nav-demo" href="#playground">
-            Try the builder <span aria-hidden="true">↗</span>
-          </a>
-        </nav>
-      </header>
+      <SiteHeader />
       <main id="main">
-        <div id="top" className="hero">
-          <div className="hero-copy">
-            <p className="eyebrow">CASE STUDY / MOBILE CONTENT ARCHITECTURE</p>
-            <h1>
-              Content, composed
-              <br />
-              <em>natively.</em>
-            </h1>
-            <p className="hero-summary">
-              A structured publishing system for the Impella app. Drupal for the
-              authors. React Native for the experience.
-            </p>
-            <p className="hero-detail">
-              I challenged a full-page webview proposal, defined the content
-              contracts, and built a reusable native renderer so authors could
-              compose supported content without hand-coding every page.
-            </p>
-            <div className="hero-actions">
-              <a className="button primary" href="#architecture">
-                Explore the architecture <span aria-hidden="true">↓</span>
-              </a>
-              <a className="text-link" href="#playground">
-                Build a sample page ↗
-              </a>
+        <div className="hero-band">
+          <div id="top" className="hero">
+            <div className="hero-copy">
+              <p className="eyebrow">
+                CASE STUDY / MOBILE CONTENT ARCHITECTURE
+              </p>
+              <h1>
+                Content, composed
+                <br />
+                <em>natively.</em>
+              </h1>
+              <p className="hero-summary">
+                Modernizing a clinical app around the people using it—and the
+                people keeping its content current.
+              </p>
+              <p className="hero-detail">
+                I helped shape the technical direction of Impella’s
+                modernization: proposing native CMS rendering, building the
+                content system, and developing interactive tools alongside the
+                wider product team.
+              </p>
+              <div className="hero-actions">
+                <a className="button primary" href="#architecture">
+                  Explore the architecture <span aria-hidden="true">↓</span>
+                </a>
+                <a className="text-link" href="#playground">
+                  Open content studio ↓
+                </a>
+              </div>
+              <div className="hero-meta">
+                <span>React Native</span>
+                <span>Headless Drupal</span>
+                <span>Typed JSON</span>
+              </div>
             </div>
-            <div className="hero-meta">
-              <span>React Native</span>
-              <span>Headless Drupal</span>
-              <span>Typed JSON</span>
+            <figure className="hero-evidence">
+              <div className="hero-grid-lines" aria-hidden="true" />
+              <div className="hero-evidence-label">
+                <span>THE DELIVERED EXPERIENCE</span>
+                <span>01 / 08</span>
+              </div>
+              <img
+                src={`${import.meta.env.BASE_URL}assets/production/apple-home.webp`}
+                alt="Apple listing screenshot: Impella home with six authored collection tiles"
+                width="460"
+                height="996"
+                fetchPriority="high"
+              />
+              <figcaption>
+                Authored entry points. A native experience.
+                <br />
+                <span>Apple listing evidence · Capture date unverified</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div className="summary-strip">
+            <div>
+              <span>THE PROBLEM</span>
+              <p>
+                An aging app.
+                <br />
+                Fragmented resources and tools.
+              </p>
             </div>
-          </div>
-          <figure className="hero-evidence">
-            <div className="hero-grid-lines" aria-hidden="true" />
-            <div className="hero-evidence-label">
-              <span>THE DELIVERED EXPERIENCE</span>
-              <span>01 / 08</span>
+            <div>
+              <span>THE DECISION</span>
+              <p>
+                Author structured data.
+                <br />
+                Render with native components.
+              </p>
             </div>
-            <img
-              src={`${import.meta.env.BASE_URL}assets/production/apple-home.webp`}
-              alt="Apple listing screenshot: Impella home with six authored collection tiles"
-              width="460"
-              height="996"
-              fetchPriority="high"
-            />
-            <figcaption>
-              Authored entry points. A native experience.
-              <br />
-              <span>Apple listing evidence · Capture date unverified</span>
-            </figcaption>
-          </figure>
-        </div>
-        <div className="summary-strip">
-          <div>
-            <span>THE PROBLEM</span>
-            <p>
-              Evolving content.
-              <br />A consistent mobile experience.
-            </p>
-          </div>
-          <div>
-            <span>THE DECISION</span>
-            <p>
-              Author structured data.
-              <br />
-              Render with native components.
-            </p>
-          </div>
-          <div>
-            <span>MY CONTRIBUTION</span>
-            <p>
-              Architecture, contracts, renderer,
-              <br />
-              sample pages & documentation.
-            </p>
+            <div>
+              <span>MY CONTRIBUTION</span>
+              <p>
+                Native content architecture,
+                <br />
+                interactive tools & authoring guidance.
+              </p>
+            </div>
           </div>
         </div>
         <Section
           id="overview"
           number="01"
           label="Context & ownership"
-          title="Two experiences to design for."
-          intro="Clinical professionals needed access to reference material and tools. Content authors needed a dependable way to maintain those resources."
+          title="A more useful app needed a stronger foundation."
+          intro="Impella was an existing clinical mobile application for healthcare professionals. The modernization was an opportunity to bring information and tools into a more cohesive experience."
         >
           <div className="two-column">
             <p>
-              The Impella clinical mobile application brings together articles,
-              media, instructions for use and interactive tools for healthcare
-              professionals. This case study focuses on the boundary between
-              Drupal authoring and the native mobile interface.
+              The previous app was outdated, buggy and difficult to maintain,
+              with much of its value delivered through links to external
+              clinical resources. The client wanted a modern experience where
+              professionals could browse information and use tools together. A
+              CMS could help keep information current; the choice of CMS and its
+              delivery model were still open.
             </p>
             <div>
               <p>
-                My work covered the alternative frontend architecture, JSON
-                schema, typed rendering system, reusable composition patterns,
-                example pages and authoring documentation.
+                I focused on how content and interactive functionality would
+                reach the user. I proposed the native rendering approach,
+                defined the JSON contracts, implemented reusable React Native
+                components, and created sample pages and authoring
+                documentation. I also developed calculators and interactive
+                tools, collaborating with the team on content organization and
+                navigation.
               </p>
               <p className="note">
-                The wider team delivered the product, CMS services, clinical
-                content and other application features. I do not claim sole
-                authorship of the application or all production content.
-                Responsibilities are contributor-provided; the repository
-                corroborates the technical mechanisms.
+                The product was a team effort spanning the mobile app, CMS
+                services and clinical content. This account describes my
+                contributions; the source and documentation establish how the
+                systems worked.
               </p>
             </div>
           </div>
@@ -133,35 +137,38 @@ export default function App() {
           id="architecture"
           number="02"
           label="The architectural decision"
-          title="Keep the CMS. Give the interface a native contract."
-          intro="The initial proposal used full CMS webpages inside webviews. I proposed exchanging structured content instead, with supported bundles dispatched to reusable React Native components."
+          title="Separate content authoring from the mobile experience."
+          intro="I wanted the modernization to address the maintenance problems behind the old app. When full-page webviews were proposed, I questioned whether a second presentation layer would recreate those difficulties."
         >
           <div className="decision-grid">
             <article>
               <p className="eyebrow">INITIAL PROPOSAL</p>
               <h3>Web pages inside the app</h3>
               <p>
-                CMS markup would own more of the presentation. This can simplify
-                reuse of web content, but adds a second page layout and
-                interaction environment to coordinate with the native
-                application.
+                Webviews offered a practical way to reuse CMS pages. My concern
+                was the longer-term cost of coordinating web and native layouts,
+                interactions and performance. That was an anticipated risk,
+                rather than a measured problem with the proposal.
               </p>
             </article>
             <article>
               <p className="eyebrow">PROPOSED & IMPLEMENTED</p>
               <h3>Content interpreted by the app</h3>
               <p>
-                Authors compose supported structures. The app owns their
-                presentation and interactions. The tradeoff: every new bundle
-                needs a contract and renderer, and schema changes require
-                coordination.
+                I proposed structured content rendered by reusable native
+                components. Drupal became the authoring system; React Native
+                controlled presentation and behavior. This required more upfront
+                engineering: a schema, supported components, and coordination
+                whenever that vocabulary changed.
               </p>
             </article>
           </div>
           <Diagram kind="pipeline" />
           <p className="note">
-            The decision prioritized composition and UI control. No measured
-            performance improvement or clinical outcome is asserted.
+            The benefit was a shared foundation: authors could compose supported
+            pages without a separate screen implementation for every article.
+            This was a maintainability and experience decision; no performance
+            benchmark was recorded.
           </p>
         </Section>
         <Section
@@ -169,7 +176,7 @@ export default function App() {
           number="03"
           label="Content architecture"
           title="A small contract. A reusable rendering system."
-          intro="Content records describe what a page contains. A dispatch layer decides which native component renders each authored bundle."
+          intro="I defined the boundary between authoring and presentation: Drupal supplied structured JSON, typed contracts described its shape, and the app selected a native component for each content type."
         >
           <div className="source-grid">
             {sourceModules.map((m, i) => (
@@ -192,131 +199,116 @@ export default function App() {
           number="04"
           label="Article composition"
           title="Authors compose. Components render."
-          intro="The authoring documentation defines six primary article bundles: Text Block, Media, CTA Block, Header, References Accordion and Table. Authors arrange them within the article’s primary content region."
+          intro="I created sample pages and documentation to show authors how to build an article from supported blocks: headings, text, media, calls to action, tables and references. They could work on the content without implementing a mobile screen."
         >
           <ArticleEvidence />
-          <Diagram kind="article" />
-          <div className="two-column">
-            <p>
-              The native shell establishes consistent actions, title and layout
-              conventions. Related resources are authored separately and
-              rendered as cards after primary content. The documentation
-              describes optional date/read-time display; the archived
-              BundleRender disables article_info, so that detail is not treated
-              as shipped behavior.
-            </p>
-            <p>
-              Text markup is interpreted by native HTML rendering primitives;
-              media, references and actions use dedicated components. This
-              separates authoring from rendering while keeping each supported
-              block’s behavior explicit.
-            </p>
-          </div>
         </Section>
         <Section
           id="collections"
           number="05"
           label="Dynamic collections"
           title="Shared resources. Different reading paths."
-          intro="Drupal taxonomy brings articles, checklists and calculators into collections. A collection has a title, optional heading components, and a list of resource groups."
+          intro="Bringing resources into the app also meant giving people useful ways to find them. Shared resource records let authors organize articles, checklists and calculators into different collection layouts."
         >
           <Diagram kind="collections" />
           <div className="two-column">
             <p>
-              In the archived implementation, <code>CollectionContent</code>{" "}
-              enables grouping when <code>collection_values.length &gt; 1</code>
-              , then passes that choice to <code>CollectionBlock</code>. A
-              single group uses continuous pagination; multiple groups use
-              labeled previews and View More.
+              A collection combines a title, optional introductory blocks and
+              resource groups. One group becomes a continuous scrolling list;
+              multiple groups become labeled previews with View More.
+              <code> CollectionContent</code> selects the mode and passes it to
+              the shared <code>CollectionBlock</code> renderer.
             </p>
             <p>
-              The documentation guides authors to use tags and grouping labels.
-              The same typed resource references feed shared cards; presentation
-              changes the grouping and reveal behavior rather than creating a
-              different resource model for each layout.
+              Tags and grouping labels gave authors a way to organize related
+              material. The same cards and resource references supported both
+              layouts, so a new reading path did not need a new resource model.
             </p>
           </div>
-          <p className="source-note">
-            Source: components/CollectionContent · CMS/CollectionBlock ·
-            docs/docs/architecture/content/collections.md
-          </p>
+          <SourceReference source={sourceExamples.collections} />
         </Section>
         <Section
           id="navigation"
           number="06"
           label="Dynamic navigation"
-          title="Navigation was content configuration, too."
-          intro="An authored menus endpoint describes regional destinations, labels, icons and ordering. The frontend resolves those records into supported routes."
+          title="Navigation could adapt to the region."
+          intro="I supported navigation that could reflect regional needs. The app selected menu records by the user’s region and language, then resolved their labels, icons and destinations into supported native routes."
         >
           <Diagram kind="navigation" />
           <div className="two-column">
             <p>
-              Landing screens also support role and specialty targeting,
-              weighted selection, up to six authored collection tiles and
-              featured content. Favorites are user-generated; the optional
-              Browse preview comes from an authored collection.
+              Authors could configure different destinations for different
+              regions. The original documentation gives an example: Favorites
+              could be a tab in the US, while Japan could keep it accessible
+              from Home. The menu selector uses the user’s region and language;
+              the app then maps the selected records to native screens.
             </p>
             <p>
-              The supplied Browse capture shows Favorites, Browse, Tools and
-              IFUs tabs. The Apple listing image shows the six-tile landing
-              pattern described by the archived documentation. This supports
-              discussing flexibility, but does not establish how any later
-              production change was deployed. New route types and native
-              behavior still need application code.
+              Home had its own configuration: collection tiles, featured content
+              and role or specialty targeting. Together, these systems supported
+              different entry points into shared resources. New route types and
+              native behavior still required application code.
             </p>
           </div>
-          <p className="source-note">
-            Source: hooks/useTabNavigatorScreens.tsx · architecture/menus.md ·
-            content/landingScreens.md
+          <NavigationEvidence />
+          <p className="note">
+            These captures show different navigation layouts. Their regions and
+            versions are unverified, so they illustrate the product’s range
+            rather than a confirmed US/Japan comparison. Regional menu selection
+            is verified in the source; the images do not establish how later
+            changes were deployed.
           </p>
+          <SourceReference source={sourceExamples.navigation} />
         </Section>
         <Section
           id="tools"
           number="07"
           label="Interactive content"
-          title="Structured interactions, with explicit boundaries."
-          intro="Checklists model more than page layout: heading components, grouped questions, result-display conditions, references and disclaimer copy."
+          title="More than a place to read."
+          intro="I also developed interactive tools that brought user input and calculated results into the experience. Articles provided information; checklists and calculators supported workflows beyond reading."
         >
           <div className="tools-grid">
             <Diagram kind="checklist" />
             <div>
               <h3>Authored rules, native behavior</h3>
               <p>
-                Labels, options and spacers compose question accordions.
-                Authored operators and required checkbox combinations select
-                result components. The documentation asks authors to cover
-                possible input combinations; it is not evidence that every
-                clinical rule was validated by me.
+                Checklists extended structured authoring to grouped questions,
+                selectable options and conditional results. Authors supplied the
+                rules and supporting references; native components handled the
+                interaction. The diagram shows how those pieces fit together
+                without reproducing the clinical rules.
               </p>
-              <h3>Calculators are a separate implementation</h3>
+              <h3>Purpose-built calculators</h3>
               <p>
-                AKI, PAPi, CPO and heparin calculators use purpose-built
-                components and deterministic helpers under{" "}
-                <code>src/util/</code>. Their content values have a fixed order
-                expected by those components. They are part of the product, not
-                arbitrary CMS compositions.
+                AKI, PAPi, CPO and heparin tools used dedicated React Native
+                components. CMS records supplied labels, units and results copy
+                in a fixed structure; the components managed inputs and called
+                existing deterministic math helpers under <code>src/util/</code>
+                . Unlike articles, these layouts required code changes when
+                their expected structure changed.
               </p>
               <p className="note">
-                The playground below contains no clinical rules, calculations or
-                medical guidance. No LLM performs medical calculations.
+                These tools supported healthcare professionals alongside
+                clinical judgment and local protocols. My contribution was
+                interactive implementation, not authorship or independent
+                validation of the underlying clinical formulas.
               </p>
             </div>
           </div>
+          <SourceReference source={sourceExamples.calculators} />
         </Section>
         <Section
           id="product"
           number="08"
           label="Production application"
-          title="The architecture becomes an experience."
-          intro="Supplied product screenshots connect resource records, article regions and dedicated tools to the visible application. Select an image to inspect it at full size."
+          title="Information and tools, brought together."
+          intro="The shipped product brought browsing, articles, embedded media, references, favorites and calculators into one mobile experience. Follow the experience from home and browsing into an article, its supporting resources, and finally checklists and calculators. Select any image for a closer look."
         >
           <ProductGallery />
           <p className="note">
-            Screenshots from the supplied case study and user-provided Apple
-            listing images; capture dates and application versions are
-            unverified. Later product changes and individual tools are not
-            claimed as solely my work. Internal authoring screenshots remain
-            reference-only.
+            Historical captures and Apple listing images show the broader team’s
+            product. Their dates and app versions are unverified, so later
+            visual differences are not attributed to my implementation.
           </p>
           <p className="store-links">
             Public product listings:{" "}
@@ -331,8 +323,9 @@ export default function App() {
         <Section
           id="ownership"
           number="09"
-          label="Deliverables & ownership"
-          title="A system other people could author with."
+          label="Impact & ownership"
+          title="A foundation the team could keep building on."
+          intro="My contribution connected content authoring, native presentation and interactive functionality. The source verifies the reusable mechanisms; the screenshots show their place in the broader product."
         >
           <div className="deliverable-list">
             {deliverables.map(([title, body], i) => (
@@ -344,17 +337,19 @@ export default function App() {
             ))}
           </div>
           <p className="note">
-            The delivered experience was a team outcome. This contribution
-            centers on the content-to-interface architecture and author
-            enablement.
+            For authors, this established a supported vocabulary for maintaining
+            pages. For developers, it centralized presentation instead of
+            hardcoding each article. For users, it brought resources and tools
+            into a shared interface. These are architectural capabilities; I do
+            not have measured maintenance, usage or performance outcomes.
           </p>
         </Section>
         <Section
           id="playground"
           number="10"
           label="Try the architecture"
-          title="Compose a page. Inspect the contract."
-          intro="Add a block, select it to edit, change its order, or choose a section as the destination for nested content. The same validated object drives the editor, JSON and simulated mobile view."
+          title="One content model. Many native experiences."
+          intro="Try composing a page from supported content types. The JSON describes the content; the renderer turns it into components. This independent web reconstruction illustrates my original approach using fictional content. Generic nested sections extend the original article model for demonstration."
           tone="demo-section"
         >
           <Playground />
@@ -363,39 +358,39 @@ export default function App() {
           id="reflection"
           number="11"
           label="Reflection & future evolution"
-          title="The lasting value is a clear boundary."
+          title="Modernization starts with why the old system struggled."
         >
           <div className="two-column">
             <div>
-              <h3>What this architecture makes possible</h3>
+              <h3>Design for the next change</h3>
               <p>
-                A typed contract gives authors a defined vocabulary and
-                developers a predictable rendering surface. Reusable components
-                centralize presentation, while examples and documentation make
-                composition understandable to people outside the frontend team.
+                The lesson I take from this project is to look beyond replacing
+                outdated technology. I needed to understand how content,
+                presentation and maintenance had become entangled, then create a
+                boundary that people could keep working with.
               </p>
               <p>
-                The cost is stewardship: schema changes, new bundles and
-                authoring guidance must evolve together. TypeScript helps
-                development; runtime validation is still needed at a content
-                boundary.
+                I would make that boundary explicit again, while investing early
+                in runtime validation and author feedback. A reusable renderer
+                still needs stewardship: schemas, supported components and
+                documentation must evolve together. Flexibility only helps when
+                authors and developers understand its limits.
               </p>
             </div>
             <div className="future-concept">
               <p className="eyebrow">FUTURE CONCEPT / NOT SHIPPED</p>
               <h3>Source-grounded discovery</h3>
               <p>
-                Structured content could support semantic search or
-                retrieval-augmented generation over approved, versioned sources.
-                A retrieval layer should preserve source IDs, approval status,
-                versions and direct citations.
+                Today, I would explore semantic search or retrieval-augmented
+                generation as another use of structured content. Retrieval would
+                need approved, versioned sources, preserved source IDs and
+                grounded citations.
               </p>
               <p>
-                Any proposed clinical AI would need appropriate human review,
-                explicit handling of missing or conflicting evidence and
-                separate validation. Existing calculators remain deterministic
-                tools. This is a future exploration, not delivered
-                functionality.
+                Any clinical use would require appropriate human review and
+                explicit handling of missing or conflicting evidence. This is a
+                future exploration, separate from the shipped content system and
+                deterministic calculators.
               </p>
             </div>
           </div>

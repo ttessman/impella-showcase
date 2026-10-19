@@ -51,24 +51,27 @@ export function Diagram({
           </div>
           <div className="diagram-annotation">
             <p>
-              <b>Authoring owns composition.</b> Drupal defines which supported
-              bundles appear and in what order.
+              <b>Authors choose the reading order.</b> Drupal stores the primary
+              blocks as an ordered list. Authors arrange text, media and actions
+              without creating a separate screen.
             </p>
             <p>
-              <b>Native UI owns presentation.</b> Reusable components apply
-              layout and interaction rules.
+              <b>The app provides the shared frame.</b> Native components keep
+              article actions and layout consistent. Text fragments use a native
+              HTML renderer; media and actions use dedicated components.
             </p>
             <p>
-              <b>Nested structures are purposeful.</b> References have a
-              references_container; checklist questions contain their own
-              component arrays. Generic article sections are not evidenced.
+              <b>Relationships connect the experience.</b> Reference containers
+              hold supporting sources, while a separate related-content list
+              becomes resource cards below the article. Other content types,
+              such as checklists, have their own nested question structures.
             </p>
           </div>
         </div>
         <figcaption>
           Recreated from architecture/content/articles.md and content.d.ts. The
-          original article layout artifact above shows how these regions appear
-          on a composed page.
+          original article layout artifact alongside this model shows how these
+          regions appear on a composed page.
         </figcaption>
       </figure>
     );
@@ -103,8 +106,9 @@ export function Diagram({
           </div>
         </div>
         <figcaption>
-          Recreated from architecture/content/collections.md. Shared resource
-          records, different list behavior.
+          Recreated from architecture/content/collections.md. Authors could
+          organize the same resource types into a continuous list or grouped
+          reading paths.
         </figcaption>
       </figure>
     );
@@ -115,7 +119,11 @@ export function Diagram({
         <ol className="nav-diagram">
           <li>
             <b>menus.json</b>
-            <span>Locale / region, title, icon, weight, link</span>
+            <span>Regional menu records: title, icon, weight, destination</span>
+          </li>
+          <li>
+            <b>Region + language selection</b>
+            <span>menus.selectors chooses the configured regional menu</span>
           </li>
           <li>
             <b>Tab configuration</b>
@@ -127,9 +135,9 @@ export function Diagram({
           </li>
         </ol>
         <figcaption>
-          Recreated from architecture/menus.md, navigation.md and
-          useTabNavigatorScreens.tsx. Application-owned routes remain part of
-          the app.
+          Recreated from architecture/menus.md, navigation.md,
+          menus.selectors.ts and useTabNavigatorScreens.tsx. Application-owned
+          routes remain part of the app.
         </figcaption>
       </figure>
     );
@@ -151,8 +159,9 @@ export function Diagram({
         ))}
       </ol>
       <figcaption>
-        Recreated from architecture/content/checklists.md. This explains the
-        model; it does not reproduce clinical rules.
+        Recreated from architecture/content/checklists.md. The model connects
+        authored questions to conditional result components, with references and
+        disclaimer context. Clinical rules are not reproduced.
       </figcaption>
     </figure>
   );

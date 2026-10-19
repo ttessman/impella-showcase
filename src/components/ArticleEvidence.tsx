@@ -1,19 +1,6 @@
 import { useRef } from "react";
+import { Diagram } from "./Diagram";
 
-const regions = [
-  [
-    "Article shell",
-    "Favorites, an optional PDF attachment and the article title belong to the native layout.",
-  ],
-  [
-    "Authored primary content",
-    "Headers, text, media, CTAs, tables and references follow the author-defined order. Dashed outlines reveal the individual component boundaries.",
-  ],
-  [
-    "Related content",
-    "A separately authored list of resource relationships renders as cards below the article body.",
-  ],
-];
 const alt =
   "Original article documentation diagram with dashed outlines separating article actions and title, authored image, text, CTA, video, table, references and related-content cards";
 
@@ -24,12 +11,7 @@ export function ArticleEvidence() {
     <>
       <figure className="original-article-evidence">
         <div>
-          <div
-            className="original-article-viewport"
-            tabIndex={0}
-            role="region"
-            aria-label="Scrollable original article layout diagram"
-          >
+          <div className="original-article-viewport">
             <img
               src={source}
               width="1980"
@@ -50,18 +32,13 @@ export function ArticleEvidence() {
           <p className="eyebrow">ORIGINAL PROJECT DOCUMENTATION</p>
           <h3>See where the components meet the page.</h3>
           <p>
-            This original authoring diagram connects the content contract to an
-            article layout. Scroll the image to follow the authored blocks down
-            to references and related resources.
+            I used documentation like this to make composition tangible for
+            authors. Each outlined region shows how a supported component
+            contributes to a complete article. Follow the full page from media
+            and text to references and related resources, alongside the content
+            model that explains its structure.
           </p>
-          <ol>
-            {regions.map(([title, text]) => (
-              <li key={title}>
-                <b>{title}</b>
-                <p>{text}</p>
-              </li>
-            ))}
-          </ol>
+          <Diagram kind="article" />
           <p className="note">
             The historical example includes publication metadata. The archived
             renderer later disables that bundle, so the image illustrates a

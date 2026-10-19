@@ -5,6 +5,18 @@ import type { ContentPage } from "../src/builder/model";
 import { relocateBlock } from "../src/builder/tree";
 import { defaultPage, parsePage } from "../src/builder/model";
 
+async function openCompose(page: Page) {
+  const open = page.getByRole("button", { name: "Open Compose", exact: true });
+  if (await open.isVisible()) await open.click();
+}
+async function closeCompose(page: Page) {
+  const close = page.getByRole("button", {
+    name: "Close Compose",
+    exact: true,
+  });
+  if (await close.isVisible()) await close.click();
+}
+
 async function setWorkspaceLayout(page: Page, layout: "side" | "stacked") {
   const button = page.locator(".workspace-output-header button");
   if (!(await button.isEnabled())) return;
@@ -13,6 +25,10 @@ async function setWorkspaceLayout(page: Page, layout: "side" | "stacked") {
 }
 
 test("complete visual → JSON → preview workflow", async ({ page }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 650,
+    "Mobile workflow is covered by the Compose modal scenario.",
+  );
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
@@ -119,6 +135,7 @@ test("image editing, nested sections, references and safe removal", async ({
   page,
 }) => {
   await page.goto("/");
+  await openCompose(page);
   await page
     .getByRole("button", {
       name: "Edit Section: Take a closer look",
@@ -146,15 +163,19 @@ test("image editing, nested sections, references and safe removal", async ({
   await page
     .getByLabel("Image caption", { exact: true })
     .fill("Notebook study");
+  await closeCompose(page);
   const preview = page.getByRole("article", { name: "Mobile content preview" });
   await expect(
     preview.getByRole("img", { name: "A fictional studio notebook" }),
   ).toHaveAttribute("src", /studio-notes.svg/);
+  await openCompose(page);
   await page.getByRole("button", { name: "+ References", exact: true }).click();
   await page
     .getByLabel("References (one per line)", { exact: true })
     .fill("Fictional notebook one\nFictional notebook two");
+  await closeCompose(page);
   await expect(preview.getByText("Fictional notebook two")).toBeAttached();
+  await openCompose(page);
   await page
     .getByRole("button", {
       name: "Remove Section Take a closer look",
@@ -184,7 +205,9 @@ test("responsive layout, images, console and accessible controls", async ({
   });
   await page.goto("/");
   await page
-    .getByRole("heading", { name: "The lasting value is a clear boundary." })
+    .getByRole("heading", {
+      name: "Modernization starts with why the old system struggled.",
+    })
     .scrollIntoViewIfNeeded();
   await page.evaluate(async () => {
     await Promise.all(
@@ -228,11 +251,13 @@ test("responsive layout, images, console and accessible controls", async ({
   ).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
+  await openCompose(page);
   await page.getByRole("button", { name: "+ Heading", exact: true }).focus();
   await page.keyboard.press("Enter");
   await page.getByLabel("Heading text", { exact: true }).focus();
   await page.keyboard.press("ControlOrMeta+A");
   await page.keyboard.type("Keyboard-authored heading");
+  await closeCompose(page);
   await expect(
     page
       .getByRole("article", { name: "Mobile content preview" })
@@ -318,6 +343,7 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
   page,
 }) => {
   await page.goto("/");
+  await openCompose(page);
   const json = page.getByLabel("Editable page JSON");
   const read = async () => JSON.parse(await json.inputValue()) as ContentPage;
   const start = await read();
@@ -348,6 +374,7 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
   });
   await page.mouse.up();
   const moved = await read();
+  await closeCompose(page);
   expect(moved.primary_content_value[0]).toEqual(
     start.primary_content_value.find((b) => b.id === "chapter"),
   );
@@ -358,6 +385,7 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
   ).toHaveCount(1);
   await expect(page.getByRole("status")).toContainText("Block moved");
 
+  await openCompose(page);
   // Keyboard uses the same drop targets to move a root block inside the section.
   const headingGrip = page.getByRole("button", {
     name: "Drag Heading Small observations. New ideas.",
@@ -394,7 +422,9 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
     page.locator('[data-parent-id="chapter"][data-drop-disabled="true"]'),
   ).toHaveCount(2);
   await page.keyboard.press("Escape");
+  await closeCompose(page);
   await json.fill("{invalid");
+  await openCompose(page);
   await expect(grip).toBeDisabled();
 });
 
@@ -404,6 +434,7 @@ test("touch grip moves a section", async ({ page, context }, info) => {
     "Touch interaction runs in the mobile project.",
   );
   await page.goto("/");
+  await openCompose(page);
   const grip = page.getByRole("button", {
     name: "Drag Section Take a closer look",
     exact: true,
@@ -437,6 +468,7 @@ test("touch grip moves a section", async ({ page, context }, info) => {
     type: "touchEnd",
     touchPoints: [],
   });
+  await closeCompose(page);
   await expect(page.getByRole("status")).toContainText("Block moved");
   const data = JSON.parse(
     await page.getByLabel("Editable page JSON").inputValue(),
@@ -482,13 +514,11 @@ test("subtree moves reject cycles and invalid destinations without dropping cont
   ).toBe(tree);
 });
 
-test("original article diagram loads, scrolls, and opens an accessible enlarged view", async ({
+test("original article diagram displays its full height beside the model and opens an accessible enlarged view", async ({
   page,
 }) => {
   await page.goto("/");
-  const region = page.getByRole("region", {
-    name: "Scrollable original article layout diagram",
-  });
+  const region = page.locator(".original-article-viewport");
   await region.scrollIntoViewIfNeeded();
   const image = region.getByRole("img");
   await expect(image).toHaveAttribute(
@@ -502,11 +532,29 @@ test("original article diagram loads, scrolls, and opens an accessible enlarged 
       element.naturalHeight,
     ]),
   ).toEqual([1980, 7240]);
-  await region.focus();
-  await page.keyboard.press("ArrowDown");
-  await expect
-    .poll(() => region.evaluate((element) => element.scrollTop))
-    .toBeGreaterThan(0);
+  const imageBox = (await image.boundingBox())!;
+  const regionBox = (await region.boundingBox())!;
+  expect(imageBox.height / imageBox.width).toBeCloseTo(7240 / 1980, 2);
+  expect(regionBox.height).toBeCloseTo(imageBox.height, 0);
+  expect(
+    await region.evaluate(
+      (element) => element.scrollHeight - element.clientHeight,
+    ),
+  ).toBeLessThanOrEqual(1);
+  await expect(
+    page.locator(".original-article-notes .anatomy-figure"),
+  ).toHaveCount(1);
+  await expect(page.locator("#articles .anatomy-figure")).toHaveCount(1);
+  await page.locator(".original-article-evidence").screenshot({
+    path: test.info().outputPath("combined-article-evidence.png"),
+  });
+  await page
+    .locator(".hero-band")
+    .screenshot({ path: test.info().outputPath("hero-band.png") });
+  await expect(page.locator("#overview")).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
   const enlarge = page.getByRole("button", {
     name: "Enlarge original article diagram",
     exact: false,
@@ -530,6 +578,7 @@ test("selected properties stay with the block and row halves show one insertion 
   page,
 }) => {
   await page.goto("/");
+  await openCompose(page);
   await page
     .getByRole("button", {
       name: "Edit Heading: Small observations. New ideas.",
@@ -619,6 +668,7 @@ test("selected properties stay with the block and row halves show one insertion 
 
 test("drop a block directly inside an empty section", async ({ page }) => {
   await page.goto("/");
+  await openCompose(page);
   await page.getByRole("button", { name: "+ Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Empty chapter");
   const json = page.getByLabel("Editable page JSON");
@@ -670,6 +720,10 @@ test("drop a block directly inside an empty section", async ({ page }) => {
 test("collapse Compose and change output layouts without losing edits or JSON drafts", async ({
   page,
 }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 650,
+    "Desktop pane controls are replaced by the tested mobile modal.",
+  );
   await page.goto("/");
   await setWorkspaceLayout(page, "side");
   await page.getByLabel("Heading text", { exact: true }).fill("Keep this edit");
@@ -749,6 +803,10 @@ test("collapse Compose and change output layouts without losing edits or JSON dr
 test("workspace dividers resize with pointer and keyboard and respect limits", async ({
   page,
 }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 650,
+    "Desktop pane controls are replaced by the tested mobile modal.",
+  );
   await page.goto("/");
   await setWorkspaceLayout(page, "side");
   const compose = page.getByRole("separator", {
@@ -846,6 +904,10 @@ test("workspace dividers resize with pointer and keyboard and respect limits", a
 });
 
 test("collapsed and stacked workspace remains accessible", async ({ page }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 650,
+    "Desktop pane controls are replaced by the tested mobile modal.",
+  );
   await page.goto("/");
   await page
     .getByRole("button", { name: "Collapse Compose", exact: true })
@@ -866,6 +928,10 @@ test("collapsed and stacked workspace remains accessible", async ({ page }) => {
 test("pane header icons, full-height Compose rail and preview-first default match the workspace controls", async ({
   page,
 }) => {
+  test.skip(
+    (page.viewportSize()?.width ?? 0) <= 650,
+    "Desktop pane controls are replaced by the tested mobile modal.",
+  );
   await page.goto("/");
   const collapse = page.getByRole("button", {
     name: "Collapse Compose",
@@ -976,9 +1042,11 @@ test("Content studio stays within the viewport with its disclaimer inside the he
   await workspace.evaluate((el) => {
     el.scrollTop = 0;
   });
-  await page
-    .getByRole("button", { name: "Collapse Compose", exact: true })
-    .click();
+  const collapse = page.getByRole("button", {
+    name: "Collapse Compose",
+    exact: true,
+  });
+  if (await collapse.isVisible()) await collapse.click();
   await studio.screenshot({
     path: test.info().outputPath("content-studio.png"),
   });
@@ -1007,9 +1075,11 @@ test("mobile preview preserves device aspect ratio and scrolls content across la
       .toBeLessThan(0.01);
   }
   await checkDevice();
+  await openCompose(page);
   await page
     .getByLabel("Heading text", { exact: true })
     .fill("A fictional observation from the field. ".repeat(45));
+  await closeCompose(page);
   await checkDevice();
   const content = page.getByRole("article", { name: "Mobile content preview" });
   expect(
@@ -1020,9 +1090,11 @@ test("mobile preview preserves device aspect ratio and scrolls content across la
   });
   expect(await content.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
   await checkDevice();
-  await page
-    .getByRole("button", { name: "Collapse Compose", exact: true })
-    .click();
+  const collapse = page.getByRole("button", {
+    name: "Collapse Compose",
+    exact: true,
+  });
+  if (await collapse.isVisible()) await collapse.click();
   await setWorkspaceLayout(page, "side");
   await checkDevice();
   await setWorkspaceLayout(page, "stacked");
@@ -1030,4 +1102,278 @@ test("mobile preview preserves device aspect ratio and scrolls content across la
   await page.locator(".playground").screenshot({
     path: test.info().outputPath("fixed-aspect-content-studio.png"),
   });
+});
+
+test("mobile Compose modal supports the full authoring and JSON workflow with focus restoration", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const studio = page.locator(".playground");
+  await studio.scrollIntoViewIfNeeded();
+  const open = page.getByRole("button", { name: "Open Compose", exact: true });
+  const modal = page.getByRole("dialog", { name: "01 Compose" });
+  const json = page.getByLabel("Editable page JSON");
+  const preview = page.getByRole("article", { name: "Mobile content preview" });
+  const original = await json.inputValue();
+  await expect(open).toHaveAttribute("aria-expanded", "false");
+  await expect(
+    page.getByLabel("Page title", { exact: true }),
+  ).not.toBeVisible();
+  await expect(page.locator(".compose-rail")).toHaveCount(0);
+  const output = (await page.locator(".workspace-output").boundingBox())!;
+  const work = (await page.locator(".panel-workspace").boundingBox())!;
+  expect(output.width).toBeCloseTo(work.width, 0);
+  for (const label of ["Open Compose", "Reset layout", "Reset example"]) {
+    const button = page
+      .locator(".playground-actions")
+      .getByRole("button", { name: label, exact: true });
+    await expect(button).toHaveAttribute("title", label);
+    expect((await button.boundingBox())!.width).toBeGreaterThanOrEqual(44);
+  }
+  await open.click();
+  await expect(modal).toBeVisible();
+  const close = page.getByRole("button", {
+    name: "Close Compose",
+    exact: true,
+  });
+  await expect(close).toBeFocused();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe(
+    "hidden",
+  );
+  await page.keyboard.press("Shift+Tab");
+  expect(
+    await modal.evaluate((el) => el.contains(document.activeElement)),
+  ).toBe(true);
+  const a11y = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(a11y.violations).toEqual([]);
+  await page.getByRole("button", { name: "+ Heading", exact: true }).click();
+  await page.getByLabel("Heading text", { exact: true }).fill("Mobile journal");
+  await page.getByRole("button", { name: "+ Section", exact: true }).click();
+  await page
+    .getByLabel("Section title", { exact: true })
+    .fill("Mobile chapter");
+  await close.click();
+  await expect(open).toBeFocused();
+  await expect(
+    preview.getByRole("heading", { name: "Mobile journal", exact: true }),
+  ).toBeVisible();
+  const data = JSON.parse(await json.inputValue()) as ContentPage;
+  const section = data.primary_content_value.at(-1)!;
+  await open.click();
+  await page
+    .getByLabel("Add blocks to", { exact: true })
+    .selectOption(section.id);
+  await page.getByRole("button", { name: "+ Paragraph", exact: true }).click();
+  await page
+    .getByLabel("Paragraph text", { exact: true })
+    .fill("A mobile observation.");
+  await page
+    .getByRole("button", {
+      name: "Move Section Mobile chapter up",
+      exact: true,
+    })
+    .click();
+  await page
+    .getByRole("button", { name: "Remove Heading Mobile journal", exact: true })
+    .click();
+  await page.keyboard.press("Escape");
+  await expect(modal).not.toBeVisible();
+  await expect(open).toBeFocused();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+  await expect(preview.getByText("A mobile observation.")).toBeVisible();
+  await expect(
+    preview.getByRole("heading", { name: "Mobile journal", exact: true }),
+  ).toHaveCount(0);
+  const changed = JSON.parse(await json.inputValue()) as ContentPage;
+  expect(changed.primary_content_value.at(-1)).toMatchObject({
+    id: section.id,
+    children: [{ text_body: "A mobile observation." }],
+  });
+  const draft = JSON.stringify({ ...changed, title: "Applied on mobile" });
+  await json.fill(draft);
+  await open.click();
+  await expect(page.getByLabel("Page title", { exact: true })).toBeDisabled();
+  await close.click();
+  expect(await json.inputValue()).toBe(draft);
+  await page
+    .getByRole("button", { name: "Validate JSON", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("JSON is valid");
+  await page.getByRole("button", { name: "Apply JSON", exact: true }).click();
+  await expect(
+    preview.getByRole("heading", { name: "Applied on mobile", exact: true }),
+  ).toBeVisible();
+  await json.fill("{ invalid");
+  await page.getByRole("button", { name: "Apply JSON", exact: true }).click();
+  await expect(page.getByRole("alert")).toContainText("JSON syntax error");
+  await page.getByRole("button", { name: "Reset layout", exact: true }).click();
+  expect(await json.inputValue()).toBe("{ invalid");
+  await page
+    .getByRole("button", { name: "Reset example", exact: true })
+    .click();
+  expect(await json.inputValue()).toBe(original);
+  await open.click();
+  await page
+    .getByLabel("Heading text", { exact: true })
+    .fill("Preserved across breakpoints");
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await expect(page.locator("dialog[open]")).toHaveCount(0);
+  await expect(page.getByLabel("Heading text", { exact: true })).toHaveValue(
+    "Preserved across breakpoints",
+  );
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+  await setWorkspaceLayout(page, "side");
+  await page.setViewportSize({ width: 650, height: 844 });
+  await expect(open).toBeVisible();
+  await expect(page.locator(".output-split")).toHaveClass(/axis-y/);
+  await expect(
+    page.getByRole("separator", {
+      name: "Resize Inspect and Preview",
+      exact: true,
+    }),
+  ).not.toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(open).toHaveAttribute("aria-expanded", "false");
+  await studio.screenshot({
+    path: test.info().outputPath("mobile-output.png"),
+  });
+  await open.click();
+  await expect(page.getByLabel("Heading text", { exact: true })).toHaveValue(
+    "Preserved across breakpoints",
+  );
+  await modal.screenshot({
+    path: test.info().outputPath("mobile-compose-modal.png"),
+  });
+});
+
+test("studio background spans the viewport and minimum height stays within short screens", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const section = page.locator("#playground");
+  const bg = await section.evaluate((el) => getComputedStyle(el).boxShadow);
+  expect(bg).not.toBe("none");
+  const studio = page.locator(".playground");
+  expect((await studio.boundingBox())!.height).toBeGreaterThanOrEqual(
+    Math.min(740, page.viewportSize()!.height),
+  );
+  await expect(studio).toHaveCSS("border-top-width", "0px");
+  await page.setViewportSize({ width: 390, height: 600 });
+  await studio.scrollIntoViewIfNeeded();
+  const box = (await studio.boundingBox())!;
+  expect(box.height).toBeLessThanOrEqual(600);
+  expect(box.height).toBeGreaterThanOrEqual(599);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+  ).toBe(false);
+});
+
+test("floating site header hides down, reveals up and stays reachable by keyboard", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const header = page.locator(".site-header-shell");
+  const scrollTo = async (top: number) =>
+    page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), top);
+  await expect(header).toHaveAttribute("data-hidden", "false");
+  const initialHeight = (await header.boundingBox())!.height;
+  await scrollTo(500);
+  await expect(header).toHaveAttribute("data-hidden", "true");
+  await expect
+    .poll(async () => {
+      const box = (await header.boundingBox())!;
+      return box.y + box.height;
+    })
+    .toBeLessThanOrEqual(1);
+  await scrollTo(498);
+  await expect(header).toHaveAttribute("data-hidden", "true");
+  await scrollTo(440);
+  await expect(header).toHaveAttribute("data-hidden", "false");
+  await expect
+    .poll(async () => (await header.boundingBox())!.y)
+    .toBeCloseTo(0, 0);
+  expect((await header.boundingBox())!.height).toBe(initialHeight);
+  await expect(header).toHaveAttribute("data-floating", "true");
+  await scrollTo(650);
+  await expect(header).toHaveAttribute("data-hidden", "true");
+  await header
+    .getByRole("link", {
+      name: "TYLER TESSMANN Design engineering / Selected work",
+    })
+    .focus();
+  await expect(header).toHaveAttribute("data-hidden", "false");
+  await expect
+    .poll(async () => (await header.boundingBox())!.y)
+    .toBeCloseTo(0, 0);
+  await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+  await scrollTo(0);
+  await expect(header).toHaveAttribute("data-floating", "false");
+  await expect(header).toHaveAttribute("data-hidden", "false");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(header).toHaveCSS("transition-duration", "0s");
+});
+
+test("source previews support hover, keyboard, tap, dismissal and viewport bounds", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const triggers = page.locator(".source-reference-trigger");
+  await expect(triggers).toHaveCount(3);
+  const popup = page.getByRole("dialog", {
+    name: "Dedicated calculator behavior",
+  });
+  const trigger = triggers.nth(2);
+  await trigger.scrollIntoViewIfNeeded();
+  if (test.info().project.name !== "mobile") {
+    await trigger.hover();
+    await expect(popup).toBeVisible();
+    await popup.hover();
+    await expect(popup).toBeVisible();
+    await page.mouse.move(1, 1);
+    await expect(popup).not.toBeVisible();
+  }
+  await trigger.click();
+  await expect(popup).toBeVisible();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(popup).toContainText("Independently written illustration");
+  await expect(popup.locator("pre")).toContainText("no clinical math");
+  const box = (await popup.boundingBox())!;
+  expect(box.x).toBeGreaterThanOrEqual(15);
+  expect(box.y).toBeGreaterThanOrEqual(15);
+  expect(box.x + box.width).toBeLessThanOrEqual(
+    page.viewportSize()!.width - 15,
+  );
+  expect(box.y + box.height).toBeLessThanOrEqual(
+    page.viewportSize()!.height - 15,
+  );
+  const a11y = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(a11y.violations).toEqual([]);
+  await popup.getByRole("button", { name: "Close source preview" }).click();
+  await expect(popup).not.toBeVisible();
+  await expect(trigger).toBeFocused();
+  await trigger.blur();
+  await trigger.focus();
+  await expect(popup).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(popup).not.toBeVisible();
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await expect(popup).toBeVisible();
+  await page.locator("#tools-heading").click();
+  await expect(popup).not.toBeVisible();
+  await triggers.nth(0).click();
+  await expect(
+    page.getByRole("dialog", { name: "One collection model, two layouts" }),
+  ).toBeVisible();
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(
+    page.locator(".source-reference-popup:popover-open"),
+  ).toHaveCount(0);
 });

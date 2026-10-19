@@ -46,6 +46,35 @@ The gallery labels Apple listing imagery separately from supplied captures. Neit
 
 ## Approved original article diagram
 
-On October 19, 2026 the user explicitly answered “Yes, include the original diagram” to the question authorizing `docs/static/img/article_diagram_screenshot.png` in the deployable portfolio build. Only this documentation image is approved by that answer. The 1980 × 7240 image was copied unchanged into `public/assets/documentation/`; the original repository file was not modified. `ArticleEvidence.tsx` frames it with authored-region explanations, keyboard scrolling, a native enlarged dialog and an original-resolution link. The recreated model remains alongside it, labeled independently.
+On October 19, 2026 the user explicitly answered “Yes, include the original diagram” to the question authorizing `docs/static/img/article_diagram_screenshot.png` in the deployable portfolio build. Only this documentation image is approved by that answer. The 1980 × 7240 image was copied unchanged into `public/assets/documentation/`; the original repository file was not modified. `ArticleEvidence.tsx` shows the full-height original image alongside a recreated content model explaining authoring, native presentation and related resources. The native enlarged dialog and original-resolution link remain available. Original evidence and the recreated model are labeled independently.
 
 Approved diagram SHA-256 (same for the original and deployed copy): `ea3e017366fc3466290112b1ccc5959a1a947a4159e9106a07609d5650ec07f5`.
+
+## Editorial refinement
+
+The contributor’s final narrative brief supplies the modernization history:
+an outdated, buggy app with external-resource links; a client seeking a cohesive
+experience; CMS selection and content delivery still open when the native
+rendering approach was proposed. The performance concern was anticipated,
+not measured. Personal contributions include calculator and interactive-tool
+development alongside the content architecture; this does not establish sole
+product ownership or authorship of the clinical math.
+
+Calculator descriptions were checked directly against `CalculatorScreen.tsx`,
+all four calculator components, their `util/*_calculator.js` helpers, and
+`architecture/content/calculators.md`. The screen dispatches by calculator type.
+Dedicated components read fixed-position CMS fields, watch form inputs, call
+math helpers, and display results. The documentation identifies the math helpers
+as supplied by the website. These are distinct from the generic article bundle
+renderer. No original implementation or formulas were copied into the portfolio.
+
+## Regional navigation evidence
+
+`redux/menus/menus.selectors.ts` selects the bottom menu by the user's region
+and locale-derived language (including a DE-to-EU mapping and US fallback).
+`useTabNavigatorScreens.tsx` maps those selected records to native destinations.
+The US/Japan Favorites example in the case study is explicitly the authoring
+documentation's example, not a claim about the screenshots' country of origin.
+Section 06 reuses the existing reviewed `home.png` and `apple-home.webp` assets
+to show visible navigation differences; neither has verified region/version
+metadata. No additional internal documentation imagery was published.

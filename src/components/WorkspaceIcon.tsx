@@ -1,5 +1,12 @@
 export type WorkspaceIconName =
-  "collapse" | "expand" | "columns" | "rows" | "reset-layout" | "reset-example";
+  | "compose"
+  | "close"
+  | "collapse"
+  | "expand"
+  | "columns"
+  | "rows"
+  | "reset-layout"
+  | "reset-example";
 export function WorkspaceIcon({ name }: { name: WorkspaceIconName }) {
   return (
     <svg
@@ -14,7 +21,14 @@ export function WorkspaceIcon({ name }: { name: WorkspaceIconName }) {
       aria-hidden="true"
       focusable="false"
     >
-      {name === "reset-example" ? (
+      {name === "close" ? (
+        <path d="m6 6 12 12M18 6 6 18" />
+      ) : name === "compose" ? (
+        <>
+          <path d="m15 4 5 5M4 20l5-1L21 7a2 2 0 0 0-4-4L5 15l-1 5Z" />
+          <path d="m5 15 4 4" />
+        </>
+      ) : name === "reset-example" ? (
         <>
           <path d="M4 10a8 8 0 1 1 1 7M4 4v6h6" />
         </>
