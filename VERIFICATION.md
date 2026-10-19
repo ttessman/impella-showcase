@@ -135,3 +135,7 @@ Final checks:
 ## Navigation label styling follow-up
 
 Section headings, current reading location and dropdown destinations now share `SectionLabel`, using the existing editorial eyebrow treatment: gold number, slash, uppercase concise label and matching typography/letter spacing. Section content and builder behavior are unchanged. Type checking, linting and production build passed; all **9 reading-header browser checks** passed across desktop, tablet and mobile, including computed-style comparisons against section 01. Desktop/mobile dropdown captures were visually reviewed.
+
+## Dynamic navigation editorial reduction
+
+Replaced the large four-row regional navigation diagram with a compact three-step flow: menu records → region/language selection → supported native screens. Removed its enclosing blue panel and shortened repeated prose while retaining the documented regional example, source reference, screenshot provenance and application-code boundary. Other diagrams and the interactive builder are unchanged. Type checking, linting, production build and **15 case-study/navigation browser checks** passed across desktop, tablet and mobile, including images, console, accessibility and active-section tracking. Responsive section captures are saved with the ignored browser artifacts.

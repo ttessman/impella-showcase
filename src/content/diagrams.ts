@@ -1,6 +1,7 @@
 /** Independently recreated architecture diagrams; original evidence is labeled separately. */
 export const flowDiagrams = {
   pipeline: {
+    figureClass: "architecture-figure",
     listClass: "pipeline",
     label: "",
     steps: [
@@ -13,21 +14,19 @@ export const flowDiagrams = {
       "Independent architecture reconstruction · Based on the original content contracts and CMS renderer modules.",
   },
   navigation: {
+    figureClass: "compact-flow-figure",
     listClass: "nav-diagram",
     label: "REGIONAL MENU CONFIGURATION",
     steps: [
-      ["menus.json", "Regional menu records: title, icon, weight, destination"],
-      [
-        "Region + language selection",
-        "menus.selectors chooses the configured regional menu",
-      ],
-      ["Tab configuration", "useTabNavigatorScreens resolves destinations"],
-      ["Content routes", "Collection → Article / Checklist / Calculator"],
+      ["Menu records", "Labels, icons, order and destinations"],
+      ["Region + language", "Select the configured menu"],
+      ["Native screens", "Resolve supported routes into tabs"],
     ],
     caption:
-      "Recreated from architecture/menus.md, navigation.md, menus.selectors.ts and useTabNavigatorScreens.tsx. Application-owned routes remain part of the app.",
+      "Configuration changes the menu; new route types and native behavior still require application code.",
   },
   checklist: {
+    figureClass: "anatomy-figure",
     listClass: "checklist-diagram",
     label: "CHECKLIST / STRUCTURED INTERACTION",
     steps: [

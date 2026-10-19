@@ -133,9 +133,9 @@ export const caseStudyCopy = {
   },
   navigation: {
     regionalMenus:
-      "Authors could configure different destinations for different regions. The original documentation gives an example: Favorites could be a tab in the US, while Japan could keep it accessible from Home. The menu selector uses the user’s region and language; the app then maps the selected records to native screens.",
+      "The documentation gives a concrete example: Favorites could be a tab in the US, while Japan could keep it accessible from Home. Authors could configure those regional differences.",
     landingScreens:
-      "Home had its own configuration: collection tiles, featured content and role or specialty targeting. Together, these systems supported different entry points into shared resources. New route types and native behavior still required application code.",
+      "Home had its own configuration for collection tiles, featured content and role or specialty targeting—different entry points into the same shared resources.",
     evidenceNote:
       "These captures show different navigation layouts. Their regions and versions are unverified, so they illustrate the product’s range rather than a confirmed US/Japan comparison. Regional menu selection is verified in the source; the images do not establish how later changes were deployed.",
   },

@@ -10,9 +10,7 @@ export function Diagram({ kind }: { kind: DiagramKind }) {
   if (kind === "collections") return <CollectionLayouts />;
   const definition = flowDiagrams[kind];
   return (
-    <figure
-      className={kind === "pipeline" ? "architecture-figure" : "anatomy-figure"}
-    >
+    <figure className={definition.figureClass}>
       {definition.label && (
         <div className="diagram-label">{definition.label}</div>
       )}

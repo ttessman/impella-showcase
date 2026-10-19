@@ -83,6 +83,9 @@ test("responsive layout, images, console and accessible controls", async ({
   await page
     .getByRole("button", { name: "Reset example", exact: false })
     .click();
+  await page.locator("#navigation").screenshot({
+    path: info.outputPath("dynamic-navigation.png"),
+  });
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
     path: `test-results/${info.project.name}-page.png`,
