@@ -8,4 +8,5 @@ export type SourceReferenceData = {
   summary: string;
   files: readonly SourceFileIllustration[];
   initialFile?: string;
+  disclaimer: string;
 };

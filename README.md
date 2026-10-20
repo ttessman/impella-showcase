@@ -16,6 +16,7 @@ Open the local URL printed by Vite. Dependencies are locked: React 19.3.1, Vite 
 ```sh
 npm run typecheck
 npm run lint
+npm run verify:cms
 npm run build
 npm run preview
 npm test
@@ -26,17 +27,17 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 ## Structure
 
 - `src/app/App.tsx`: the application shell and shared providers.
-- `src/content/`: section definitions, editorial copy, diagram models, evidence metadata, source illustrations and fictional studio assets/examples.
-- `src/features/CaseStudy/`: the narrative composition and its contextual navigation.
+- `src/content/pages/impella.json`: the complete authored case study, composition, variants, evidence, source illustrations and checklist definition. `src/content/pageDocument.ts` validates and indexes it; the remaining content modules supply the specialized studio example.
+- `src/features/CaseStudy/`: the document entry point and build-time metadata exports. Shared reading navigation lives beside ReadingHeader.
 - `src/features/ContentStudio/ContentStudio.tsx`: composes named toolbar, composer, inspector, preview and feedback slots.
 - `src/features/ContentStudio/hooks/`: content editing, JSON draft lifecycle, workspace layout and dragging.
 - `src/features/ContentStudio/model/`: validation, block definitions/factories, immutable tree operations and layout defaults.
 - `src/types/`: shared content, editorial and source-reference contracts.
-- `src/components/CMS/`: ordered ContentView, typed BundleRender dispatch and individual block renderers.
-- `src/components/layout/`: reading header, section frame, footer and resizable split.
+- `src/components/CMS/`: recursive ContentView, typed BundleRender registry, document validation/indexing and generic component adapters.
+- `src/components/layout/`: shared reading header/navigation and resizable split. Document layout adapters and their styles live under CMS.
 - `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
 - `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
-- `src/components/media/`: evidence views and one shared image dialog.
+- `src/components/media/`: shared evidence screenshot and image dialog primitives.
 - `src/components/forms/Checklist/`: definition-driven grouped options, live rule evaluation and fictional result presentation.
 - `src/components/source/`: source-specific content composed into the shared popover.
 - `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
@@ -71,7 +72,7 @@ Source references use a reusable Radix preview popover: hover/focus to inspect, 
 ## Evidence and publishing boundary
 
 - **Original evidence:** safe production screenshots already supplied in v4 and user-provided Apple listing screenshots; source paths and descriptive technical summaries verified against the original repository; contributor-provided responsibilities.
-- **Independent reconstruction:** all new portfolio code, diagrams and the fictional field-journal playground. Diagrams in `Diagram.tsx` recreate the original article, collection, navigation and checklist concepts as accessible HTML/CSS; they are readable responsive content, not embedded screenshots.
+- **Independent reconstruction:** all new portfolio code, diagrams and the fictional field-journal playground. Composed figure/grid/list nodes recreate the original article, collection, navigation and checklist concepts as accessible HTML/CSS; they are readable responsive content, not embedded screenshots.
 - **Original documentation:** `article_diagram_screenshot.png` is included unchanged with explicit user authorization on October 19, 2026, and labeled as an original artifact. It appears at full height alongside the recreated article content model, with an enlarged dialog and original-resolution link. Other internal Drupal/documentation images remain outside public output pending permission. A supplied article/media screenshot with a presenter's name is excluded rather than published unredacted.
 - **Product scope:** later releases, all clinical content and individual tools are not claimed as solely the contributor's work. No performance, adoption or clinical-outcome metric is invented. Supplied screenshot dates/versions are unverified.
 - **Public context:** [Apple App Store](https://apps.apple.com/us/app/impella-app/id991345042) and [Google Play](https://play.google.com/store/apps/details?id=com.abiomed.impella&hl=en_US), reviewed October 19, 2026. These listings describe the wider app; they do not prove authorship or release-free changes. No remote store images are required at runtime.
@@ -107,7 +108,7 @@ The approach follows [Google’s JavaScript SEO guidance](https://developers.goo
 
 Tool evidence uses a reusable Card with header, content and footer slots. Headers carry the tint; compact source triggers stay in plain footers. The section introduction explains purpose and shared foundations without a separate summary subsection.
 
-“Try a checklist” opens the shared accessible Dialog from the checklist card. `content/checklistExample.json` contains all example copy, modal labels, accordion groups, question labels/options and ordered AND/OR outcomes. A thin TypeScript adapter checks the operator boundary; the rest of its imported shape is checked against `ChecklistDefinition`. The generic Checklist renderer receives definition and state; useChecklist owns selections and reset state. Neither contains creative prompts or option-specific branches. Each change immediately re-evaluates the rules. Single choices, pairs, triples and the full kit have distinct prompts; the first matching rule wins. A fallback handles an unmatched selection. The initial empty state and Start over are also defined by the data. Checking options preserves keyboard focus; the live result is announced politely. Start over sits beside Close as a reusable icon button in the modal toolbar. Closing the modal resets the example on reopening.
+“Try a checklist” opens the shared accessible Dialog from the checklist card. The checklist node in `content/pages/impella.json` contains all example copy, modal labels, accordion groups, question labels/options and ordered AND/OR outcomes. The document validator checks its shape and references; a TypeScript adapter supplies the existing checklist controller. The generic Checklist renderer receives definition and state; useChecklist owns selections and reset state. Neither contains creative prompts or option-specific branches. Each change immediately re-evaluates the rules. Single choices, pairs, triples and the full kit have distinct prompts; the first matching rule wins. A fallback handles an unmatched selection. The initial empty state and Start over are also defined by the data. Checking options preserves keyboard focus; the live result is announced politely. Start over sits beside Close as a reusable icon button in the modal toolbar. Closing the modal resets the example on reopening.
 
 The JSON format and creative prompts are independently authored, nonclinical portfolio material. The example exposes conditional results as live feedback; the historical account continues to describe the original submit-triggered workflow verified in the private repository. It does not change the content studio.
 
@@ -117,4 +118,18 @@ Source references open a compact code preview with file tabs. Each file definiti
 
 The Dialog contract exposes `header`, right-aligned `actions`, scrollable `body`, and optional `footer` slots. Standard and workspace variants share focus containment, Escape dismissal, background locking and opener focus restoration. Compose uses workspace sizing; checklist, images and the reading view use the standard frame. IconButton extends the shared Button with an accessible label, tooltip and explicit overlay Escape action. Card similarly supports optional header/content/footer slots and outlined/tinted variants; navigation evidence reuses the tinted headerless form.
 
-Footer attribution comes before the blue product-history band. Read case-study summary opens a shared reading modal populated from existing editorial definitions and ownership copy. Print / Save as PDF uses the browser print dialog and a document-only print stylesheet. Download plain text preserves the generated companion route; without JavaScript, the footer link opens that text directly.
+Footer attribution comes before the blue product-history band. Read case-study summary opens a shared reading modal populated from the same authored document and ownership metadata. Print / Save as PDF uses the browser print dialog and a document-only print stylesheet. Download plain text preserves the generated companion route; without JavaScript, the footer link opens that text directly.
+
+## Full-page CMS contract
+
+The case study now renders from JSON through the same ContentView / BundleRender
+used by the studio preview. Nodes contain only `id`, `bundle`, `metadata`, and
+`content`; the page root declares the schema version once. Variants live in
+metadata. Header/footer placement is determined by the owning frame, while normal
+content retains array order. Interactive bundles own shared modals and portals
+internally rather than exposing that scaffolding to authors.
+
+Section numbering, navigation, the reading summary, full text companion and search
+metadata derive from the document. The existing studio draft format remains behind
+an explicit adapter with its original validation limits and editor behavior.
+See [ARCHITECTURE.md](ARCHITECTURE.md) and [docs/CMS-MIGRATION.md](docs/CMS-MIGRATION.md).

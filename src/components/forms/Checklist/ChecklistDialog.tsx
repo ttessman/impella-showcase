@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { Button } from "../../actions/Button/Button";
 import { IconButton } from "../../actions/IconButton/IconButton";
@@ -11,8 +12,10 @@ import { Checklist } from "./Checklist";
 /** Reuses the shared modal shell around any checklist definition. */
 export function ChecklistDialog({
   definition,
+  renderOutcome,
 }: {
   definition: ChecklistDefinition;
+  renderOutcome?: (id: string | null) => ReactNode;
 }) {
   const [open, onOpenChange] = useState(false);
   const ready = useClientReady();
@@ -64,6 +67,7 @@ export function ChecklistDialog({
               key={checklist.resetKey}
               definition={definition}
               state={checklist}
+              renderOutcome={renderOutcome}
             />
           ),
         }}

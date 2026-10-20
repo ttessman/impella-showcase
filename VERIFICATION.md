@@ -209,3 +209,31 @@ The final modal contract now owns the visible frame as well as Radix behavior: h
 The footer now places attribution above the full-bleed history band. Its reading link opens a summary modal from the same section and ownership definitions; the text route remains a download/no-JavaScript fallback. A print-only document layout supports the browser’s Save as PDF function. Browser tests generate a real PDF artifact and verify its signature, document visibility, hidden navigation and toolbar, download target, Escape and focus restoration. No prebuilt PDF service or dependency is required.
 
 Final verification: type checking (included in build), lint, formatting, production build and diff checks pass. Full production Chrome suite: **80 passed, 7 expected skips across desktop, tablet and mobile**. Scenarios cover all 16 checklist selection sets, reset/reopen behavior, modal frame regions, scroll locking, keyboard focus and dismissal, source tab row/active-tab scrolling, fixed popup geometry, centered close SVG, image loads, console output, accessibility and the existing complete editor flows. Compose, checklist, source and reading screenshots were visually reviewed. Private production source and historical assets remain unchanged. Changes are committed locally only; no push or deployment.
+
+## Recursive full-page CMS migration — October 20, 2026
+
+Implemented the approved four-key node contract (`id`, `bundle`, `metadata`,
+`content`), with a root-only version and per-bundle validation. The complete page
+is now authored in `src/content/pages/impella.json`. All 11 sections, layout
+variants, media, independent source illustrations and checklist content render
+through the shared ContentView / BundleRender registry. Shared modal/portal
+implementation stays internal to capability components. Navigation, numbering,
+metadata and readable exports derive from the document.
+
+Removed superseded project compositions/content copies and colocated reusable
+presentation rules with CMS adapters. Studio editing retains its existing
+bounded contract and controller through a preview adapter; outcomes in the
+checklist also return to ContentView. A synthetic second page verifies reuse.
+
+TypeScript, lint, production prerender/build, formatting and diff checks pass.
+`npm run verify:cms` checks 480 nodes, all media paths, the second document,
+section reorder/rename, frame placement, 17 invalid-document cases and 16
+checklist combinations. Full production Chrome suite: **80 passed, 7 expected
+skips in 35 seconds**, across desktop/tablet/mobile. Desktop cards/source popup
+and mobile checklist captures were visually reviewed. One drag test now waits
+for stable geometry before measuring coordinates; six targeted repetitions and
+the complete suite pass without changing the editor drag controller.
+
+See `docs/CMS-MIGRATION.md` and `ARCHITECTURE.md` for the implemented boundary.
+No dependencies, original production files or evidence images changed. No push
+or deployment was performed.

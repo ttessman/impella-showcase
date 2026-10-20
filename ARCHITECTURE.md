@@ -1,139 +1,101 @@
 # Portfolio architecture
 
-The code follows the case study's architectural intent: content definitions and
-contracts describe what is possible; reusable renderers and layouts own how it
-appears; feature composition connects those pieces to interaction state.
+The portfolio uses the same recursive renderer for a complete case-study document
+and the Content Studio preview. Content describes intent; registered adapters and
+shared React primitives own presentation and interaction.
 
-## Responsibility and dependency direction
+## Document contract
 
-| Layer                       | Responsibility                                                   | Examples                                                     |
-| --------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------ |
-| Application                 | Assemble providers and product features                          | `app/App.tsx`                                                |
-| Content                     | Author narrative, evidence and illustrative definitions          | `content/caseStudy.ts`, `diagrams.ts`, `sourceExamples.ts`   |
-| Contracts                   | Describe shared content and editorial shapes                     | `types/content.ts`, `caseStudy.ts`, `sourceReference.ts`     |
-| Feature composition         | Declare the experience and its slots                             | `CaseStudyPage`, `ContentStudio`                             |
-| Feature hooks/models        | Own editor state, commands, validation and tree operations       | `useContentEditor`, `useWorkspaceLayout`, `parseContentPage` |
-| Shared renderers/primitives | Render content and handle presentation/interaction mechanics     | `CMS`, `Dialog`, `PreviewPopover`, `ResizableSplit`          |
-| Browser hooks               | Measure elements, observe reading position and manage disclosure | `useElementSize`, `useReadingPosition`, `usePreviewPopover`  |
+Every node contains exactly `id`, `bundle`, `metadata`, and `content`.
+`types/cms.ts` defines a discriminated union with metadata/content types per bundle.
+Only a page root declares `metadata.schema_version: 1`. Descendants inherit it.
+IDs are stable document identities; bundles select registered components. Metadata
+contains supported props and visual variants, never arbitrary CSS or JavaScript.
+Content is ordered children, escaped leaf text, or null for checklist rules.
 
-Shared components do not import feature state. Features pass content, definitions,
-slots and runtime callbacks into them. Content modules can import shared types,
-but do not depend on rendering implementations. Component prop types stay with
-the component; shared domain contracts live under `types/`.
+`content/pages/impella.json` is the authored page. `content/pageDocument.ts` validates
+it once and builds its index. `CaseStudyPage` selects that document; `App` supplies
+the shared tooltip provider. Neither composes project-specific section markup.
 
-## Slots and state
+## Rendering pipeline
 
-`ContentStudio` declares toolbar, compose, inspect, preview and feedback slots.
-`ContentStudioLayout` and `StudioWorkspace` own placement, resizing, collapsing
-and mobile modal presentation. They receive a layout controller; they do not
-implement content mutations or JSON validation.
+1. `CMS/model/validateDocument.ts` checks envelope, root version, bundle metadata,
+   content shapes, IDs, placement, URLs, media paths and referenced targets.
+2. `CMS/model/document.ts` walks the tree and derives sections, numbering, titles
+   and anchor lookup. Nested sections own their headings independently.
+3. `DocumentRenderer` provides this index to the subtree.
+4. `ContentView` renders ordered children; `BundleRender` dispatches through a
+   TypeScript-checked registry.
+5. `CMS/adapters/` maps authored nodes into shared React components. Normal nested
+   content returns to ContentView. Component-family CSS is colocated here.
 
-`useContentEditor` owns the last valid page, selection, destination and JSON draft.
-Its commands validate mutations before applying them. A pending JSON draft locks
-visual mutations until applied or discarded. Stable IDs and immutable tree
-operations preserve nested content through moves and deletion.
+Array order is the default. Page/card/section/hero frames recognize direct header
+and footer bundles and place them predictably. Heading is a distinct text bundle.
+Card variants such as outlined, tinted and source-summary share a bundle. Group,
+grid, figure, list, text and media variants are explicitly allowlisted in
+`CMS/model/variants.ts`; there is no authored region or slot configuration.
 
-`Dialog` exposes header/actions/body/footer slots and delegates modality, focus containment
-and dismissal to Radix. `ImageDialog` supplies the image-viewing composition used
-by both product screenshots and the original article diagram. Mobile Compose
-uses the workspace variant of the same dialog frame. The standard variant is used by checklist, reader and image views. The frame owns a fixed header with right-aligned actions, a keyboard-focusable scrolling body and an optional fixed footer. Features supply slot content and size constraints rather than recreating the frame. Escape first cancels an active drag, then dismisses
-the dialog on a subsequent press.
+Document limits are 512 KiB serialized JSON, 1,000 nodes, depth 20 and 20,000
+characters per string. Unknown properties, versions and bundles fail with a path.
+Bundled media must use safe local asset paths. The approved original documentation
+image remains explicitly marked; no new internal image is authorized by this model.
 
-`SourceReference` supplies trigger/body/footer content to `PreviewPopover`.
-Radix handles anchoring, viewport collision and outside dismissal; the shared
-`usePreviewPopover` hook adds hover/focus inspection and click/tap pinning.
-`Button` supports Radix Slot's `asChild` composition. Named layout slots remain
-explicit typed React nodes; Radix Slot handles element-level composition.
+## Interaction boundary
 
-## Content rendering
+Source references, checklist and content studio expose capabilities to authors.
+They internally reuse PreviewPopover, Dialog, Button/IconButton, ImageDialog and
+other shared primitives. Generic modal and portal scaffolding is not exposed as
+CMS bundles. Radix retains mounting, focus, dismissal and scroll-lock behavior.
 
-`ContentView` iterates authored blocks in order. `BundleRender` dispatches the
-bundle discriminator to Heading, Text, Media, Section or References components.
-Sections recurse through `ContentView`. Each leaf receives a narrowed block type.
-Unsupported runtime bundles receive a safe fallback; untrusted JSON must pass
-`parseContentPage` before becoming editor state. Strings render through React,
-without injected HTML.
+Source-reference children are code nodes with path/context metadata. The existing
+code-first tabs, bounded longest-file canvas, tooltips and leading caret are shared.
+Checklist groups/questions/options/rules/outcomes repeat the same node envelope.
+These are owned data structures interpreted by the checklist adapter, rather than
+independent page controls. An adapter builds the existing controller definition;
+active outcome content returns to ContentView for rendering. Rules remain ordered,
+first-match AND/OR conditions. All copy is authored, and updates remain live.
 
-The rendering vocabulary follows the original project where useful. This is an
-independently written web demonstration: generic sections, local image records,
-heading levels and stricter validation are portfolio extensions.
+The specialized Content Studio application owns its editor, JSON drafts, drag/drop,
+resizable panes and responsive Compose dialog. Its surrounding section and readable
+server fallback are ordinary document content.
 
-## Editorial composition and navigation
+## Studio compatibility
 
-`content/caseStudy.ts` owns section IDs, numbers, labels, headings and copy.
-`CaseStudyPage` composes the narrative using those definitions. `CaseStudyNavigation`
-uses that same catalog for context and the section dropdown. It adds no duplicate
-numbering or section titles. The shared `ReadingHeader` exposes identity, context
-and action slots and retains scroll-direction visibility.
+The studio deliberately retains its bounded educational editing format:
+`title` / `primary_content_value`, original field vocabulary and `demo_section`.
+`CMS/model/studioAdapter.ts` converts its validated blocks to the shared node
+contract before preview rendering. Derived preview IDs are namespaced. This is an
+explicit compatibility boundary, not a second renderer or a silent draft migration.
 
-`useReadingPosition` observes a narrow section activation band below the measured
-header. Document progress is updated at most once per animation frame. The global
-scroll offset follows the header's measured height. Radix handles the section
-popover's dismissal and focus; focus restoration uses `preventScroll` to preserve
-the selected destination.
+`types/content.ts`, `parseContentPage`, editor fields/factories and tree operations
+continue to enforce the studio's 100 KB / 100 blocks / five section-level limits.
+The page schema is not exposed wholesale in the editor. Existing citations remain
+safe numeric superscripts and manually aligned ordered references.
 
-## Styling
+## Navigation and readable output
 
-Tokens and document-wide typography/focus foundations live in `styles/`.
-Presentation rules live beside their owning components and features, including
-separate composer, inspector, mobile preview, workspace and toolbar styles.
-`styles/index.css` is an explicit import manifest with predictable cascade order.
-Class-scoped CSS preserves the existing rendering and accessibility selectors.
-No new styling framework or global component theme was introduced.
+ReadingNavigation receives identity and actions from page data. Its section catalog
+is derived from section nodes in document order, using authored labels and actual
+headings. IDs remain stable when copy changes. ReadingHeader and the existing hooks
+retain measured offsets, direction thresholds, progress and reduced-motion support.
 
-## Extending the application
+The reader summary, full plain-text companion, metadata, structured ownership and
+agent index derive from the same document. Prerender produces initial readable HTML;
+React hydrates it, and the studio mounts afterward. Canonical URLs still require an
+explicit deployment address. No public address has been invented.
 
-- **A supported content type:** extend `types/content.ts`, add its label to
-  `blockDefinitions`, defaults to `blockFactory`, runtime validation to
-  `parseContentPage`, a leaf under `components/CMS/blocks`, a dispatcher case,
-  and its authoring fields. Verify draft application, nesting rules and preview.
-- **An evidence image:** add the reviewed local asset and metadata in
-  `content/evidence.ts`; use the shared media/image-viewing components.
-- **A source preview:** add paths, summary and independently written example in
-  `content/sourceExamples.ts`, then compose `SourceReference` at the relevant
-  section. Original proprietary implementation remains outside this repository.
-- **A case-study section:** add its definition/copy, compose it in `CaseStudyPage`
-  and keep the exported catalog in page order. Navigation consumes the same catalog.
-- **A shared interaction:** place behavior in a focused browser hook or Radix
-  wrapper; provide slots rather than duplicating feature-specific markup.
+## Extending and verifying
 
-## Verification
+To author another case study, supply a validated page document using existing
+bundles/variants. To add a capability, extend the node union, metadata validator and
+registry, then add a generic adapter. Do not create a project-named bundle for a
+layout that can be composed from existing groups, cards, figures and lists.
 
-Run `npm ci`, `npm run typecheck`, `npm run lint`, `npm run build`, then `npm test`.
-Playwright checks the production build in desktop, tablet and mobile Chrome.
-The suite covers editor commands, malformed JSON, recursion and moves, touch and
-keyboard dragging, responsive layouts, modal/popover focus, contextual navigation,
-images, console errors and axe accessibility checks.
+`tests/fixtures/second-case-study.json` renders without Impella-specific components,
+copy, assets or studio. `npm run verify:cms` verifies that rendering, navigation
+reordering/renaming, frame placement, asset existence, rejection cases and checklist
+combinations. `npm run build` checks TypeScript and prerenders; `npm run lint` checks
+code. `npm test` runs production-build Chrome interaction/accessibility scenarios
+across desktop, tablet and mobile.
 
-The original production source remains read-only outside `portfolio/`. This
-repository contains neither that implementation nor its credentials or history.
-
-## Inline citations
-
-`TextBlockFields` inserts numeric `<sup>` markers at the textarea selection into the existing `text_body` string contract. Shared `CitedText` recognizes only numeric superscripts and creates React elements; arbitrary HTML remains escaped. The original app rendered richer HTML fragments through its native HTML renderer; this portfolio supports only the citation convention. Source order and inline numbers remain author-managed, with no automatic citation linking or renumbering.
-
-## Narrative and public evidence
-
-Reading order is overview → architectural decision → content studio → implementation → original documentation → collections/navigation → interactive tools → production → impact/evidence → reflection. `sectionDefinitions` follows that order and supplies the numbering/labels used by both page sections and the contextual navigation. Anchor IDs remain stable. The studio is relocated as an intact feature; its model, hooks and renderers are unchanged by the narrative revision.
-
-`content/publicEvidence.ts` stores linked external product facts separately from individual contribution statements and private-repository summaries. `PublicEvidence` renders that compact list through the footer’s evidence slot, with three columns on desktop and stacked items on mobile. Research dates and omissions are documented in `PUBLIC_RESEARCH.md`; externally reported product facts do not become individual performance metrics.
-
-## Build-time reading and hydration
-
-`src/entry-server.ts` renders the same App tree through React DOM Server. `scripts/prerender.mjs` uses Vite’s existing module loader with HTTP middleware mode and WebSockets disabled, then writes the initial HTML and reader companions. No server, browser automation dependency or proprietary reference repository is needed at deployment/build time. All content is local portfolio data.
-
-`StudioIsland` exposes a fixed server/hydration snapshot through `useSyncExternalStore`, then mounts the existing browser-only ContentStudio. This boundary prevents server execution of window-dependent editor hooks while preserving matching hydration markup. The editing model, JSON validation, dragging and renderer are unchanged. The narrative stays visible with JavaScript disabled; interactive controls require JavaScript.
-
-`content/siteIdentity.ts` derives personal role/team text from the same editorial copy and supplies explicit attribution boundaries. `features/CaseStudy/metadata/buildMetadata.ts` creates escaped metadata, JSON-LD and the plain-text outline. Canonical and sitemap fields require an explicit validated SITE_URL. Case-study authorship is modeled separately from Abiomed’s product and the independently written demo.
-
-Tools use `content/toolExperiences.ts` to compose reviewed screenshots, short captions and expandable flow details and compact source references through one reusable EvidenceScreenshot component. The footer places the compact public-evidence slot before attribution, on a blue surface spanning the viewport while preserving the content column.
-
-## Definition-driven cards, checklist and source preview
-
-`components/card/Card` owns the header, content and optional footer regions through named ReactNode slots. Tool definitions compose the shared frame, evidence renderer, disclosure and source footer. CSS Grid stretch and a flexible card content region keep neighboring cards and footer edges aligned. Site-footer styles are scoped independently from article footers.
-
-`content/checklistExample.json` owns every example label, grouped question, option and conditional outcome, including modal copy. `content/checklistExample.ts` adapts the JSON to `types/checklist.ts` with an operator check and compile-time shape checking. The independently written checklistModel evaluates the first matching AND/OR condition or fallback. `useChecklist` owns selected IDs, reset generation and a derived live result; Checklist renders the supplied definition and state. ChecklistDialog connects the controller to shared toolbar reset/close icons and the existing Radix Dialog shell; the generic form remains usable outside a modal. `useClientReady` provides the shared server/client snapshot used by both the modal trigger and StudioIsland.
-
-`SourceReference` composes the reusable PreviewPopover. `SourceCodePreview` renders typed file definitions containing path, context and independent illustration. It owns file selection, roving keyboard focus, horizontal tab scrolling and code scrolling. Content lives in sourceExamples.ts; initialFile can select the most useful implementation rather than its entry point. Tooltip handles hover/focus context and an inline disclosure supports touch. The shared IconButton extends Button with a tooltip and accessible label; its styles live beside the component. Popover close controls reuse that centered icon treatment. No private source links are fabricated.
-
-The footer receives reader and public-evidence slots from App. Attribution precedes the colored evidence band. CaseStudyReader composes Dialog and the definition-driven Document renderer from the same section/ownership data. Its print stylesheet exports only the reading document through the browser’s Print / Save as PDF flow; no prebuilt PDF or external rendering service is required. The plain-text route remains directly available with a no-JavaScript fallback.
+See [the migration plan](docs/CMS-MIGRATION.md) for scope and completion evidence.

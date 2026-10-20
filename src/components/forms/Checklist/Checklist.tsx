@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useId } from "react";
 import type { ChecklistState } from "../../../hooks/useChecklist";
 import { useClientReady } from "../../../hooks/useClientReady";
@@ -7,9 +8,11 @@ import type { ChecklistDefinition } from "../../../types/checklist";
 export function Checklist({
   definition,
   state,
+  renderOutcome,
 }: {
   definition: ChecklistDefinition;
   state: ChecklistState;
+  renderOutcome?: (id: string | null) => ReactNode;
 }) {
   const id = useId();
   const ready = useClientReady();
@@ -64,10 +67,18 @@ export function Checklist({
               : definition.emptyResultLabel}
           </p>
           <div aria-live="polite" aria-atomic="true">
-            <h4>{state.result?.title ?? definition.emptyTitle}</h4>
-            <p>{state.result?.body ?? definition.emptyBody}</p>
-            {state.result && (
-              <p className="checklist-rule-note">{state.result.explanation}</p>
+            {renderOutcome ? (
+              renderOutcome(state.result?.id ?? null)
+            ) : (
+              <>
+                <h4>{state.result?.title ?? definition.emptyTitle}</h4>
+                <p>{state.result?.body ?? definition.emptyBody}</p>
+                {state.result && (
+                  <p className="checklist-rule-note">
+                    {state.result.explanation}
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>

@@ -33,10 +33,7 @@ export function SourceReference({ source }: { source: SourceReferenceData }) {
           ),
           body: <SourceCodePreview source={source} />,
           footer: (
-            <p className="source-reference-disclaimer">
-              Independently written illustration · Not original Impella source
-              code.
-            </p>
+            <p className="source-reference-disclaimer">{source.disclaimer}</p>
           ),
         }}
       />

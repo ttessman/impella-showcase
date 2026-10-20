@@ -10,7 +10,8 @@
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "test": "playwright test",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "verify:cms": "node scripts/verify-cms.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.3.1",

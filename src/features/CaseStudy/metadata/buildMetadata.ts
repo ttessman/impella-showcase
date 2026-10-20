@@ -1,6 +1,9 @@
-import { siteIdentity } from "../../../content/siteIdentity";
-import { caseStudySections } from "../../../content/caseStudy";
-import { storeLinks } from "../../../content/evidence";
+import { pageIndex } from "../../../content/pageDocument";
+import {
+  documentText,
+  publicLinks,
+} from "../../../components/CMS/model/reader";
+import type { DocumentIndex } from "../../../components/CMS/model/document";
 
 const escapeHtml = (value: string) =>
   value.replace(
@@ -29,8 +32,11 @@ export function resolveSiteUrl(value?: string) {
   return url.href;
 }
 
-export function buildMetadata(siteUrl?: string) {
-  const profile = siteIdentity;
+export function buildMetadata(
+  siteUrl?: string,
+  index: DocumentIndex = pageIndex,
+) {
+  const profile = index.page.metadata.identity;
   const work = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -42,10 +48,17 @@ export function buildMetadata(siteUrl?: string) {
     abstract: `${profile.role} ${profile.team} ${profile.boundaries} ${profile.reconstruction}`,
     about: {
       "@type": "SoftwareApplication",
-      name: "Impella",
-      publisher: { "@type": "Organization", name: "Abiomed" },
+      name: index.page.metadata.subject?.name ?? index.page.metadata.title,
+      ...(index.page.metadata.subject?.publisher
+        ? {
+            publisher: {
+              "@type": "Organization",
+              name: index.page.metadata.subject.publisher,
+            },
+          }
+        : {}),
     },
-    citation: [storeLinks.apple, storeLinks.google],
+    citation: publicLinks(index),
     ...(siteUrl ? { url: siteUrl } : {}),
   };
   return [
@@ -72,7 +85,9 @@ export function buildMetadata(siteUrl?: string) {
   ].join("\n");
 }
 
-export function buildReaderText() {
+export function buildReaderText(index: DocumentIndex = pageIndex) {
+  const siteIdentity = index.page.metadata.identity;
+  const caseStudySections = index.sections;
   return (
     [
       `# ${siteIdentity.title}`,
@@ -89,9 +104,25 @@ export function buildReaderText() {
           `${section.number} / ${section.label}\n${section.title}\n${"intro" in section ? section.intro : ""}`,
       ),
       "## Public product evidence",
-      storeLinks.apple,
-      storeLinks.google,
+      ...publicLinks(index),
       "Store records describe the broader product and do not prove individual authorship, measured impact or unchanged production code.",
+      "## Full narrative",
+      documentText(index),
     ].join("\n\n") + "\n"
   );
+}
+
+export function buildAgentIndex(index: DocumentIndex = pageIndex) {
+  const profile = index.page.metadata.identity;
+  return `# ${profile.title}
+
+Author: ${profile.author}
+
+${profile.description}
+
+- [Case study](./): narrative, architecture and evidence.
+- [Plain-text case study](./case-study.txt): contribution, boundaries and full narrative.
+
+${profile.reconstruction}
+`;
 }

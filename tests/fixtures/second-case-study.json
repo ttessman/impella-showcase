@@ -1,0 +1,155 @@
+{
+  "id": "field-notes",
+  "bundle": "page",
+  "metadata": {
+    "schema_version": 1,
+    "title": "Field notes / A synthetic reuse fixture",
+    "identity": {
+      "title": "Field notes fixture",
+      "description": "Synthetic content for verifying the reusable renderer.",
+      "author": "Example author",
+      "role": "This is test content.",
+      "team": "No product ownership is asserted.",
+      "boundaries": "Synthetic fixture only.",
+      "reconstruction": "Independently authored demonstration."
+    },
+    "navigation": {
+      "overview": { "label": "Start", "target_id": "first-section" },
+      "sections_label": "Contents"
+    },
+    "skip_label": "Skip to field notes"
+  },
+  "content": [
+    {
+      "id": "notes-navigation",
+      "bundle": "reading_header",
+      "metadata": {},
+      "content": "FIELD NOTES"
+    },
+    {
+      "id": "notes-main",
+      "bundle": "group",
+      "metadata": { "element": "main" },
+      "content": [
+        {
+          "id": "first-section",
+          "bundle": "section",
+          "metadata": { "label": "The question", "navigation": true },
+          "content": [
+            {
+              "id": "first-header",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "first-title",
+                  "bundle": "heading",
+                  "metadata": { "level": 2 },
+                  "content": "A different project, the same renderer."
+                }
+              ]
+            },
+            {
+              "id": "notes-grid",
+              "bundle": "grid",
+              "metadata": { "variant": "two-column" },
+              "content": [
+                {
+                  "id": "notes-card",
+                  "bundle": "card",
+                  "metadata": { "variant": "outlined" },
+                  "content": [
+                    {
+                      "id": "card-foot",
+                      "bundle": "footer",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "card-foot-copy",
+                          "bundle": "text_block",
+                          "metadata": {},
+                          "content": "Footer remains last despite its authored position."
+                        }
+                      ]
+                    },
+                    {
+                      "id": "card-body",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Ordered body content."
+                    },
+                    {
+                      "id": "card-head",
+                      "bundle": "header",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "card-heading",
+                          "bundle": "heading",
+                          "metadata": { "level": 3 },
+                          "content": "Shared frame"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "notes-alt-card",
+                  "bundle": "card",
+                  "metadata": { "variant": "tinted" },
+                  "content": [
+                    {
+                      "id": "notes-alt-copy",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "A headerless variant."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "second-section",
+          "bundle": "section",
+          "metadata": { "label": "The answer", "navigation": true },
+          "content": [
+            {
+              "id": "second-header",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "second-title",
+                  "bundle": "heading",
+                  "metadata": { "level": 2 },
+                  "content": "Sections determine their navigation."
+                }
+              ]
+            },
+            {
+              "id": "second-copy",
+              "bundle": "text_block",
+              "metadata": {},
+              "content": "No specialized content studio is required."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notes-footer",
+      "bundle": "footer",
+      "metadata": { "variant": "site" },
+      "content": [
+        {
+          "id": "notes-footer-copy",
+          "bundle": "text_block",
+          "metadata": {},
+          "content": "Synthetic footer."
+        }
+      ]
+    }
+  ]
+}

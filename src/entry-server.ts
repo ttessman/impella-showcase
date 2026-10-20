@@ -3,6 +3,7 @@ import { renderToString } from "react-dom/server";
 import App from "./app/App";
 export {
   buildMetadata,
+  buildAgentIndex,
   buildReaderText,
   resolveSiteUrl,
 } from "./features/CaseStudy/metadata/buildMetadata";

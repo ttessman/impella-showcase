@@ -256,6 +256,8 @@ test("drop a block directly inside an empty section", async ({ page }) => {
       behavior: "instant",
     }),
   );
+  // Wait for layout/scroll stability before measuring pointer coordinates.
+  await grip.scrollIntoViewIfNeeded();
   const from = (await grip.boundingBox())!;
   await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
   await page.mouse.down();
@@ -267,6 +269,7 @@ test("drop a block directly inside an empty section", async ({ page }) => {
   await target.evaluate((el) =>
     el.scrollIntoView({ block: "center", behavior: "instant" }),
   );
+  await target.scrollIntoViewIfNeeded();
   const bounds = (await target.boundingBox())!;
   await page.mouse.move(
     bounds.x + bounds.width / 2,

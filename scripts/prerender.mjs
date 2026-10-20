@@ -12,8 +12,13 @@ const server = await createServer({
   logLevel: "error",
 });
 try {
-  const { renderPage, buildMetadata, buildReaderText, resolveSiteUrl } =
-    await server.ssrLoadModule("/src/entry-server.ts");
+  const {
+    renderPage,
+    buildMetadata,
+    buildReaderText,
+    buildAgentIndex,
+    resolveSiteUrl,
+  } = await server.ssrLoadModule("/src/entry-server.ts");
   const siteUrl = resolveSiteUrl(env.SITE_URL);
   const index = new URL("index.html", output);
   const template = await readFile(index, "utf8");
@@ -33,10 +38,7 @@ try {
     );
   await writeFile(index, html);
   await writeFile(new URL("case-study.txt", output), buildReaderText());
-  await writeFile(
-    new URL("llms.txt", output),
-    "# Impella portfolio — Tyler Tessmann\n\nFrontend engineering case study of the original Impella modernization.\n\n- [Case study](./): narrative, documented architecture and product evidence.\n- [Plain-text attribution and outline](./case-study.txt): original contribution, team boundaries and reconstruction distinction.\n\nThe interactive web studio is an independent fictional reconstruction, not original production code.\n",
-  );
+  await writeFile(new URL("llms.txt", output), buildAgentIndex());
   const sitemapUrl = siteUrl ? new URL("sitemap.xml", siteUrl).href : undefined;
   await writeFile(
     new URL("robots.txt", output),
