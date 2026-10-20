@@ -237,3 +237,12 @@ the complete suite pass without changing the editor drag controller.
 See `docs/CMS-MIGRATION.md` and `ARCHITECTURE.md` for the implemented boundary.
 No dependencies, original production files or evidence images changed. No push
 or deployment was performed.
+
+## Bundle component folders — October 20, 2026
+
+Split the grouped CMS adapters into one named component/folder per registered
+bundle under `CMS/bundles/`, with shared frame/rich-text helpers in `CMS/shared/`.
+The registry imports each entry point; bundle styles moved alongside their owners
+with the stylesheet cascade order preserved. The authored JSON contract is unchanged.
+Typecheck, lint, CMS checks and production build pass; the complete browser suite
+passes **80 checks with 7 expected skips in 34.3 seconds**.

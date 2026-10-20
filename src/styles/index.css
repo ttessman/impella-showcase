@@ -1,14 +1,14 @@
 @import "tokens.css";
 @import "base.css";
 @import "../components/layout/ReadingHeader/ReadingHeader.css";
-@import "../components/CMS/adapters/Footer.css";
-@import "../components/CMS/adapters/Hero.css";
-@import "../components/CMS/adapters/Section.css";
-@import "../components/CMS/adapters/Figure.css";
-@import "../components/CMS/adapters/Gallery.css";
+@import "../components/CMS/bundles/Footer/Footer.css";
+@import "../components/CMS/bundles/Hero/Hero.css";
+@import "../components/CMS/bundles/Section/Section.css";
+@import "../components/CMS/bundles/Figure/Figure.css";
+@import "../components/CMS/bundles/Grid/Gallery.css";
 @import "../components/overlays/Dialog/Dialog.css";
-@import "../components/CMS/adapters/Media.css";
-@import "../components/CMS/adapters/EvidenceGrid.css";
+@import "../components/CMS/bundles/Media/Media.css";
+@import "../components/CMS/bundles/Grid/EvidenceGrid.css";
 @import "../components/layout/ResizableSplit/ResizableSplit.css";
 @import "../features/ContentStudio/ContentStudio.css";
 @import "../features/ContentStudio/components/PageComposer/PageComposer.css";
@@ -21,8 +21,8 @@
 @import "../components/overlays/Tooltip/Tooltip.css";
 @import "../components/layout/ReadingHeader/ReadingNavigation.css";
 
-@import "../components/CMS/adapters/PublicEvidence.css";
-@import "../components/CMS/adapters/ToolGrid.css";
+@import "../components/CMS/bundles/Group/PublicEvidence.css";
+@import "../components/CMS/bundles/Grid/ToolGrid.css";
 @import "../features/ContentStudio/components/StudioIsland/StudioIsland.css";
 @import "../components/media/EvidenceScreenshot/EvidenceScreenshot.css";
 @import "../components/forms/Checklist/Checklist.css";

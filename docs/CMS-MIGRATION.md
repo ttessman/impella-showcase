@@ -94,3 +94,16 @@ No push or deployment is authorized by this migration.
 The studio's editing contract intentionally remains a compatibility format. This
 migration expands the page renderer; it does not expose the entire case-study
 vocabulary in the small educational editor. No push or deployment was performed.
+
+### Bundle folders — October 20, 2026
+
+Each registered bundle now has its own entry point under
+`src/components/CMS/bundles/<BundleName>/<BundleName>.tsx`. Hero, Page, Card,
+Grid, Section and the remaining bundles are no longer grouped in Layout.tsx
+or Content.tsx. Their styles are colocated in the owning bundle folders.
+The registry imports these named entry points; shared rendering helpers live
+in CMS/shared. Checklist-owned data bundles retain their non-visual behavior.
+This changes organization, not the authored contract or presentation.
+
+Verification after the folder split: typecheck, lint, CMS checks and production
+build passed. Full browser suite: **80 passed, 7 expected skips in 34.3 seconds**.

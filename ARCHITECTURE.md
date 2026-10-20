@@ -26,8 +26,10 @@ the shared tooltip provider. Neither composes project-specific section markup.
 3. `DocumentRenderer` provides this index to the subtree.
 4. `ContentView` renders ordered children; `BundleRender` dispatches through a
    TypeScript-checked registry.
-5. `CMS/adapters/` maps authored nodes into shared React components. Normal nested
-   content returns to ContentView. Component-family CSS is colocated here.
+5. `CMS/bundles/<BundleName>/<BundleName>.tsx` gives each bundle its own component
+   and folder, adapting authored nodes into shared React components. Normal nested
+   content returns to ContentView. Bundle styles are colocated in their folders;
+   common frame/text rendering helpers live in `CMS/shared/`.
 
 Array order is the default. Page/card/section/hero frames recognize direct header
 and footer bundles and place them predictably. Heading is a distinct text bundle.

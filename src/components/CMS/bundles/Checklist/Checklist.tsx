@@ -1,8 +1,8 @@
-import type { NodeOf } from "../../../types/cms";
-import { children } from "../model/document";
-import { checklistDefinition } from "../model/checklistDefinition";
-import { ContentView } from "../ContentView/ContentView";
-import { ChecklistDialog } from "../../forms/Checklist/ChecklistDialog";
+import type { NodeOf } from "../../../../types/cms";
+import { children } from "../../model/document";
+import { checklistDefinition } from "../../model/checklistDefinition";
+import { ContentView } from "../../ContentView/ContentView";
+import { ChecklistDialog } from "../../../forms/Checklist/ChecklistDialog";
 export function Checklist({ node }: { node: NodeOf<"checklist"> }) {
   return (
     <ChecklistDialog

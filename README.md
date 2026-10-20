@@ -33,8 +33,8 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 - `src/features/ContentStudio/hooks/`: content editing, JSON draft lifecycle, workspace layout and dragging.
 - `src/features/ContentStudio/model/`: validation, block definitions/factories, immutable tree operations and layout defaults.
 - `src/types/`: shared content, editorial and source-reference contracts.
-- `src/components/CMS/`: recursive ContentView, typed BundleRender registry, document validation/indexing and generic component adapters.
-- `src/components/layout/`: shared reading header/navigation and resizable split. Document layout adapters and their styles live under CMS.
+- `src/components/CMS/`: recursive ContentView, typed BundleRender registry, document validation/indexing and one component folder per bundle under `CMS/bundles/`.
+- `src/components/layout/`: shared reading header/navigation and resizable split. Document bundle components and their styles live under `CMS/bundles/`.
 - `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
 - `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
 - `src/components/media/`: shared evidence screenshot and image dialog primitives.

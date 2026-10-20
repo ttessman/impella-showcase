@@ -1,11 +1,15 @@
-import type { NodeOf } from "../../../types/cms";
-import { SourceReference } from "../../source/SourceReference/SourceReference";
-export function Source({ node }: { node: NodeOf<"source_reference"> }) {
+import type { NodeOf } from "../../../../types/cms";
+import { SourceReference as SourceReferenceView } from "../../../source/SourceReference/SourceReference";
+export function SourceReference({
+  node,
+}: {
+  node: NodeOf<"source_reference">;
+}) {
   const files = node.content.filter(
     (child): child is NodeOf<"code"> => child.bundle === "code",
   );
   return (
-    <SourceReference
+    <SourceReferenceView
       source={{
         title: node.metadata.title,
         summary: node.metadata.summary,

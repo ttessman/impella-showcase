@@ -1,46 +1,44 @@
 import type { ComponentType } from "react";
 import type { BundleName, CmsNode, NodeOf } from "../../../types/cms";
-import { ContentView } from "../ContentView/ContentView";
-import {
-  Page,
-  Group,
-  Section,
-  Card,
-  Hero,
-  ReadingNavigation,
-  Footer,
-} from "../adapters/Layout";
-import {
-  Text,
-  Heading,
-  TextBlock,
-  Figure,
-  List,
-  Action,
-  Disclosure,
-  Code,
-  References,
-} from "../adapters/Content";
-import { Media } from "../adapters/Media";
-import { Source } from "../adapters/Source";
-import { Checklist } from "../adapters/Checklist";
-import { StudioIsland } from "../../../features/ContentStudio/components/StudioIsland/StudioIsland";
+import { Page } from "../bundles/Page/Page";
+import { Group } from "../bundles/Group/Group";
+import { Grid } from "../bundles/Grid/Grid";
+import { Section } from "../bundles/Section/Section";
+import { Card } from "../bundles/Card/Card";
+import { Header } from "../bundles/Header/Header";
+import { Footer } from "../bundles/Footer/Footer";
+import { ReadingHeader } from "../bundles/ReadingHeader/ReadingHeader";
+import { Hero } from "../bundles/Hero/Hero";
+import { Heading } from "../bundles/Heading/Heading";
+import { Text } from "../bundles/Text/Text";
+import { TextBlock } from "../bundles/TextBlock/TextBlock";
+import { Media } from "../bundles/Media/Media";
+import { Figure } from "../bundles/Figure/Figure";
+import { List } from "../bundles/List/List";
+import { ListItem } from "../bundles/ListItem/ListItem";
+import { Action } from "../bundles/Action/Action";
+import { Disclosure } from "../bundles/Disclosure/Disclosure";
+import { Code } from "../bundles/Code/Code";
+import { SourceReference } from "../bundles/SourceReference/SourceReference";
+import { Checklist } from "../bundles/Checklist/Checklist";
+import { ReferencesAccordion } from "../bundles/ReferencesAccordion/ReferencesAccordion";
+import { ContentStudio } from "../bundles/ContentStudio/ContentStudio";
+import { ChecklistGroup } from "../bundles/ChecklistGroup/ChecklistGroup";
+import { ChecklistQuestion } from "../bundles/ChecklistQuestion/ChecklistQuestion";
+import { ChecklistOption } from "../bundles/ChecklistOption/ChecklistOption";
+import { ChecklistRule } from "../bundles/ChecklistRule/ChecklistRule";
+import { ChecklistOutcome } from "../bundles/ChecklistOutcome/ChecklistOutcome";
 
 type Registry = { [B in BundleName]: ComponentType<{ node: NodeOf<B> }> };
-const Nested = ({ node }: { node: CmsNode }) => (
-  <ContentView blocks={Array.isArray(node.content) ? node.content : []} />
-);
-// Checklist structure is consumed by its owner; it is not independently mounted UI.
-const OwnedData = () => null;
 const bundleRegistry: Registry = {
   page: Page,
   group: Group,
-  grid: Group,
+  grid: Grid,
   section: Section,
   card: Card,
-  header: Nested,
+  header: Header,
   footer: Footer,
-  reading_header: ReadingNavigation,
+  reading_header: ReadingHeader,
   hero: Hero,
   heading: Heading,
   text: Text,
@@ -48,21 +46,19 @@ const bundleRegistry: Registry = {
   media: Media,
   figure: Figure,
   list: List,
-  list_item: Nested,
+  list_item: ListItem,
   action: Action,
   disclosure: Disclosure,
   code: Code,
-  source_reference: Source,
+  source_reference: SourceReference,
   checklist: Checklist,
-  references_accordion: References,
-  content_studio: ({ node }) => (
-    <StudioIsland fallback={<ContentView blocks={node.content} />} />
-  ),
-  checklist_group: OwnedData,
-  checklist_question: OwnedData,
-  checklist_option: OwnedData,
-  checklist_rule: OwnedData,
-  checklist_outcome: OwnedData,
+  references_accordion: ReferencesAccordion,
+  content_studio: ContentStudio,
+  checklist_group: ChecklistGroup,
+  checklist_question: ChecklistQuestion,
+  checklist_option: ChecklistOption,
+  checklist_rule: ChecklistRule,
+  checklist_outcome: ChecklistOutcome,
 };
 /** Registered components share one recursive envelope; external JSON is validated before dispatch. */
 export function BundleRender({ block }: { block: CmsNode }) {

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import type { NodeOf } from "../../../types/cms";
-import { ContentView } from "../ContentView/ContentView";
-import { textContent } from "../model/document";
-import { EvidenceScreenshot } from "../../media/EvidenceScreenshot/EvidenceScreenshot";
-import { ImageDialog } from "../../media/ImageDialog/ImageDialog";
+import type { NodeOf } from "../../../../types/cms";
+import { ContentView } from "../../ContentView/ContentView";
+import { textContent } from "../../model/document";
+import { EvidenceScreenshot } from "../../../media/EvidenceScreenshot/EvidenceScreenshot";
+import { ImageDialog } from "../../../media/ImageDialog/ImageDialog";
 
-import { assetUrl } from "../model/assets";
+import { assetUrl } from "../../model/assets";
 /** One media capability owns enlargement; layout variants reuse the image dialog. */
 export function Media({ node }: { node: NodeOf<"media"> }) {
   const [open, onOpenChange] = useState(false);
