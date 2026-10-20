@@ -61,6 +61,23 @@ try {
       assets.push(access(`${root}public${node.metadata.src}`));
   });
   await Promise.all(assets);
+  const { renderBaseCard } = await server.ssrLoadModule(
+    "/tests/helpers/renderBaseCard.tsx",
+  );
+  for (const variant of ["outlined", "tinted", "source-summary"]) {
+    const example = clone(fixture);
+    example.content[1].content[0].content[1].content[0].metadata.variant =
+      variant;
+    const cmsHtml = renderDocument(example);
+    const cardHtml = cmsHtml.match(
+      /<article[^>]*id="notes-card"[^>]*>[\s\S]*?<\/article>/,
+    )?.[0];
+    assert.equal(
+      cardHtml,
+      renderBaseCard(variant),
+      `${variant}: direct React and CMS must render the same Card`,
+    );
+  }
   const html = renderDocument(fixture);
   assert.ok(html.includes("FIELD NOTES"));
   assert.ok(html.includes("Skip to field notes"));
@@ -197,7 +214,7 @@ try {
     assert.throws(() => parseDocument(bad));
   }
   console.log(
-    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, derived navigation, ${invalid.length + 2} invalid-document cases, 16 checklist combinations.`,
+    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, React/CMS card parity (3 variants), derived navigation, ${invalid.length + 2} invalid-document cases, 16 checklist combinations.`,
   );
 } finally {
   await server.close();

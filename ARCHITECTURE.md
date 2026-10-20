@@ -25,9 +25,9 @@ the shared tooltip provider. Neither composes project-specific section markup.
    and anchor lookup. Nested sections own their headings independently.
 3. `DocumentRenderer` provides this index to the subtree.
 4. `ContentView` renders ordered children; `BundleRender` dispatches through a
-   TypeScript-checked registry.
-5. `CMS/bundles/<BundleName>/<BundleName>.tsx` gives each bundle its own component
-   and folder, adapting authored nodes into shared React components. Normal nested
+   TypeScript-checked registry of named `*Bundle` adapters.
+5. `CMS/bundles/<Name>/<Name>Bundle.tsx` maps authored nodes to the base React
+   component in that folder or to an existing shared primitive. Normal nested
    content returns to ContentView. Bundle styles are colocated in their folders;
    common frame/text rendering helpers live beside ContentView in `CMS/renderers/`.
 
@@ -35,7 +35,7 @@ Array order is the default. Page/card/section/hero frames recognize direct heade
 and footer bundles and place them predictably. Heading is a distinct text bundle.
 Card variants such as outlined, tinted and source-summary share a bundle. Group,
 grid, figure, list, text and media variants are explicitly allowlisted in
-`CMS/model/variants.ts`; there is no authored region or slot configuration.
+`components/presentation/variants.ts`; there is no authored region or slot configuration.
 
 Document limits are 512 KiB serialized JSON, 1,000 nodes, depth 20 and 20,000
 characters per string. Unknown properties, versions and bundles fail with a path.
@@ -123,3 +123,33 @@ the one-component-per-file convention without prohibiting ordinary constants.
 The studio's compatibility types explicitly use StudioBundle / StudioDocument
 names. Normalization now happens in MobilePreview before ContentView; the generic
 CMS renderer accepts only normalized CMS nodes.
+
+## Base React components and CMS adapters
+
+UI has one implementation. `<Name>.tsx` receives ordinary React props/children and
+owns markup, visual variants and behavior. `<Name>Bundle.tsx` accepts the CMS node,
+resolves metadata/context, maps data to base props and composes recursive content.
+Adapters contain no native UI markup or interaction state. Bases do not depend on
+CMS node types, document context or renderers. ESLint checks these boundaries.
+
+Most bases are colocated with their adapters in the owning bundle folder. Existing
+shared primitives keep their canonical home: CardBundle calls components/card/Card
+for outlined, tinted and source-summary variants alike. There is no alternate CMS
+Card implementation. Grid delegates its common element frame to Group; references
+compose Disclosure and List. Media uses one image/enlargement path for evidence and
+gallery variants. SourceReference, ReadingHeader and Checklist use their pure bases.
+The Content Studio adapter composes its existing specialized feature boundary.
+
+Shared styling vocabulary lives in components/presentation/variants.ts, independent
+of CMS nodes; the validator reuses it. Media and reading navigation adapters resolve
+CMS field names/IDs/asset paths into plain view definitions.
+
+There are 23 renderable bundle adapters. Checklist-owned group/question/option/rule/
+outcome records remain in the recursive contract as configuration data; their empty
+component stubs were removed. The checklist adapter interprets those records and
+renders active outcome children through ContentView.
+
+The tracked AGENTS.md records these conventions for future agents. The workspace
+AGENTS.md points to it. Ordinary constants remain allowed with a single React
+component per file. The verification script compares direct React and CMS Card
+markup for all three variants without a CMS provider around the direct example.

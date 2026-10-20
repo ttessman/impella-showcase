@@ -1,13 +1,16 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-
-export function Footer({ node }: { node: NodeOf<"footer"> }) {
+import type { ReactNode } from "react";
+export function Footer({
+  id,
+  variant,
+  children,
+}: {
+  id?: string;
+  variant?: "site";
+  children: ReactNode;
+}) {
   return (
-    <footer
-      id={node.id}
-      className={node.metadata.variant === "site" ? "site-footer" : undefined}
-    >
-      <ContentView blocks={node.content} />
+    <footer id={id} className={variant === "site" ? "site-footer" : undefined}>
+      {children}
     </footer>
   );
 }

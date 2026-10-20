@@ -1,34 +1,25 @@
-import type { NodeOf } from "../../../../types/cms";
-import { useDocument } from "../../model/DocumentContext";
+import type { ReactNode } from "react";
 import { Button } from "../../../actions/Button/Button";
-import { assetUrl } from "../../utils/assets";
-import { ReaderDialog } from "./ReaderDialog";
-import { buildReaderDocument } from "../../model/reader";
-import { RichContent } from "../../renderers/RichContent";
-
-export function Action({ node }: { node: NodeOf<"action"> }) {
-  const context = useDocument();
-  if (node.metadata.action === "reader")
-    return (
-      <ReaderDialog
-        definition={buildReaderDocument(context)}
-        label={typeof node.content === "string" ? node.content : undefined}
-      />
-    );
-  const href = node.metadata.href.startsWith("/assets/")
-    ? assetUrl(node.metadata.href)
-    : node.metadata.href;
+export function Action({
+  href,
+  variant,
+  newTab,
+  children,
+}: {
+  href: string;
+  variant?: "text" | "primary" | "reader";
+  newTab?: boolean;
+  children: ReactNode;
+}) {
   return (
     <Button asChild>
       <a
         href={href}
-        className={
-          node.metadata.variant === "primary" ? "button primary" : "text-link"
-        }
-        target={node.metadata.new_tab ? "_blank" : undefined}
-        rel={node.metadata.new_tab ? "noreferrer" : undefined}
+        className={variant === "primary" ? "button primary" : "text-link"}
+        target={newTab ? "_blank" : undefined}
+        rel={newTab ? "noreferrer" : undefined}
       >
-        <RichContent node={node} />
+        {children}
       </a>
     </Button>
   );

@@ -1,19 +1,12 @@
 import type { NodeOf } from "../../../../types/cms";
-import { Card as CardFrame } from "../../../card/Card/Card";
+import { Card } from "../../../card/Card/Card";
 import { ContentView } from "../../renderers/ContentView";
 import { frameParts } from "../../model/document";
 import { FrameContent } from "../../renderers/FrameContent";
-
-export function Card({ node }: { node: NodeOf<"card"> }) {
+export function CardBundle({ node }: { node: NodeOf<"card"> }) {
   const parts = frameParts(node);
-  if (node.metadata.variant === "source-summary")
-    return (
-      <article id={node.id}>
-        <ContentView blocks={node.content} />
-      </article>
-    );
   return (
-    <CardFrame
+    <Card
       id={node.id}
       variant={node.metadata.variant}
       slots={{

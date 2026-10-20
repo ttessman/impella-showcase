@@ -1,18 +1,24 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-
-export function Disclosure({ node }: { node: NodeOf<"disclosure"> }) {
+import type { ReactNode } from "react";
+export function Disclosure({
+  label,
+  variant,
+  initiallyExpanded,
+  children,
+}: {
+  label: string;
+  variant?: "implementation";
+  initiallyExpanded?: boolean;
+  children: ReactNode;
+}) {
   return (
     <details
       className={
-        node.metadata.variant === "implementation"
-          ? "tool-implementation"
-          : undefined
+        variant === "implementation" ? "tool-implementation" : undefined
       }
-      open={node.metadata.initially_expanded || undefined}
+      open={initiallyExpanded || undefined}
     >
-      <summary>{node.metadata.label}</summary>
-      <ContentView blocks={node.content} />
+      <summary>{label}</summary>
+      {children}
     </details>
   );
 }

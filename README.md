@@ -133,3 +133,13 @@ Section numbering, navigation, the reading summary, full text companion and sear
 metadata derive from the document. The existing studio draft format remains behind
 an explicit adapter with its original validation limits and editor behavior.
 See [ARCHITECTURE.md](ARCHITECTURE.md) and [docs/CMS-MIGRATION.md](docs/CMS-MIGRATION.md).
+
+## Base UI and CMS adapters
+
+Each renderable bundle uses a named `*Bundle.tsx` adapter to map CMS data into a
+pure React component. Base components own all markup, variants and interaction;
+adapters only map data/context and compose recursive children. Direct React and
+CMS usage share the same implementation, including every Card variant. Checklist
+configuration records are data, not empty React components. Shared presentation
+variants are independent of the CMS contract. See [AGENTS.md](AGENTS.md) for the
+conventions and [ARCHITECTURE.md](ARCHITECTURE.md) for the dependency boundary.

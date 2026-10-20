@@ -1,3 +1,7 @@
+import {
+  cmsAdapterBoundary,
+  cmsBaseBoundary,
+} from "./tooling/eslint/cms-boundaries.mjs";
 import { oneComponentPerFile } from "./tooling/eslint/one-component-per-file.mjs";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
@@ -21,8 +25,23 @@ export default tseslint.config(
   {
     files: ["src/**/*.tsx"],
     plugins: {
-      local: { rules: { "one-component-per-file": oneComponentPerFile } },
+      local: {
+        rules: {
+          "one-component-per-file": oneComponentPerFile,
+          "cms-adapter-boundary": cmsAdapterBoundary,
+          "cms-base-boundary": cmsBaseBoundary,
+        },
+      },
     },
     rules: { "local/one-component-per-file": "error" },
+  },
+  {
+    files: ["src/components/CMS/bundles/**/*Bundle.tsx"],
+    rules: { "local/cms-adapter-boundary": "error" },
+  },
+  {
+    files: ["src/components/CMS/bundles/**/*.tsx"],
+    ignores: ["**/*Bundle.tsx", "**/*Fields.tsx"],
+    rules: { "local/cms-base-boundary": "error" },
   },
 );

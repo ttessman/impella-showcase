@@ -1,32 +1,17 @@
 import { useState } from "react";
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-import { textContent } from "../../model/document";
-import { EvidenceScreenshot } from "./EvidenceScreenshot";
+import type { ReactNode } from "react";
+import type { MediaDefinition } from "./model/mediaDefinition";
 import { ImageDialog } from "../../../overlays/ImageDialog/ImageDialog";
-
-import { assetUrl } from "../../utils/assets";
-/** One media capability owns enlargement; layout variants reuse the image dialog. */
-export function Media({ node }: { node: NodeOf<"media"> }) {
+export function Media({
+  definition,
+  caption,
+}: {
+  definition: MediaDefinition;
+  caption: ReactNode;
+}) {
   const [open, onOpenChange] = useState(false);
-  const m = node.metadata;
-  const image = {
-    src: assetUrl(m.src),
-    alt: m.alt,
-    width: m.width,
-    height: m.height,
-  };
-  const caption = <ContentView blocks={node.content} />;
-  if (m.variant === "evidence")
-    return (
-      <EvidenceScreenshot
-        definition={{
-          title: m.title,
-          image,
-          caption: node.content.map(textContent).join(""),
-        }}
-      />
-    );
+  const m = definition;
+  const image = m.image;
   const img = (
     <img
       {...image}
@@ -42,7 +27,7 @@ export function Media({ node }: { node: NodeOf<"media"> }) {
         <figcaption>
           {m.title}
           <br />
-          <span>{node.content.map(textContent).join("")}</span>
+          <span>{caption}</span>
         </figcaption>
       </figure>
     );
@@ -52,7 +37,7 @@ export function Media({ node }: { node: NodeOf<"media"> }) {
         href={image.src}
         target="_blank"
         rel="noreferrer"
-        aria-label={m.trigger_label}
+        aria-label={m.triggerLabel}
       >
         {img}
       </a>
@@ -74,7 +59,7 @@ export function Media({ node }: { node: NodeOf<"media"> }) {
             className="original-diagram-zoom"
             onClick={() => onOpenChange(true)}
           >
-            {m.trigger_label}
+            {m.triggerLabel}
           </button>
         </>
       ) : (
@@ -97,7 +82,7 @@ export function Media({ node }: { node: NodeOf<"media"> }) {
           <figcaption>
             {m.variant === "gallery" ? (
               <>
-                <span className="eyebrow">{m.caption_label}</span>
+                <span className="eyebrow">{m.captionLabel}</span>
                 <h3>{m.title}</h3>
                 <p>{m.body}</p>
               </>
@@ -111,18 +96,18 @@ export function Media({ node }: { node: NodeOf<"media"> }) {
         state={{ open, onOpenChange }}
         title={m.title}
         image={image}
-        closeLabel={m.close_label}
+        closeLabel={m.closeLabel}
         className={m.variant === "original" ? "article-diagram-dialog" : ""}
-        caption={m.variant === "original" ? m.caption_label : undefined}
+        caption={m.variant === "original" ? m.captionLabel : undefined}
         footer={
-          m.original_link_label ? (
+          m.originalLinkLabel ? (
             <a
               className="text-link"
               href={image.src}
               target="_blank"
               rel="noreferrer"
             >
-              {m.original_link_label}
+              {m.originalLinkLabel}
             </a>
           ) : undefined
         }

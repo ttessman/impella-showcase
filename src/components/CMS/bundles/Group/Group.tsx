@@ -1,15 +1,28 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-import { variantClass } from "../../model/variants";
-
-export function Group({ node }: { node: NodeOf<"group"> }) {
-  const Element = node.metadata.element ?? "div";
+import type { ReactNode } from "react";
+import { variantClass } from "../../../presentation/variants";
+import type { VariantName } from "../../../presentation/variants";
+export function Group({
+  id,
+  as: Element = "div",
+  variant,
+  className = "",
+  children,
+}: {
+  id?: string;
+  as?: "div" | "main" | "article" | "p" | "figcaption";
+  variant?: VariantName<"group">;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
     <Element
-      id={node.id}
-      className={variantClass(node.bundle, node.metadata.variant) || undefined}
+      id={id}
+      className={
+        [variantClass("group", variant), className].filter(Boolean).join(" ") ||
+        undefined
+      }
     >
-      <ContentView blocks={node.content} />
+      {children}
     </Element>
   );
 }

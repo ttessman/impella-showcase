@@ -1,4 +1,4 @@
-import type { variants } from "../components/CMS/model/variants";
+import type { variants } from "../components/presentation/variants";
 type Variant<Family extends keyof typeof variants> =
   keyof (typeof variants)[Family];
 
@@ -12,11 +12,8 @@ export type SiteIdentity = {
   boundaries: string;
   reconstruction: string;
 };
-export type PageNavigation = {
-  overview: { label: string; target_id: string };
-  primary_action?: { label: string; target_id: string };
-  sections_label: string;
-};
+export type { PageNavigation } from "./caseStudy";
+import type { PageNavigation } from "./caseStudy";
 export type MetadataByBundle = {
   page: {
     schema_version: 1;

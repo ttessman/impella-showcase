@@ -1,13 +1,16 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-import { variantClass } from "../../model/variants";
-
-export function Figure({ node }: { node: NodeOf<"figure"> }) {
+import type { ReactNode } from "react";
+import { variantClass } from "../../../presentation/variants";
+import type { VariantName } from "../../../presentation/variants";
+export function Figure({
+  variant,
+  children,
+}: {
+  variant?: VariantName<"figure">;
+  children: ReactNode;
+}) {
   return (
-    <figure
-      className={variantClass("figure", node.metadata.variant) || undefined}
-    >
-      <ContentView blocks={node.content} />
+    <figure className={variantClass("figure", variant) || undefined}>
+      {children}
     </figure>
   );
 }

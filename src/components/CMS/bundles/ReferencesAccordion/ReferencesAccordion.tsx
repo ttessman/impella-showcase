@@ -1,21 +1,16 @@
-import type { NodeOf } from "../../../../types/cms";
-import { RichContent } from "../../renderers/RichContent";
-
+import type { ReactNode } from "react";
+import { Disclosure } from "../Disclosure/Disclosure";
+import { List } from "../List/List";
 export function ReferencesAccordion({
-  node,
+  label,
+  items,
 }: {
-  node: NodeOf<"references_accordion">;
+  label: string;
+  items: readonly { id: string; content: ReactNode }[];
 }) {
   return (
-    <details open>
-      <summary>{node.metadata.label}</summary>
-      <ol>
-        {node.content.map((item) => (
-          <li key={item.id}>
-            <RichContent node={item} />
-          </li>
-        ))}
-      </ol>
-    </details>
+    <Disclosure label={label} initiallyExpanded>
+      <List ordered items={items} />
+    </Disclosure>
   );
 }

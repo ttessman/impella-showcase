@@ -1,20 +1,24 @@
-import type { NodeOf } from "../../../../types/cms";
-
-export function Text({ node }: { node: NodeOf<"text"> }) {
-  const copy = node.content;
-  const mark = node.metadata.mark;
+export function Text({
+  children,
+  mark,
+  breakAfter,
+}: {
+  children: string;
+  mark?: "code" | "bold" | "emphasis";
+  breakAfter?: boolean;
+}) {
   return (
     <>
       {mark === "code" ? (
-        <code>{copy}</code>
+        <code>{children}</code>
       ) : mark === "bold" ? (
-        <b>{copy}</b>
+        <b>{children}</b>
       ) : mark === "emphasis" ? (
-        <em>{copy}</em>
+        <em>{children}</em>
       ) : (
-        copy
+        children
       )}
-      {node.metadata.break_after && <br />}
+      {breakAfter && <br />}
     </>
   );
 }

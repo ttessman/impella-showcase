@@ -1,27 +1,24 @@
-import type { NodeOf } from "../../../../types/cms";
-import { variantClass } from "../../model/variants";
-
+import type { ReactNode } from "react";
 import { ListItem } from "../ListItem/ListItem";
-export function List({ node }: { node: NodeOf<"list"> }) {
-  const Element =
-    node.metadata.variant === "summary"
-      ? "div"
-      : node.metadata.ordered
-        ? "ol"
-        : "ul";
+import { variantClass } from "../../../presentation/variants";
+import type { VariantName } from "../../../presentation/variants";
+export function List({
+  items,
+  variant,
+  ordered,
+}: {
+  items: readonly { id: string; content: ReactNode }[];
+  variant?: VariantName<"list">;
+  ordered?: boolean;
+}) {
+  const Element = variant === "summary" ? "div" : ordered ? "ol" : "ul";
   return (
-    <Element
-      className={variantClass("list", node.metadata.variant) || undefined}
-    >
-      {node.content.map((item) =>
-        item.bundle === "list_item" ? (
-          <ListItem
-            key={item.id}
-            node={item}
-            as={Element === "div" ? "div" : "li"}
-          />
-        ) : null,
-      )}
+    <Element className={variantClass("list", variant) || undefined}>
+      {items.map((item) => (
+        <ListItem key={item.id} as={Element === "div" ? "div" : "li"}>
+          {item.content}
+        </ListItem>
+      ))}
     </Element>
   );
 }

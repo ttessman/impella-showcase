@@ -1,11 +1,15 @@
-import type { NodeOf } from "../../../../types/cms";
-
-export function Code({ node }: { node: NodeOf<"code"> }) {
-  return node.metadata.variant === "inline" ? (
-    <code>{node.content}</code>
+export function Code({
+  inline,
+  children,
+}: {
+  inline?: boolean;
+  children: string;
+}) {
+  return inline ? (
+    <code>{children}</code>
   ) : (
     <pre>
-      <code>{node.content}</code>
+      <code>{children}</code>
     </pre>
   );
 }

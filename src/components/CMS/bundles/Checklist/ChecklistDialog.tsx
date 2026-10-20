@@ -8,7 +8,7 @@ import { Dialog } from "../../../overlays/Dialog/Dialog";
 import { DialogClose } from "../../../overlays/Dialog/DialogClose";
 import { useClientReady } from "../../../../hooks/useClientReady";
 import type { ChecklistDefinition } from "../../../../types/checklist";
-import { ChecklistView } from "./ChecklistView";
+import { Checklist } from "./Checklist";
 
 /** Reuses the shared modal shell around any checklist definition. */
 export function ChecklistDialog({
@@ -64,7 +64,7 @@ export function ChecklistDialog({
           ),
           footer: <p className="checklist-caption">{definition.caption}</p>,
           body: (
-            <ChecklistView
+            <Checklist
               key={checklist.resetKey}
               definition={definition}
               state={checklist}

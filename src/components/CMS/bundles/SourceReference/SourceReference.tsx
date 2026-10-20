@@ -1,26 +1,42 @@
-import type { NodeOf } from "../../../../types/cms";
-import { SourceReferenceView } from "./SourceReferenceView";
-export function SourceReference({
-  node,
-}: {
-  node: NodeOf<"source_reference">;
-}) {
-  const files = node.content.filter(
-    (child): child is NodeOf<"code"> => child.bundle === "code",
+import type { CSSProperties } from "react";
+import { SourceCodePreview } from "./SourceCodePreview";
+import { Button } from "../../../actions/Button/Button";
+import { PreviewPopover } from "../../../overlays/PreviewPopover/PreviewPopover";
+import type { SourceReferenceData } from "../../../../types/sourceReference";
+
+/** Source-specific content composes the shared preview interaction. */
+export function SourceReference({ source }: { source: SourceReferenceData }) {
+  const longestFile = Math.max(
+    ...source.files.map((file) => file.example.split("\n").length),
   );
+  const height = Math.min(380, Math.max(260, longestFile * 18 + 120));
   return (
-    <SourceReferenceView
-      source={{
-        title: node.metadata.title,
-        summary: node.metadata.summary,
-        disclaimer: node.metadata.disclaimer,
-        initialFile: node.metadata.initial_file,
-        files: files.map((file) => ({
-          path: file.metadata.path!,
-          context: file.metadata.context!,
-          example: file.content,
-        })),
-      }}
-    />
+    <div className="source-note source-reference">
+      <PreviewPopover
+        title={source.title}
+        className="source-reference-popup"
+        anchor="start"
+        style={{ "--source-preview-height": `${height}px` } as CSSProperties}
+        slots={{
+          trigger: (
+            <Button className="source-reference-trigger">
+              Source: {source.files[0].path}
+              {source.files.length > 1 && (
+                <>
+                  {" "}
+                  · +{source.files.length - 1}{" "}
+                  {source.files.length === 2 ? "file" : "files"}
+                </>
+              )}{" "}
+              <span aria-hidden="true">&lt;/&gt;</span>
+            </Button>
+          ),
+          body: <SourceCodePreview source={source} />,
+          footer: (
+            <p className="source-reference-disclaimer">{source.disclaimer}</p>
+          ),
+        }}
+      />
+    </div>
   );
 }

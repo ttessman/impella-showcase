@@ -1,11 +1,19 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-import { variantClass } from "../../model/variants";
-
-export function Grid({ node }: { node: NodeOf<"grid"> }) {
+import type { ReactNode } from "react";
+import { Group } from "../Group/Group";
+import { variantClass } from "../../../presentation/variants";
+import type { VariantName } from "../../../presentation/variants";
+export function Grid({
+  id,
+  variant,
+  children,
+}: {
+  id?: string;
+  variant: VariantName<"grid">;
+  children: ReactNode;
+}) {
   return (
-    <div id={node.id} className={variantClass("grid", node.metadata.variant)}>
-      <ContentView blocks={node.content} />
-    </div>
+    <Group id={id} className={variantClass("grid", variant)}>
+      {children}
+    </Group>
   );
 }

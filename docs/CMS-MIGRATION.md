@@ -130,3 +130,29 @@ are rejected. The production browser suite passed **80 tests with 7 expected
 skips in 34.7 seconds**. The subsequent renderer-path grouping produced identical
 JavaScript and CSS asset hashes and passed the build/CMS checks. No authored
 content, studio draft payload, evidence asset or dependency changed.
+
+### One base implementation with CMS adapters — October 20, 2026
+
+All 23 renderable bundle registry entries now point to named *Bundle adapters.
+Base components accept ordinary React props/children, own UI/state/variants and
+have no dependency on CMS nodes, context or renderers. Adapters map data and
+compose rendered children. Existing shared primitives retain their single home.
+
+The source-summary card is now a variant of the same Card used directly in React;
+CardBundle no longer owns an alternate article tree. References compose the base
+Disclosure/List, Grid delegates its element frame to Group, and Media consolidates
+the duplicated evidence/gallery image-dialog implementation. Pure media/navigation
+view definitions are mapped explicitly from CMS fields. Styling vocabulary moved
+to presentation definitions independent of CMS nodes. Checklist-owned data records
+no longer have empty component stubs; the owning checklist interprets them.
+
+Recorded the pattern in the repository AGENTS.md and linked it from the workspace
+agent guide. Added ESLint boundaries for thin adapters and CMS-independent bases,
+while retaining the one-component-per-file convention and allowing constants.
+
+Typecheck, lint, production prerender/build and CMS verification pass. Direct React
+and CMS Card markup matches exactly for outlined, tinted and source-summary views.
+The full production browser suite passed **80 tests, 7 expected skips in 38 seconds**.
+Existing studio editing, citations, source tabs, dialogs, navigation, checklist
+outcomes, SEO, accessibility and responsive behavior passed without changing the
+page JSON, original assets, dependencies or studio draft format.

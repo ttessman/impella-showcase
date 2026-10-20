@@ -1,6 +1,6 @@
 import type { PageDocument, BundleName } from "../../../types/cms";
 import { children, indexDocument, walkContent } from "./document";
-import { variants } from "./variants";
+import { variants } from "../../presentation/variants";
 
 type Rule =
   | "string"

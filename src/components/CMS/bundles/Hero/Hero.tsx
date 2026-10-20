@@ -1,19 +1,18 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-import { frameParts } from "../../model/document";
-import { FrameContent } from "../../renderers/FrameContent";
-
-export function Hero({ node }: { node: NodeOf<"hero"> }) {
-  const parts = frameParts(node);
+import type { ReactNode } from "react";
+export function Hero({
+  id,
+  slots,
+}: {
+  id?: string;
+  slots: { header: ReactNode; content: ReactNode; footer: ReactNode };
+}) {
   return (
     <div className="hero-band">
-      <div id={node.id} className="hero">
-        <div className="hero-copy">
-          <FrameContent node={parts.header} />
-        </div>
-        <ContentView blocks={parts.content} />
+      <div id={id} className="hero">
+        <div className="hero-copy">{slots.header}</div>
+        {slots.content}
       </div>
-      <FrameContent node={parts.footer} />
+      {slots.footer}
     </div>
   );
 }

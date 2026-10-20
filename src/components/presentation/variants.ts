@@ -63,3 +63,6 @@ export function variantClass(family: keyof typeof variants, variant?: string) {
     ? ((variants[family] as Record<string, string>)[variant] ?? "")
     : "";
 }
+
+export type VariantName<Family extends keyof typeof variants> =
+  keyof (typeof variants)[Family];

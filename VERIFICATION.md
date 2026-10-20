@@ -261,3 +261,19 @@ Typecheck, lint, CMS verification, formatting and production build passed.
 Browser suite: **80 passed, 7 expected skips in 34.7 seconds**. The final path-only
 renderer grouping preserved both production JavaScript and CSS asset hashes.
 No dependencies, authored content or approved evidence assets changed.
+
+## Shared React bases and named CMS adapters — October 20, 2026
+
+The registry now dispatches 23 named *Bundle adapters. Every UI adapter delegates
+markup and behavior to a pure React base. Card's source-summary branch moved to
+the canonical shared Card; all variants use it. Media evidence/gallery viewing
+shares one implementation. Nonvisual checklist configuration records no longer
+have empty component stubs. Shared presentation definitions are CMS-independent.
+
+Lint enforces the adapter/base dependency boundary and the existing one-component-
+per-file convention, with ordinary constants allowed. The tracked AGENTS.md and
+workspace pointer document the rules. Typecheck, lint, build/prerender and CMS
+verification pass; direct React and CMS Card markup matches for all three variants.
+The full production Chrome suite passed **80 tests with 7 expected skips in 38.0
+seconds**. No authored page data, dependencies, source images or studio payload
+contract changed. No push or deployment was performed.

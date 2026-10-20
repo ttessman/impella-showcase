@@ -1,13 +1,10 @@
-import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../renderers/ContentView";
-
+import type { ReactNode } from "react";
 export function ListItem({
-  node,
   as: Element,
+  children,
 }: {
-  node: NodeOf<"list_item">;
   as?: "li" | "div";
+  children: ReactNode;
 }) {
-  const content = <ContentView blocks={node.content} />;
-  return Element ? <Element>{content}</Element> : content;
+  return Element ? <Element>{children}</Element> : <>{children}</>;
 }

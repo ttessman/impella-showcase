@@ -5,3 +5,9 @@ export type SectionDefinition = {
   title: string;
   intro?: string;
 };
+
+export type PageNavigation = {
+  overview: { label: string; target_id: string };
+  primary_action?: { label: string; target_id: string };
+  sections_label: string;
+};
