@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: #102e4bda;
+  background: var(--dialog-scrim);
 }
 
 .dialog-surface {
@@ -20,18 +20,18 @@
   max-width: calc(100vw - 32px);
   max-height: 90dvh;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius-medium);
   background: var(--paper);
-  color: #172b43;
+  color: var(--text);
 }
 
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   flex-shrink: 0;
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--line);
   background: var(--paper);
 }
@@ -48,21 +48,21 @@
 .dialog-heading h3 > span {
   font: 11px monospace;
   color: var(--muted);
-  margin-right: 12px;
+  margin-right: var(--space-3);
 }
 
 .dialog-header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 
 .dialog-header-actions > button {
-  padding: 10px;
+  padding: var(--space-2-5);
   font-size: 12px;
   background: var(--ink);
-  color: white;
+  color: var(--paper);
   border: 0;
 }
 
@@ -73,12 +73,12 @@
   flex: 1 1 auto;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 20px;
+  padding: var(--space-5);
 }
 
 .dialog-footer {
   flex-shrink: 0;
-  padding: 12px 20px;
+  padding: var(--space-3) var(--space-5);
   border-top: 1px solid var(--line);
   background: var(--paper);
 }
@@ -92,8 +92,8 @@
 }
 
 .dialog-workspace .dialog-header {
-  padding: 8px 12px;
-  background: #f7f9fc;
+  padding: var(--space-2) var(--space-3);
+  background: var(--page);
 }
 
 .dialog-workspace .dialog-body,
@@ -103,8 +103,8 @@
 
 @media (max-width: 760px) {
   .dialog-header {
-    gap: 12px;
-    padding: 8px 12px;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
   }
 }
 
@@ -116,13 +116,13 @@
 
 @media (max-width: 760px) {
   .dialog-body {
-    padding: 16px;
+    padding: var(--space-4);
   }
 }
 
 @media (max-width: 760px) {
   .dialog-footer {
-    padding: 10px 16px;
+    padding: var(--space-2-5) var(--space-4);
   }
 }
 

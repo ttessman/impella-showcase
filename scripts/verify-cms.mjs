@@ -89,12 +89,29 @@ try {
       /<article[^>]*id="notes-card"[^>]*>[\s\S]*?<\/article>/,
     )?.[0];
     assert.equal(
-      cardHtml,
+      cardHtml?.replace(/ data-bundle-name="[^"]*"/g, ""),
       renderBaseCard(variant),
       `${variant}: direct React and CMS must render the same Card`,
     );
   }
   const html = renderDocument(fixture);
+  for (const bundle of [
+    "page",
+    "group",
+    "section",
+    "header",
+    "footer",
+    "card",
+    "heading",
+    "text_block",
+    "media",
+    "action",
+    "reading_header",
+  ])
+    assert.ok(
+      renderDocument(original).includes(`data-bundle-name="${bundle}"`),
+      `${bundle} DOM marker`,
+    );
   assert.ok(html.includes("FIELD NOTES"));
   assert.ok(html.includes("Skip to field notes"));
   assert.ok(html.includes('href="#notes-main"'));

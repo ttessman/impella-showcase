@@ -7,7 +7,11 @@ import { JsonInspector } from "./JsonInspector";
 import { MobilePreview } from "./MobilePreview";
 import { EditorFeedback } from "./EditorFeedback";
 
-export default function ContentStudio() {
+export default function ContentStudio({
+  "data-bundle-name": bundleName,
+}: {
+  "data-bundle-name"?: string;
+}) {
   const editor = useContentEditor();
   const layout = useWorkspaceLayout({
     active: editor.drag.drag !== null,
@@ -15,6 +19,7 @@ export default function ContentStudio() {
   });
   return (
     <ContentStudioLayout
+      data-bundle-name={bundleName}
       layout={layout}
       slots={{
         toolbar: <StudioToolbar editor={editor} layout={layout} />,

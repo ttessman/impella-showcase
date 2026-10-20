@@ -1,7 +1,7 @@
 .source-note {
   font: 10px/1.7 monospace;
   color: var(--muted);
-  margin-top: 22px;
+  margin-top: var(--space-5-5);
   overflow-wrap: anywhere;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .source-reference-trigger {
-  padding: 6px 0;
+  padding: var(--space-1-5) 0;
   border: 0;
   background: transparent;
   color: var(--muted);
@@ -38,17 +38,17 @@
   );
   max-height: min(380px, calc(100dvh - 32px));
   overflow: visible;
-  padding: 10px;
-  border: 1px solid #b7c9db;
-  border-radius: 6px;
-  background: white;
-  color: #172b43;
-  box-shadow: 0 12px 40px #12395d26;
+  padding: var(--space-2-5);
+  border: 1px solid var(--control-border-soft);
+  border-radius: var(--radius-medium);
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 12px 40px var(--shadow-popover);
   font: 12px/1.6 var(--sans);
 }
 
 .source-reference-popup .source-reference-disclaimer {
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   font-size: 9px;
   color: var(--muted);
   flex-shrink: 0;

@@ -3,15 +3,15 @@
   flex-direction: column;
   min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius-medium);
   background: var(--paper);
 }
 
 .card-header {
-  padding: 20px 24px;
+  padding: var(--card-header-padding-block) var(--card-padding-inline);
   border-bottom: 1px solid var(--line);
-  border-radius: 6px 6px 0 0;
-  background: #edf3f9;
+  border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+  background: var(--surface-card-header);
 }
 
 .card-header > :first-child {
@@ -25,13 +25,13 @@
 .card-content {
   flex: 1;
   min-width: 0;
-  padding: 24px;
+  padding: var(--space-6);
 }
 
 .card-footer {
-  padding: 6px 24px;
+  padding: var(--space-1-5) var(--space-6);
   border-top: 1px solid var(--line);
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 var(--radius-medium) var(--radius-medium);
   background: var(--paper);
 }
 
@@ -45,23 +45,23 @@
 
 @media (max-width: 600px) {
   .card-header {
-    padding: 16px 18px;
+    padding: var(--card-header-padding-block) var(--space-4-5);
   }
 }
 
 @media (max-width: 600px) {
   .card-content {
-    padding: 18px;
+    padding: var(--space-4-5);
   }
 }
 
 @media (max-width: 600px) {
   .card-footer {
-    padding: 6px 18px;
+    padding: var(--space-1-5) var(--space-4-5);
   }
 }
 
 .card-tinted {
-  background: #edf3f9;
+  background: var(--surface-card);
   border-color: transparent;
 }

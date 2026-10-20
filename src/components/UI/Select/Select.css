@@ -6,7 +6,7 @@
 .select-field > select.native-select {
   appearance: none;
   width: 100%;
-  padding-inline-end: 38px;
+  padding-inline-end: var(--space-9-5);
 }
 .select-field > .icon {
   position: absolute;

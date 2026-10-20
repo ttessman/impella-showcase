@@ -34,15 +34,21 @@ export function checklistDefinition(
       .filter((item) => item.bundle === "checklist_group")
       .map((group) => ({
         id: group.id,
+        bundleName: group.bundle,
         title: group.metadata.label,
         questions: group.content
           .filter((q) => q.bundle === "checklist_question")
           .map((q) => ({
             id: q.id,
+            bundleName: q.bundle,
             title: q.metadata.label,
             options: q.content
               .filter((o) => o.bundle === "checklist_option")
-              .map((o) => ({ id: o.id, label: o.content })),
+              .map((o) => ({
+                id: o.id,
+                label: o.content,
+                bundleName: o.bundle,
+              })),
           })),
       })),
     rules: node.content

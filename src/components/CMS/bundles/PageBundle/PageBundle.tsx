@@ -15,6 +15,7 @@ export function PageBundle({ node }: { node: NodeOf<"page"> }) {
   );
   return (
     <Page
+      data-bundle-name={node.bundle}
       skipLink={{
         href: `#${main?.id ?? node.id}`,
         label: node.metadata.skip_label,

@@ -15,6 +15,13 @@ export function SectionBundle({ node }: { node: NodeOf<"section"> }) {
     : undefined;
   return (
     <Section
+      data-bundle-name={node.bundle}
+      headerAttributes={
+        parts.header ? { "data-bundle-name": parts.header.bundle } : undefined
+      }
+      footerAttributes={
+        parts.footer ? { "data-bundle-name": parts.footer.bundle } : undefined
+      }
       id={node.id}
       variant={node.metadata.variant}
       label={definition}

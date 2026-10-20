@@ -4,10 +4,12 @@ import type { ReactNode } from "react";
 import { variantClass } from "../../../../utils/presentation";
 import type { VariantName } from "../../../../utils/presentation";
 export function BlockText({
+  "data-bundle-name": bundleName,
   as,
   variant,
   children,
 }: {
+  "data-bundle-name"?: string;
   as?: "p" | "span" | "div" | "strong" | "b" | "small" | "figcaption";
   variant?: VariantName<"text_block">;
   children: ReactNode;
@@ -16,7 +18,10 @@ export function BlockText({
     as ??
     (typeof children === "string" && hasRichTextBlocks(children) ? "div" : "p");
   return (
-    <Element className={variantClass("text_block", variant) || undefined}>
+    <Element
+      data-bundle-name={bundleName}
+      className={variantClass("text_block", variant) || undefined}
+    >
       {typeof children === "string" ? (
         <RichText
           text={children}

@@ -9,9 +9,11 @@ import type { ComponentProps } from "react";
 import { useClientReady } from "../../../../hooks/useClientReady";
 
 export function ReaderDialog({
+  "data-bundle-name": bundleName,
   definition,
   label = "Read case-study summary ↗",
 }: {
+  "data-bundle-name"?: string;
   definition: ComponentProps<typeof Document>["definition"];
   label?: string;
 }) {
@@ -20,6 +22,7 @@ export function ReaderDialog({
   return (
     <>
       <a
+        data-bundle-name={bundleName}
         className="footer-reader-link"
         href="./case-study.txt"
         aria-haspopup={ready ? "dialog" : undefined}

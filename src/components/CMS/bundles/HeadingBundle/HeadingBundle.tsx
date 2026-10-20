@@ -3,7 +3,11 @@ import { Heading } from "../../../UI/Heading/Heading";
 import { RichContentRender } from "../../renderers/RichContentRender";
 export function HeadingBundle({ node }: { node: NodeOf<"heading"> }) {
   return (
-    <Heading id={node.id} level={node.metadata.level}>
+    <Heading
+      data-bundle-name={node.bundle}
+      id={node.id}
+      level={node.metadata.level}
+    >
       <RichContentRender node={node} />
     </Heading>
   );

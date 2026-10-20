@@ -18,7 +18,7 @@ test("footer reading summary supports modal reading, printing and download", asy
       ),
     ),
   ).toBe(true);
-  const navigationCards = page.locator(".navigation-evidence > .card-tinted");
+  const navigationCards = page.locator(".navigation-evidence .card-tinted");
   await expect(navigationCards).toHaveCount(2);
   await expect(navigationCards.locator(".card-header")).toHaveCount(0);
   const launch = footer.getByRole("link", { name: "Read case-study summary" });

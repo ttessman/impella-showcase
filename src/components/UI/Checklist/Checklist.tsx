@@ -14,11 +14,13 @@ export type ChecklistDefinition = {
   description: string;
   groups: readonly {
     id: string;
+    bundleName?: string;
     title: string;
     questions: readonly {
       id: string;
+      bundleName?: string;
       title: string;
-      options: readonly { id: string; label: string }[];
+      options: readonly { id: string; label: string; bundleName?: string }[];
     }[];
   }[];
   rules: readonly ChecklistRule[];
@@ -48,10 +50,12 @@ import { useClientReady } from "../../../hooks/useClientReady";
 
 /** Definition-driven groups and live outcomes; no clinical content or original source. */
 export function Checklist({
+  "data-bundle-name": bundleName,
   definition,
   state,
   renderOutcome,
 }: {
+  "data-bundle-name"?: string;
   definition: ChecklistDefinition;
   state: ChecklistState;
   renderOutcome?: (id: string | null) => ReactNode;
@@ -59,7 +63,11 @@ export function Checklist({
   const id = useId();
   const ready = useClientReady();
   return (
-    <section className="checklist-showcase" aria-labelledby={`${id}-title`}>
+    <section
+      data-bundle-name={bundleName}
+      className="checklist-showcase"
+      aria-labelledby={`${id}-title`}
+    >
       <div className="checklist-intro">
         <p className="eyebrow">{definition.introLabel}</p>
         <h3 id={`${id}-title`}>{definition.title}</h3>
@@ -72,14 +80,26 @@ export function Checklist({
           }}
         >
           {definition.groups.map((group) => (
-            <details className="checklist-group" key={group.id} open>
+            <details
+              data-bundle-name={group.bundleName}
+              className="checklist-group"
+              key={group.id}
+              open
+            >
               <summary>{group.title}</summary>
               <div className="checklist-questions">
                 {group.questions.map((question) => (
-                  <fieldset disabled={!ready} key={question.id}>
+                  <fieldset
+                    data-bundle-name={question.bundleName}
+                    disabled={!ready}
+                    key={question.id}
+                  >
                     <legend>{question.title}</legend>
                     {question.options.map((option) => (
-                      <label key={option.id}>
+                      <label
+                        data-bundle-name={option.bundleName}
+                        key={option.id}
+                      >
                         <input
                           type="checkbox"
                           checked={state.selected.includes(option.id)}

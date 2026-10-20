@@ -3,6 +3,7 @@ import { RichText } from "../Text/RichText";
 
 /** Owns the editorial composition; authored areas arrive as ordinary React children. */
 export function Hero({
+  "data-bundle-name": bundleName,
   id,
   header,
   variant = "split",
@@ -11,6 +12,7 @@ export function Hero({
   background,
   areas,
 }: {
+  "data-bundle-name"?: string;
   id?: string;
   header: { eyebrow?: string; title: string; tags?: readonly string[] };
   variant?: "split" | "background";
@@ -29,6 +31,7 @@ export function Hero({
 }) {
   return (
     <div
+      data-bundle-name={bundleName}
       className={`hero-band hero-variant-${variant} hero-content-${contentWidth}`}
       style={
         variant === "background" && background

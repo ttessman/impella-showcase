@@ -18,9 +18,11 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { ImageDialog } from "../Dialog/variants/ImageDialog";
 export function Media({
+  "data-bundle-name": bundleName,
   definition,
   caption,
 }: {
+  "data-bundle-name"?: string;
   definition: MediaDefinition;
   caption: ReactNode;
 }) {
@@ -36,7 +38,7 @@ export function Media({
   );
   if (m.variant === "hero")
     return (
-      <figure className="hero-evidence">
+      <figure data-bundle-name={bundleName} className="hero-evidence">
         <div className="hero-grid-lines" aria-hidden="true" />
         {img}
         <figcaption>
@@ -49,6 +51,7 @@ export function Media({
   if (m.variant === "linked" && m.dialog)
     return (
       <ImageDialogTrigger
+        data-bundle-name={bundleName}
         image={image}
         title={m.dialog.title ?? m.title}
         closeLabel={m.dialog.closeLabel ?? m.closeLabel ?? "Close screenshot"}
@@ -62,6 +65,7 @@ export function Media({
   if (m.variant === "linked")
     return (
       <a
+        data-bundle-name={bundleName}
         href={image.src}
         target="_blank"
         rel="noreferrer"
@@ -72,7 +76,7 @@ export function Media({
     );
   if (m.variant === "inline")
     return (
-      <figure>
+      <figure data-bundle-name={bundleName}>
         {img}
         <figcaption>{caption}</figcaption>
       </figure>
@@ -81,7 +85,12 @@ export function Media({
     <>
       {m.variant === "original" ? (
         <>
-          <div className="original-article-viewport">{img}</div>
+          <div
+            data-bundle-name={bundleName}
+            className="original-article-viewport"
+          >
+            {img}
+          </div>
           <button
             type="button"
             className="original-diagram-zoom"
@@ -92,6 +101,7 @@ export function Media({
         </>
       ) : (
         <figure
+          data-bundle-name={bundleName}
           className={
             m.variant === "gallery" ? "product-shot" : "evidence-screenshot"
           }
@@ -133,6 +143,7 @@ export function Media({
         footer={
           m.originalLinkLabel ? (
             <a
+              data-bundle-name={bundleName}
               className="text-link"
               href={image.src}
               target="_blank"

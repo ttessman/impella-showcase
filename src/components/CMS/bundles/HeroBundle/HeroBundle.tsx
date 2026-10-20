@@ -6,6 +6,7 @@ export function HeroBundle({ node }: { node: NodeOf<"hero"> }) {
   const m = node.metadata;
   return (
     <Hero
+      data-bundle-name={node.bundle}
       id={node.id}
       header={m.header}
       variant={m.variant}

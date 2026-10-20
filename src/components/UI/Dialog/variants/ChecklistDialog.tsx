@@ -12,9 +12,11 @@ import { Checklist } from "../../Checklist/Checklist";
 
 /** Reuses the shared modal shell around any checklist definition. */
 export function ChecklistDialog({
+  "data-bundle-name": bundleName,
   definition,
   renderOutcome,
 }: {
+  "data-bundle-name"?: string;
   definition: ChecklistDefinition;
   renderOutcome?: (id: string | null) => ReactNode;
 }) {
@@ -28,6 +30,7 @@ export function ChecklistDialog({
   return (
     <>
       <Button
+        data-bundle-name={bundleName}
         variant="secondary"
         size="default"
         className="checklist-launch"
@@ -68,6 +71,7 @@ export function ChecklistDialog({
           footer: <p className="checklist-caption">{definition.caption}</p>,
           body: (
             <Checklist
+              data-bundle-name={bundleName}
               key={checklist.resetKey}
               definition={definition}
               state={checklist}

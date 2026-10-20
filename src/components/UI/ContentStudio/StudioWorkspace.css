@@ -5,18 +5,18 @@
 .workspace-panel {
   min-width: 0;
   height: 100%;
-  padding: 22px 18px;
+  padding: var(--space-5-5) var(--space-4-5);
 }
 
 .builder-grid h3 {
   font-size: 15px;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-5);
 }
 
 .builder-grid h3 > span {
   font: 10px/1.5 monospace;
   color: var(--muted);
-  margin-right: 10px;
+  margin-right: var(--space-2-5);
 }
 
 .workspace-pane-header h3 {
@@ -48,18 +48,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
   width: 100%;
   height: 100%;
-  padding: 18px 8px;
+  padding: var(--space-4-5) var(--space-2);
   border: 0;
   border-right: 1px solid var(--line);
-  background: #edf3f9;
+  background: var(--surface-tint);
   color: var(--ink);
 }
 
 .compose-rail:hover {
-  background: #e3f0fb;
+  background: var(--surface-icon-hover);
 }
 
 .compose-rail-content {
@@ -68,7 +68,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .compose-rail-content > span {
@@ -91,14 +91,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   min-height: 56px;
-  padding: 12px 18px;
+  padding: var(--space-3) var(--space-4-5);
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
   z-index: 3;
-  background: white;
+  background: var(--paper);
 }
 
 .panel-workspace {
@@ -119,7 +119,7 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
-  color: #172b43;
+  color: var(--text);
   overflow: hidden;
 }
 
@@ -185,14 +185,14 @@
 .workspace-preview {
   min-height: 0;
   overflow: hidden;
-  padding: 14px;
+  padding: var(--space-3-5);
 }
 .compose-dialog .dialog-body {
   overflow: hidden;
 }
 @media (max-width: 650px) {
   .workspace-panel {
-    padding: 16px 14px;
+    padding: var(--space-4) var(--space-3-5);
   }
   .workspace-inspect {
     padding: 0;

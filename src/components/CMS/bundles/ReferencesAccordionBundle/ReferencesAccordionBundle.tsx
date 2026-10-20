@@ -8,9 +8,11 @@ export function ReferencesAccordionBundle({
 }) {
   return (
     <ReferencesAccordion
+      data-bundle-name={node.bundle}
       label={node.metadata.label}
       items={node.content.map((item) => ({
         id: item.id,
+        bundleName: item.bundle,
         content: <RichContentRender node={item} />,
       }))}
     />

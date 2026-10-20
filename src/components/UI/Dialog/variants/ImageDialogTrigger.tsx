@@ -6,6 +6,7 @@ import { ImageDialog } from "./ImageDialog";
 import type { EvidenceImage } from "./ImageDialog";
 
 type Props = {
+  "data-bundle-name"?: string;
   image: EvidenceImage;
   title: string;
   closeLabel: string;
@@ -17,6 +18,7 @@ type Props = {
 
 /** Images and authored actions share the same dialog lifecycle and image presentation. */
 export function ImageDialogTrigger({
+  "data-bundle-name": bundleName,
   image,
   title,
   closeLabel,
@@ -29,6 +31,7 @@ export function ImageDialogTrigger({
   return (
     <>
       <Button
+        data-bundle-name={bundleName}
         className={className}
         aria-label={label}
         aria-haspopup="dialog"

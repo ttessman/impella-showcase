@@ -2,16 +2,24 @@ import type { ReactNode, RefObject } from "react";
 import { useScrollDirection } from "../../../hooks/useScrollDirection";
 
 type Props = {
+  "data-bundle-name"?: string;
   ref: RefObject<HTMLElement | null>;
   progress: number;
   expanded: boolean;
   slots: { identity: ReactNode; context: ReactNode; actions: ReactNode };
 };
 /** Shared reading chrome; the feature supplies identity, context and navigation actions. */
-export function ReadingHeaderFrame({ ref, progress, expanded, slots }: Props) {
+export function ReadingHeaderFrame({
+  "data-bundle-name": bundleName,
+  ref,
+  progress,
+  expanded,
+  slots,
+}: Props) {
   const { hidden, floating, reveal } = useScrollDirection(ref);
   return (
     <header
+      data-bundle-name={bundleName}
       ref={ref}
       className="site-header-shell"
       data-hidden={hidden && !expanded}

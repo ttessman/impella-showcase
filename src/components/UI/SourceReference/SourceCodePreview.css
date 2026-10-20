@@ -12,9 +12,9 @@
   scrollbar-width: thin;
   overscroll-behavior-x: contain;
   flex-shrink: 0;
-  gap: 4px;
-  padding: 4px;
-  background: #edf3f9;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-tint);
   border: 1px solid var(--line);
   border-bottom: 0;
 }
@@ -25,9 +25,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding: 6px 9px;
+  padding: var(--space-1-5) 9px;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: var(--radius-small);
   background: transparent;
   color: var(--muted);
   font: 10px/1.4 monospace;
@@ -35,19 +35,19 @@
 
 .source-file-tabs button[aria-selected="true"] {
   border-color: var(--line);
-  background: white;
+  background: var(--paper);
   color: var(--ink);
   box-shadow: inset 0 -2px var(--gold);
 }
 
 .source-code-preview pre {
   margin: 0;
-  padding: 12px;
+  padding: var(--space-3);
   min-height: 0;
   flex: 1;
   overflow: auto;
-  background: #102e4b;
-  color: #e9f1fa;
+  background: var(--code-surface);
+  color: var(--surface-resize-hover);
   line-height: 1.6;
   tab-size: 2;
 }
@@ -58,7 +58,7 @@
 
 .source-file-context {
   font-size: 10px;
-  margin-top: 6px;
+  margin-top: var(--space-1-5);
   flex-shrink: 0;
 }
 
@@ -73,6 +73,6 @@
 }
 
 .source-file-context p {
-  margin: 6px 0;
+  margin: var(--space-1-5) 0;
   font-size: 11px;
 }

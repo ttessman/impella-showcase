@@ -44,20 +44,20 @@
 
 .diagram-index {
   font: 11px/1.5 monospace;
-  color: #5e7288;
+  color: var(--text-caption);
 }
 
 .diagram-label {
   font: 10px/1.5 monospace;
   letter-spacing: 0.1em;
   color: var(--muted);
-  margin-bottom: 24px;
+  margin-bottom: var(--space-6);
 }
 
 .resource-placeholder {
   border: 1px solid var(--line);
   font-size: 12px;
-  padding: 16px;
-  margin: 12px 0;
-  background: #f7f9fc;
+  padding: var(--space-4);
+  margin: var(--space-3) 0;
+  background: var(--page);
 }

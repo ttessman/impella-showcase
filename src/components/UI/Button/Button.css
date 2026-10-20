@@ -9,28 +9,28 @@
   text-decoration: none;
   min-height: var(--button-height, 36px);
   font-size: var(--button-font-size, 12px);
-  padding: var(--button-padding, 7px 12px);
-  gap: var(--button-gap, 6px);
+  padding: var(--button-padding, 7px var(--space-3));
+  gap: var(--button-gap, var(--space-1-5));
   border: 1px solid var(--ink);
 }
 
 .primary {
   background: var(--ink);
-  color: #ffffff;
+  color: var(--paper);
   border: 1px solid var(--ink);
 }
 
 .primary:hover {
-  background: #075c92;
+  background: var(--accent-hover);
 }
 .button-secondary {
-  border: 1px solid #afc0d1;
-  border-radius: 3px;
-  background: #edf3f9;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-small);
+  background: var(--surface-tint);
   color: var(--ink);
 }
 .button-secondary:hover {
-  background: #ddebf7;
+  background: var(--surface-control-hover);
 }
 .button-size-small {
   --button-height: 28px;

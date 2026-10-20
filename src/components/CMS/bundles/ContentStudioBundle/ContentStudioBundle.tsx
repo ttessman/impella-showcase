@@ -8,6 +8,9 @@ export function ContentStudioBundle({
   node: NodeOf<"content_studio">;
 }) {
   return (
-    <StudioIsland fallback={<ContentViewRender blocks={node.content} />} />
+    <StudioIsland
+      data-bundle-name={node.bundle}
+      fallback={<ContentViewRender blocks={node.content} />}
+    />
   );
 }

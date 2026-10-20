@@ -11,6 +11,7 @@ export function ReadingHeaderBundle({
   const navigation = page.metadata.navigation;
   return (
     <ReadingHeader
+      data-bundle-name={node.bundle}
       sections={sections}
       identity={node.content}
       navigation={{

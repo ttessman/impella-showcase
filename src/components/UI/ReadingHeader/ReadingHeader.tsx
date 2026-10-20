@@ -14,12 +14,18 @@ import { useReadingPosition } from "../../../hooks/useReadingPosition";
 import type { SectionDefinition } from "../SectionLabel/SectionLabel";
 
 type Props = {
+  "data-bundle-name"?: string;
   sections: readonly SectionDefinition[];
   identity: string;
   navigation: ReadingNavigationDefinition;
 };
 /** Navigation is derived from the same definitions that render the case study. */
-export function ReadingHeader({ sections, identity, navigation }: Props) {
+export function ReadingHeader({
+  "data-bundle-name": bundleName,
+  sections,
+  identity,
+  navigation,
+}: Props) {
   const ref = useRef<HTMLElement>(null);
   const size = useElementSize(ref);
   const { activeId, progress } = useReadingPosition(sections, size.height);
@@ -28,6 +34,7 @@ export function ReadingHeader({ sections, identity, navigation }: Props) {
     sections.find((section) => section.id === activeId) ?? sections[0];
   return (
     <ReadingHeaderFrame
+      data-bundle-name={bundleName}
       ref={ref}
       expanded={expanded}
       progress={progress}

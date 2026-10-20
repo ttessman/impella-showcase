@@ -2,48 +2,48 @@
 main {
   max-width: 1360px;
   margin: auto;
-  padding: 0 64px;
+  padding: 0 var(--space-16);
 }
 
 @media (max-width: 1100px) {
   main {
-    padding: 0 38px;
+    padding: 0 var(--space-9-5);
   }
 }
 
 @media (max-width: 760px) {
   main {
-    padding: 0 24px;
+    padding: 0 var(--space-6);
   }
 }
 
 .hero-band .summary-strip {
-  color: #ffffff;
+  color: var(--paper);
 }
 
 .hero-band .hero-detail,
 .hero-band .hero-meta,
 .hero-band .summary-strip span {
-  color: #c9dbea;
+  color: var(--text-on-dark-muted);
 }
 
 .hero-band .hero .primary {
-  background: white;
+  background: var(--paper);
   color: var(--ink);
-  border-color: white;
+  border-color: var(--paper);
 }
 
 .hero-band .hero .primary:hover {
-  background: #e8f0f7;
+  background: var(--surface-section);
 }
 
 .hero-band .hero .text-link {
-  color: white;
+  color: var(--paper);
 }
 
 .hero-band .summary-strip,
 .hero-band .summary-strip > div + div {
-  border-color: #ffffff33;
+  border-color: var(--border-on-dark);
 }
 
 .hero-band .summary-strip {
@@ -54,7 +54,7 @@ main {
   margin: 0;
   font: 10px/1.5 var(--sans);
   letter-spacing: 0.1em;
-  color: #c9dbea;
+  color: var(--text-on-dark-muted);
 }
 
 .hero-band .summary-strip > div > div > p:first-child strong {
@@ -65,7 +65,7 @@ main {
   .hero-band .summary-strip > div > div {
     display: grid;
     grid-template-columns: 125px 1fr;
-    gap: 20px;
+    gap: var(--space-5);
     align-items: baseline;
   }
 }
@@ -83,17 +83,17 @@ main {
 }
 
 .decision-grid article {
-  padding: 30px;
-  background: #edf2f7;
+  padding: var(--space-7-5);
+  background: var(--surface-code-tab);
 }
 
 .decision-grid article + article {
   background: var(--ink);
-  color: #ffffff;
+  color: var(--paper);
 }
 
 .decision-grid h3 {
-  margin: 12px 0 14px;
+  margin: var(--space-3) 0 var(--space-3-5);
 }
 
 .decision-grid article p:last-child {
@@ -102,7 +102,7 @@ main {
 }
 
 .source-grid article {
-  padding: 28px;
+  padding: var(--space-7);
 }
 
 .source-grid article:nth-child(even) {
@@ -114,13 +114,13 @@ main {
 }
 
 .source-grid h3 {
-  margin: 10px 0 15px;
+  margin: var(--space-2-5) 0 15px;
 }
 
 .source-grid p {
   font-size: 14px;
   color: var(--muted);
-  margin-bottom: 18px;
+  margin-bottom: var(--space-4-5);
 }
 
 @media (max-width: 760px) {
@@ -143,12 +143,12 @@ main {
 
 @media (max-width: 760px) {
   .source-grid article {
-    padding: 24px;
+    padding: var(--space-6);
   }
 }
 
 .compact-flow-figure .diagram-label {
-  margin-bottom: 14px;
+  margin-bottom: var(--space-3-5);
 }
 
 .dialog-header-actions .icon-button {
@@ -157,32 +157,37 @@ main {
   height: 36px;
   flex-basis: 36px;
   border: 1px solid var(--line);
-  background: white;
+  background: var(--paper);
   color: var(--ink);
 }
 
 .original-article-notes .anatomy-figure {
-  margin: 24px 0;
-  padding: 20px;
-  background: white;
+  margin: var(--space-6) 0;
+  padding: var(--space-5);
+  background: var(--paper);
 }
 
 .original-article-notes .anatomy-grid {
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 @media (min-width: 1101px) {
   .original-article-notes .anatomy-figure {
-    padding: 28px;
+    padding: var(--space-7);
   }
 }
 
 .navigation-evidence figure {
-  display: grid;
-  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
-  gap: 24px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3-5);
+  text-align: center;
+}
+
+.navigation-evidence .image-dialog-trigger {
+  max-width: 210px;
 }
 
 .navigation-evidence img {
@@ -193,29 +198,32 @@ main {
 }
 
 .navigation-evidence h3 {
-  margin: 12px 0;
+  margin: 0 0 var(--space-3);
   font-size: 19px;
 }
 
-.navigation-evidence figcaption > p:not(.eyebrow) {
-  font-size: 13px;
+.navigation-evidence > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-evidence > div > p {
+  margin: 0 0 var(--space-5);
+  font-size: 14px;
+}
+
+.navigation-evidence > div > .card {
+  margin-top: auto;
 }
 
 .navigation-evidence .text-link {
   display: inline-block;
-  margin-top: 16px;
-}
-
-@media (max-width: 650px) {
-  .navigation-evidence figure {
-    grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
-    gap: 16px;
-  }
+  margin: 0;
 }
 
 @media (max-width: 650px) {
   .navigation-evidence h3 {
-    font-size: 17px;
+    font-size: 15px;
   }
 }
 
@@ -226,12 +234,12 @@ main {
 
 .json-actions .primary {
   background: var(--ink);
-  color: white;
+  color: var(--paper);
   border-color: var(--ink);
 }
 
 .json-actions .primary:hover {
-  background: #075c92;
+  background: var(--accent-hover);
 }
 
 .compose-dialog .workspace-icon-button {
@@ -254,15 +262,15 @@ main {
 .public-evidence-list .public-evidence-sources {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 16px;
-  margin-top: 10px;
+  gap: var(--space-1-5) var(--space-4);
+  margin-top: var(--space-2-5);
   font-size: 11px;
   color: var(--ink);
 }
 
 .tool-experiences h3 {
   font-size: 18px;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
 }
 
 .tool-experiences p {
@@ -270,7 +278,7 @@ main {
 }
 
 .tool-flow-figure .diagram-label {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
 
 .tool-example .evidence-screenshot img {
@@ -285,12 +293,12 @@ main {
 }
 
 .tool-description .tool-flow-figure {
-  padding: 14px;
+  padding: var(--space-3-5);
 }
 
 .tool-description .tool-flow li {
   grid-template-columns: 1fr;
-  gap: 2px;
+  gap: var(--space-0-5);
 }
 
 .checklist-dialog .checklist-showcase {
@@ -299,7 +307,7 @@ main {
 
 @media (max-width: 650px) {
   .checklist-dialog .checklist-showcase {
-    padding: 16px;
+    padding: var(--space-4);
   }
 }
 

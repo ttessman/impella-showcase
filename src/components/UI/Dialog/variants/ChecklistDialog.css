@@ -1,5 +1,5 @@
 .checklist-launch {
-  margin-top: 16px;
+  margin-top: var(--space-4);
 }
 
 .checklist-launch:disabled {

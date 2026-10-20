@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 import { Button } from "../Button/Button";
 export function Action({
+  "data-bundle-name": bundleName,
   href,
   variant,
   newTab,
   children,
 }: {
+  "data-bundle-name"?: string;
   href: string;
   variant?: "text" | "primary" | "reader";
   newTab?: boolean;
@@ -14,6 +16,7 @@ export function Action({
   return (
     <Button asChild size={variant === "primary" ? "large" : "default"}>
       <a
+        data-bundle-name={bundleName}
         href={href}
         className={variant === "primary" ? "button primary" : "text-link"}
         target={newTab ? "_blank" : undefined}

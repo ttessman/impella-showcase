@@ -5,7 +5,7 @@
   transform: translateY(-150%);
   z-index: 100;
   background: var(--ink);
-  color: white;
+  color: var(--paper);
   padding: 15px;
 }
 

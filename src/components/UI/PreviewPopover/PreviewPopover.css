@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 6px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1-5);
   flex-shrink: 0;
 }
 
@@ -17,8 +17,8 @@
   width: 32px;
   height: 32px;
   border: 1px solid var(--line);
-  border-radius: 3px;
-  background: white;
+  border-radius: var(--radius-small);
+  background: var(--paper);
   font-size: 20px;
 }
 
@@ -33,6 +33,6 @@
 
 .preview-popover-arrow {
   fill: var(--paper);
-  stroke: #b7c9db;
+  stroke: var(--control-border-soft);
   stroke-width: 1;
 }

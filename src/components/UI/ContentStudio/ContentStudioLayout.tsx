@@ -11,14 +11,16 @@ export type ContentStudioSlots = {
 };
 /** Placement belongs to the layout; callers supply the named content regions. */
 export function ContentStudioLayout({
+  "data-bundle-name": bundleName,
   slots,
   layout,
 }: {
+  "data-bundle-name"?: string;
   slots: ContentStudioSlots;
   layout: StudioLayout;
 }) {
   return (
-    <div className="playground">
+    <div data-bundle-name={bundleName} className="playground">
       {slots.toolbar}
       <StudioWorkspace layout={layout} slots={slots} />
       <footer className="studio-footer" aria-hidden="true" />

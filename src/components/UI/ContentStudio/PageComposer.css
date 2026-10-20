@@ -1,7 +1,7 @@
 .empty-container {
   min-height: 42px;
-  border: 1px dashed #afc0d1;
-  border-radius: 3px;
+  border: 1px dashed var(--control-border);
+  border-radius: var(--radius-small);
   display: grid;
   place-items: center;
 }
@@ -19,19 +19,19 @@
   gap: 7px;
   font-size: 11px;
   font-weight: 600;
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-4);
 }
 
 .author-pane input,
 .author-pane select,
 .author-pane textarea {
-  border: 1px solid #afc0d1;
-  border-radius: 3px;
-  background: #ffffff;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-small);
+  background: var(--paper);
   width: 100%;
-  padding: 10px;
+  padding: var(--space-2-5);
   font-size: 12px;
-  color: #172b43;
+  color: var(--text);
   min-height: 40px;
 }
 
@@ -44,17 +44,17 @@
 .palette {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: var(--space-1-5);
+  margin-bottom: var(--space-3);
 }
 
 .property-panel {
-  margin: 8px 0 12px;
+  margin: var(--space-2) 0 var(--space-3);
   padding: 17px;
-  border: 1px solid #92b4d2;
-  border-left: 3px solid #0068a8;
-  background: white;
-  border-radius: 3px;
+  border: 1px solid var(--control-border-active);
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+  border-radius: var(--radius-small);
 }
 
 .property-panel h4 {
@@ -64,12 +64,12 @@
 }
 
 .property-panel > .small {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
   overflow-wrap: anywhere;
 }
 
 .drag-help {
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
   font-size: 10px;
 }
 

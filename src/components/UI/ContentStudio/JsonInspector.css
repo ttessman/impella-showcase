@@ -1,7 +1,7 @@
 .json-actions > button:not(.icon-button) {
-  padding: 9px 10px;
-  border: 1px solid #afc0d1;
-  border-radius: 3px;
+  padding: 9px var(--space-2-5);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-small);
   font-size: 10px;
   min-height: 34px;
 }
@@ -14,22 +14,22 @@
 }
 
 .json-actions button:hover {
-  background: #ddebf7;
+  background: var(--surface-control-hover);
 }
 
 .json-pane .small {
   font-size: 10px;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-2-5);
 }
 
 .json-pane textarea.json-editor {
   width: 100%;
-  border: 1px solid #102e4b;
-  border-radius: 3px;
-  padding: 10px;
+  border: 1px solid var(--code-surface);
+  border-radius: var(--radius-small);
+  padding: var(--space-2-5);
   resize: none;
-  background: #102e4b;
-  color: #eff5fc;
+  background: var(--code-surface);
+  color: var(--surface-code-help);
   font:
     10px/1.75 "SFMono-Regular",
     Consolas,
@@ -40,12 +40,12 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   overflow: hidden;
-  border-color: #102e4b;
+  border-color: var(--code-surface);
 }
 
 .json-pane textarea.json-editor[aria-invalid="true"] {
-  border-color: #b86b63;
-  box-shadow: 0 0 0 1px #b86b6333;
+  border-color: var(--error-border);
+  box-shadow: 0 0 0 1px var(--error-ring);
 }
 
 .json-actions {
@@ -81,11 +81,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-3);
   height: 60px;
-  padding: 7px 18px;
+  padding: 7px var(--space-4-5);
   border-bottom: 1px solid var(--line);
-  background: white;
+  background: var(--paper);
 }
 .json-pane-header h3 {
   margin: 0;
@@ -97,7 +97,7 @@
   overflow: auto;
   overscroll-behavior: contain;
   scroll-padding: 18px;
-  padding: 18px;
+  padding: var(--space-4-5);
 }
 
 .json-pane-heading {
@@ -130,8 +130,8 @@
 }
 @container (max-width: 960px) {
   .json-pane-header {
-    padding-inline: 12px;
-    gap: 8px;
+    padding-inline: var(--space-3);
+    gap: var(--space-2);
   }
   .json-pane-header .json-pane-heading h3 {
     font-size: 12px;

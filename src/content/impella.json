@@ -1548,7 +1548,7 @@
                   "metadata": {
                     "level": 2
                   },
-                  "content": "Navigation could adapt to the region."
+                  "content": "Navigation for different audiences."
                 },
                 {
                   "id": "impella-node-372",
@@ -1556,133 +1556,7 @@
                   "metadata": {
                     "variant": "section-intro"
                   },
-                  "content": "I supported navigation that could reflect regional needs. The app selected menu records by the user’s region and language, then resolved their labels, icons and destinations into supported native routes."
-                }
-              ]
-            },
-            {
-              "id": "impella-node-202",
-              "bundle": "figure",
-              "metadata": {
-                "variant": "compact-flow"
-              },
-              "content": [
-                {
-                  "id": "impella-node-190",
-                  "bundle": "text_block",
-                  "metadata": {
-                    "variant": "diagram-label",
-                    "element": "div"
-                  },
-                  "content": "REGIONAL MENU CONFIGURATION"
-                },
-                {
-                  "id": "impella-node-200",
-                  "bundle": "list",
-                  "metadata": {
-                    "variant": "navigation",
-                    "ordered": true
-                  },
-                  "content": [
-                    {
-                      "id": "impella-node-197",
-                      "bundle": "list_item",
-                      "metadata": {},
-                      "content": [
-                        {
-                          "id": "impella-node-191",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "b"
-                          },
-                          "content": "Menu records"
-                        },
-                        {
-                          "id": "impella-node-192",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "span"
-                          },
-                          "content": "Labels, icons, order and destinations"
-                        }
-                      ]
-                    },
-                    {
-                      "id": "impella-node-198",
-                      "bundle": "list_item",
-                      "metadata": {},
-                      "content": [
-                        {
-                          "id": "impella-node-193",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "b"
-                          },
-                          "content": "Region + language"
-                        },
-                        {
-                          "id": "impella-node-194",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "span"
-                          },
-                          "content": "Select the configured menu"
-                        }
-                      ]
-                    },
-                    {
-                      "id": "impella-node-199",
-                      "bundle": "list_item",
-                      "metadata": {},
-                      "content": [
-                        {
-                          "id": "impella-node-195",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "b"
-                          },
-                          "content": "Native screens"
-                        },
-                        {
-                          "id": "impella-node-196",
-                          "bundle": "text_block",
-                          "metadata": {
-                            "element": "span"
-                          },
-                          "content": "Resolve supported routes into tabs"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "impella-node-201",
-                  "bundle": "text_block",
-                  "metadata": {
-                    "element": "figcaption"
-                  },
-                  "content": "Configuration changes the menu; new route types and native behavior still require application code."
-                }
-              ]
-            },
-            {
-              "id": "impella-node-205",
-              "bundle": "grid",
-              "metadata": {
-                "variant": "two-column"
-              },
-              "content": [
-                {
-                  "id": "impella-node-203",
-                  "bundle": "text_block",
-                  "metadata": {},
-                  "content": "The documentation gives a concrete example: Favorites could be a tab in the US, while Japan could keep it accessible from Home. Authors could configure those regional differences."
-                },
-                {
-                  "id": "impella-node-204",
-                  "bundle": "text_block",
-                  "metadata": {},
-                  "content": "Home had its own configuration for collection tiles, featured content and role or specialty targeting—different entry points into the same shared resources."
+                  "content": "I proposed and built navigation around the people using the app. Configurable tabs and Home shortcuts gave each audience a more direct path to the resources they needed."
                 }
               ]
             },
@@ -1694,75 +1568,74 @@
               },
               "content": [
                 {
-                  "id": "impella-node-213",
-                  "bundle": "card",
-                  "metadata": {
-                    "variant": "tinted"
-                  },
+                  "id": "navigation-tabs-journey",
+                  "bundle": "group",
+                  "metadata": {},
                   "content": [
                     {
-                      "id": "impella-node-212",
-                      "bundle": "figure",
+                      "id": "impella-node-208",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Configurable tabs"
+                    },
+                    {
+                      "id": "impella-node-209",
+                      "bundle": "text_block",
                       "metadata": {},
+                      "content": "The bottom navigation gave users direct access to key destinations. Authors could change the destinations and number of tabs to suit the audience—keeping the relevant resources within reach across screens."
+                    },
+                    {
+                      "id": "impella-node-213",
+                      "bundle": "card",
+                      "metadata": {
+                        "variant": "tinted"
+                      },
                       "content": [
                         {
-                          "id": "impella-node-206",
-                          "bundle": "media",
-                          "metadata": {
-                            "src": "/assets/production/home.png",
-                            "alt": "Impella home with Favorites and Browse regions above Favorites, Browse, Tools and IFUs bottom tabs",
-                            "width": 1260,
-                            "height": 2736,
-                            "title": "Home with persistent tabs",
-                            "variant": "linked",
-                            "trigger_label": "Open Home with persistent tabs screenshot at full size",
-                            "dialog": {
-                              "title": "Home with persistent tabs",
-                              "close_label": "Close screenshot",
-                              "size": "small"
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "id": "impella-node-211",
-                          "bundle": "group",
-                          "metadata": {
-                            "element": "figcaption"
-                          },
+                          "id": "impella-node-212",
+                          "bundle": "figure",
+                          "metadata": {},
                           "content": [
                             {
-                              "id": "impella-node-207",
-                              "bundle": "text_block",
+                              "id": "impella-node-206",
+                              "bundle": "media",
                               "metadata": {
-                                "variant": "eyebrow"
+                                "src": "/assets/production/home.png",
+                                "alt": "Impella home with Favorites and Browse regions above Favorites, Browse, Tools and IFUs bottom tabs",
+                                "width": 1260,
+                                "height": 2736,
+                                "title": "Home with persistent tabs",
+                                "variant": "linked",
+                                "trigger_label": "Open Home with persistent tabs screenshot at full size",
+                                "dialog": {
+                                  "title": "Home with persistent tabs",
+                                  "close_label": "Close screenshot",
+                                  "size": "small"
+                                }
                               },
-                              "content": "Supplied capture · Region unverified"
+                              "content": []
                             },
                             {
-                              "id": "impella-node-208",
-                              "bundle": "heading",
+                              "id": "impella-node-211",
+                              "bundle": "group",
                               "metadata": {
-                                "level": 3
+                                "element": "figcaption"
                               },
-                              "content": "Home with persistent tabs"
-                            },
-                            {
-                              "id": "impella-node-209",
-                              "bundle": "text_block",
-                              "metadata": {},
-                              "content": "Favorites, Browse, Tools and IFUs are visible destinations in the bottom navigation. Home also presents saved resources and a Browse preview."
-                            },
-                            {
-                              "id": "impella-node-210",
-                              "bundle": "action",
-                              "metadata": {
-                                "href": "/assets/production/home.png",
-                                "variant": "text",
-                                "action": "image",
-                                "target_id": "impella-node-206"
-                              },
-                              "content": "View screenshot ↗"
+                              "content": [
+                                {
+                                  "id": "impella-node-210",
+                                  "bundle": "action",
+                                  "metadata": {
+                                    "href": "/assets/production/home.png",
+                                    "variant": "text",
+                                    "action": "image",
+                                    "target_id": "impella-node-206"
+                                  },
+                                  "content": "View screenshot ↗"
+                                }
+                              ]
                             }
                           ]
                         }
@@ -1771,75 +1644,74 @@
                   ]
                 },
                 {
-                  "id": "impella-node-221",
-                  "bundle": "card",
-                  "metadata": {
-                    "variant": "tinted"
-                  },
+                  "id": "navigation-home-journey",
+                  "bundle": "group",
+                  "metadata": {},
                   "content": [
                     {
-                      "id": "impella-node-220",
-                      "bundle": "figure",
+                      "id": "impella-node-216",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Home shortcuts"
+                    },
+                    {
+                      "id": "impella-node-217",
+                      "bundle": "text_block",
                       "metadata": {},
+                      "content": "Home tiles offered shortcuts into selected collections. Authors could tailor those entry points to the audience, use them alongside tabs, or leave them out—shaping where users started and how they reached content."
+                    },
+                    {
+                      "id": "impella-node-221",
+                      "bundle": "card",
+                      "metadata": {
+                        "variant": "tinted"
+                      },
                       "content": [
                         {
-                          "id": "impella-node-214",
-                          "bundle": "media",
-                          "metadata": {
-                            "src": "/assets/production/apple-home.webp",
-                            "alt": "Impella home with six collection tiles above Favorites and no bottom tab bar visible in the capture",
-                            "width": 460,
-                            "height": 996,
-                            "title": "Home with collection tiles",
-                            "variant": "linked",
-                            "trigger_label": "Open Home with collection tiles screenshot at full size",
-                            "dialog": {
-                              "title": "Home with collection tiles",
-                              "close_label": "Close screenshot",
-                              "size": "small"
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "id": "impella-node-219",
-                          "bundle": "group",
-                          "metadata": {
-                            "element": "figcaption"
-                          },
+                          "id": "impella-node-220",
+                          "bundle": "figure",
+                          "metadata": {},
                           "content": [
                             {
-                              "id": "impella-node-215",
-                              "bundle": "text_block",
+                              "id": "impella-node-214",
+                              "bundle": "media",
                               "metadata": {
-                                "variant": "eyebrow"
+                                "src": "/assets/production/apple-home.webp",
+                                "alt": "Impella home with six collection tiles above Favorites and no bottom tab bar visible in the capture",
+                                "width": 460,
+                                "height": 996,
+                                "title": "Home with collection tiles",
+                                "variant": "linked",
+                                "trigger_label": "Open Home with collection tiles screenshot at full size",
+                                "dialog": {
+                                  "title": "Home with collection tiles",
+                                  "close_label": "Close screenshot",
+                                  "size": "small"
+                                }
                               },
-                              "content": "Apple listing · Region unverified"
+                              "content": []
                             },
                             {
-                              "id": "impella-node-216",
-                              "bundle": "heading",
+                              "id": "impella-node-219",
+                              "bundle": "group",
                               "metadata": {
-                                "level": 3
+                                "element": "figcaption"
                               },
-                              "content": "Home with collection tiles"
-                            },
-                            {
-                              "id": "impella-node-217",
-                              "bundle": "text_block",
-                              "metadata": {},
-                              "content": "Six collection tiles provide entry points from Home, with Favorites below. No persistent bottom tab bar is visible in this capture."
-                            },
-                            {
-                              "id": "impella-node-218",
-                              "bundle": "action",
-                              "metadata": {
-                                "href": "/assets/production/apple-home.webp",
-                                "variant": "text",
-                                "action": "image",
-                                "target_id": "impella-node-214"
-                              },
-                              "content": "View screenshot ↗"
+                              "content": [
+                                {
+                                  "id": "impella-node-218",
+                                  "bundle": "action",
+                                  "metadata": {
+                                    "href": "/assets/production/apple-home.webp",
+                                    "variant": "text",
+                                    "action": "image",
+                                    "target_id": "impella-node-214"
+                                  },
+                                  "content": "View screenshot ↗"
+                                }
+                              ]
                             }
                           ]
                         }
@@ -1848,14 +1720,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "id": "impella-node-223",
-              "bundle": "text_block",
-              "metadata": {
-                "variant": "note"
-              },
-              "content": "These captures show different navigation layouts. Their regions and versions are unverified, so they illustrate the product’s range rather than a confirmed US/Japan comparison. Regional menu selection is verified in the source; the images do not establish how later changes were deployed."
             },
             {
               "id": "impella-node-227",
@@ -2661,7 +2525,9 @@
                                   "bundle": "checklist_rule",
                                   "metadata": {
                                     "operator": "or",
-                                    "selected_ids": ["checklist-option-pencil"],
+                                    "selected_ids": [
+                                      "checklist-option-pencil"
+                                    ],
                                     "outcome_id": "checklist-outcome-line"
                                   },
                                   "content": null
@@ -2671,7 +2537,9 @@
                                   "bundle": "checklist_rule",
                                   "metadata": {
                                     "operator": "or",
-                                    "selected_ids": ["checklist-option-camera"],
+                                    "selected_ids": [
+                                      "checklist-option-camera"
+                                    ],
                                     "outcome_id": "checklist-outcome-color"
                                   },
                                   "content": null

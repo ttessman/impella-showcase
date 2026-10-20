@@ -12,6 +12,7 @@ export function MediaBundle({ node }: { node: NodeOf<"media"> }) {
     );
   return (
     <Media
+      data-bundle-name={node.bundle}
       definition={{
         image: {
           src: assetUrl(node.metadata.src),

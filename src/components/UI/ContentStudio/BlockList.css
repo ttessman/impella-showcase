@@ -1,7 +1,7 @@
 .empty-container-label {
   font-size: 10px;
   color: var(--muted);
-  padding: 10px;
+  padding: var(--space-2-5);
 }
 
 .block-list {
@@ -10,22 +10,22 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .block-row {
   display: flex;
-  border: 1px solid #c4d3e1;
-  background: #f8fbfe;
+  border: 1px solid var(--border-drag);
+  background: var(--surface-block);
   min-width: 0;
   align-items: stretch;
-  border-radius: 3px;
+  border-radius: var(--radius-small);
 }
 
 .block-row.selected {
-  border-color: #12395d;
-  box-shadow: inset 3px 0 #12395d;
-  background: #e8f2fb;
+  border-color: var(--ink);
+  box-shadow: inset 3px 0 var(--ink);
+  background: var(--surface-block-active);
 }
 
 .block-kind {
@@ -60,7 +60,7 @@
 }
 
 .row-actions button:hover {
-  background: #dfecf7;
+  background: var(--surface-block-hover);
 }
 
 @media (max-width: 760px) {
@@ -80,8 +80,8 @@
 
 @media (max-width: 760px) {
   .block-list .block-list {
-    padding-left: 8px;
-    margin-left: 6px;
+    padding-left: var(--space-2);
+    margin-left: var(--space-1-5);
   }
 }
 
@@ -105,7 +105,7 @@
 
 .drag-handle[aria-pressed="true"] {
   cursor: grabbing;
-  background: #d9ecfc;
+  background: var(--surface-drag);
   color: var(--ink);
 }
 
@@ -128,8 +128,8 @@
   top: -1px;
   height: 3px;
   border-radius: 2px;
-  background: #0068a8;
-  box-shadow: 0 0 0 1px white;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--paper);
 }
 
 .drop-zone.drop-active::before {
@@ -140,7 +140,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #0068a8;
+  background: var(--accent);
 }
 
 .drop-end {
@@ -149,15 +149,15 @@
 }
 
 .block-list .block-list {
-  padding: 9px 0 0 12px;
-  border-left: 1px solid #afc0d1;
+  padding: 9px 0 0 var(--space-3);
+  border-left: 1px solid var(--control-border);
   margin-left: 9px;
-  padding-bottom: 6px;
+  padding-bottom: var(--space-1-5);
 }
 
 .block-select[aria-expanded="true"] .block-kind::after {
   content: " · EDITING";
-  color: #0068a8;
+  color: var(--accent);
 }
 
 .block-select {
@@ -166,7 +166,7 @@
   text-align: left;
   min-width: 0;
   flex: 1;
-  padding: 10px 10px 10px 13px;
+  padding: var(--space-2-5) var(--space-2-5) var(--space-2-5) 13px;
   display: flex;
   flex-direction: column;
   gap: 5px;

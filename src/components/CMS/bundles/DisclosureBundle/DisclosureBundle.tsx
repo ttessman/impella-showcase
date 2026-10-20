@@ -4,6 +4,7 @@ import { ContentViewRender } from "../../renderers/ContentViewRender";
 export function DisclosureBundle({ node }: { node: NodeOf<"disclosure"> }) {
   return (
     <Disclosure
+      data-bundle-name={node.bundle}
       label={node.metadata.label}
       variant={node.metadata.variant}
       initiallyExpanded={node.metadata.initially_expanded}

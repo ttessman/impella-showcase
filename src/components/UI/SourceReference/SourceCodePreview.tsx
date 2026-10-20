@@ -69,6 +69,7 @@ export function SourceCodePreview({ source }: { source: SourceReferenceData }) {
         ))}
       </div>
       <pre
+        data-bundle-name={file.bundleName}
         ref={code}
         id={`${id}-panel`}
         role="tabpanel"

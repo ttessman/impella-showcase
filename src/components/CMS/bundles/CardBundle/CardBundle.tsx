@@ -7,6 +7,13 @@ export function CardBundle({ node }: { node: NodeOf<"card"> }) {
   const parts = frameParts(node);
   return (
     <Card
+      data-bundle-name={node.bundle}
+      headerAttributes={
+        parts.header ? { "data-bundle-name": parts.header.bundle } : undefined
+      }
+      footerAttributes={
+        parts.footer ? { "data-bundle-name": parts.footer.bundle } : undefined
+      }
       id={node.id}
       variant={node.metadata.variant}
       slots={{

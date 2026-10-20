@@ -1,22 +1,22 @@
 .document-view {
-  padding: 4px 0;
+  padding: var(--space-1) 0;
 }
 
 .document-view > h2 {
   font:
     32px/1.2 Georgia,
     serif;
-  margin-bottom: 28px;
+  margin-bottom: var(--space-7);
 }
 
 .document-view section {
-  margin-top: 24px;
+  margin-top: var(--space-6);
   break-inside: avoid;
 }
 
 .document-view h3 {
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-2-5);
 }
 
 .document-view p {

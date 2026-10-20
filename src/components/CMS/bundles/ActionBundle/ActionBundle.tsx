@@ -12,6 +12,7 @@ export function ActionBundle({ node }: { node: NodeOf<"action"> }) {
   if (node.metadata.action === "reader")
     return (
       <ReaderDialog
+        data-bundle-name={node.bundle}
         definition={buildReaderDocument(context)}
         label={typeof node.content === "string" ? node.content : undefined}
       />
@@ -21,6 +22,7 @@ export function ActionBundle({ node }: { node: NodeOf<"action"> }) {
     if (media?.bundle !== "media" || !media.metadata.dialog) return null;
     return (
       <ImageDialogTrigger
+        data-bundle-name={node.bundle}
         image={{
           src: assetUrl(media.metadata.src),
           alt: media.metadata.alt,
@@ -45,6 +47,7 @@ export function ActionBundle({ node }: { node: NodeOf<"action"> }) {
     : node.metadata.href;
   return (
     <Action
+      data-bundle-name={node.bundle}
       href={href}
       variant={node.metadata.variant}
       newTab={node.metadata.new_tab}

@@ -1,6 +1,6 @@
 .footer-reader-link {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: var(--space-3);
   font-size: 11px;
 }
 
@@ -27,7 +27,7 @@
 @media print {
   body:has(.case-study-reader) {
     overflow: visible !important;
-    background: white;
+    background: var(--paper);
   }
 }
 

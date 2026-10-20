@@ -4,12 +4,12 @@
   max-width: calc(100vw - 24px);
   max-height: var(--radix-popover-content-available-height);
   overflow: auto;
-  padding: 4px;
+  padding: var(--space-1);
   border: 1px solid var(--line);
   border-radius: 4px;
   background: var(--paper);
-  color: #172b43;
-  box-shadow: 0 8px 24px #102e4b20;
+  color: var(--text);
+  box-shadow: 0 8px 24px var(--shadow-dropdown);
 }
 
 .dropdown [data-dropdown-item] {
@@ -30,11 +30,11 @@
 
 .dropdown [data-dropdown-item]:hover,
 .dropdown [data-dropdown-item]:focus-visible {
-  background: #edf3f9;
+  background: var(--surface-tint);
 }
 
 .dropdown [data-dropdown-item][aria-current] {
-  background: #e8f0f7;
+  background: var(--surface-section);
 }
 
 .dropdown [data-dropdown-item]:disabled {

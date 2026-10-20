@@ -1,50 +1,50 @@
 .architecture-figure {
-  margin-top: 30px;
+  margin-top: var(--space-7-5);
 }
 
 .anatomy-figure {
-  background: #edf3f9;
-  padding: 30px;
-  margin: 30px 0;
+  background: var(--surface-tint);
+  padding: var(--space-7-5);
+  margin: var(--space-7-5) 0;
 }
 
 @media (max-width: 1100px) {
   .anatomy-figure {
-    padding: 24px;
+    padding: var(--space-6);
   }
 }
 
 @media (max-width: 760px) {
   .anatomy-figure {
-    padding: 20px;
+    padding: var(--space-5);
   }
 }
 
 .compact-flow-figure {
-  margin: 24px 0;
-  padding: 18px 0;
+  margin: var(--space-6) 0;
+  padding: var(--space-4-5) 0;
   border-block: 1px solid var(--line);
 }
 
 .compact-flow-figure figcaption {
-  margin-top: 14px;
+  margin-top: var(--space-3-5);
 }
 
 .original-article-evidence {
   display: grid;
   grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-  gap: 36px;
+  gap: var(--space-9);
   align-items: start;
-  padding: 28px;
-  margin: 30px 0;
+  padding: var(--space-7);
+  margin: var(--space-7-5) 0;
   border: 1px solid var(--line);
-  background: #edf3f9;
+  background: var(--surface-tint);
 }
 
 @media (min-width: 1101px) {
   .original-article-evidence {
-    padding: 40px;
-    gap: 48px;
+    padding: var(--space-10);
+    gap: var(--space-12);
     grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
   }
 }
@@ -52,13 +52,13 @@
 @media (max-width: 760px) {
   .original-article-evidence {
     grid-template-columns: 1fr;
-    padding: 18px;
-    gap: 24px;
+    padding: var(--space-4-5);
+    gap: var(--space-6);
   }
 }
 
 .tool-flow-figure {
-  margin-top: 20px;
-  padding: 20px;
-  background: #edf3f9;
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--surface-tint);
 }

@@ -3,20 +3,20 @@
   height: 28px;
   overflow: auto;
   border-bottom: 1px solid var(--line);
-  background: #f1f4f7;
-  color: #536479;
+  background: var(--status-neutral-surface);
+  color: var(--status-neutral-text);
 }
 .editor-feedback-message {
   margin: 0;
-  padding: 6px 16px;
+  padding: var(--space-1-5) var(--space-4);
   font: 10px/15px var(--sans);
   overflow-wrap: anywhere;
 }
 .editor-feedback[data-tone="success"] {
-  background: #edf7f0;
-  color: #17613a;
+  background: var(--status-success-surface);
+  color: var(--status-success-text);
 }
 .editor-feedback[data-tone="error"] {
-  background: #fff0ed;
-  color: #8b3025;
+  background: var(--status-error-surface);
+  color: var(--status-error-text);
 }

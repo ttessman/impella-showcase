@@ -10,12 +10,14 @@ export function SourceReferenceBundle({
   );
   return (
     <SourceReference
+      data-bundle-name={node.bundle}
       source={{
         title: node.metadata.title,
         summary: node.metadata.summary,
         disclaimer: node.metadata.disclaimer,
         initialFile: node.metadata.initial_file,
         files: files.map((file) => ({
+          bundleName: file.bundle,
           path: file.metadata.path!,
           context: file.metadata.context!,
           example: file.content,

@@ -1,7 +1,7 @@
 .footer-summary {
-  padding: 28px 0;
+  padding: var(--space-7) 0;
   display: flex;
-  gap: 40px;
+  gap: var(--space-10);
   justify-content: space-between;
 }
 
@@ -20,40 +20,40 @@
 
 .hero-meta {
   display: flex;
-  gap: 20px;
+  gap: var(--space-5);
   flex-wrap: wrap;
-  margin-top: 38px;
+  margin-top: var(--space-9-5);
   font: 10px/1.5 var(--sans);
   color: var(--muted);
 }
 
 .hero-meta span + span:before {
   content: "·";
-  margin-right: 20px;
+  margin-right: var(--space-5);
 }
 
 @media (max-width: 760px) {
   .hero-meta {
-    margin-top: 26px;
+    margin-top: var(--space-6-5);
   }
 }
 
 @media (max-width: 380px) {
   .hero-meta {
-    gap: 12px;
+    gap: var(--space-3);
   }
 }
 
 @media (max-width: 380px) {
   .hero-meta span + span:before {
-    margin-right: 12px;
+    margin-right: var(--space-3);
   }
 }
 
 .store-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--space-5);
   flex-wrap: wrap;
   font-size: 12px;
   margin-top: 25px;
@@ -66,42 +66,42 @@
 }
 
 .future-concept {
-  padding: 30px;
-  background: #edf3f9;
+  padding: var(--space-7-5);
+  background: var(--surface-tint);
   border-top: 3px solid var(--ink);
 }
 
 .future-concept .eyebrow {
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
 }
 
 @media (max-width: 760px) {
   .future-concept {
-    padding: 24px;
+    padding: var(--space-6);
   }
 }
 
 .product-workflow {
-  margin-top: 36px;
+  margin-top: var(--space-9);
 }
 
 .product-workflow > h3 {
-  margin-bottom: 18px;
+  margin-bottom: var(--space-4-5);
 }
 
 .diagram-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .diagram-box {
   background: var(--paper);
-  border: 1px solid #bacbdb;
-  padding: 20px;
+  border: 1px solid var(--resize-border);
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-2-5);
 }
 
 .diagram-box > span {
@@ -121,13 +121,13 @@
 
 .diagram-box.authored {
   background: var(--ink);
-  color: white;
+  color: var(--paper);
   border-color: var(--ink);
 }
 
 .diagram-box.authored span,
 .diagram-box.authored small {
-  color: #dae8f4;
+  color: var(--surface-hover);
 }
 
 .diagram-annotation {
@@ -139,8 +139,8 @@
   display: flex;
   justify-content: space-between;
   font-size: 11px;
-  gap: 12px;
-  margin-top: 18px;
+  gap: var(--space-3);
+  margin-top: var(--space-4-5);
 }
 
 .group-heading span {
@@ -154,7 +154,7 @@
 }
 
 .original-article-notes h3 {
-  margin: 14px 0 18px;
+  margin: var(--space-3-5) 0 var(--space-4-5);
   font-size: 26px;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .original-article-notes figcaption {
-  margin-top: 20px;
+  margin-top: var(--space-5);
 }
 
 @media (min-width: 1101px) {
@@ -188,19 +188,19 @@
 
 .public-evidence {
   margin: 0;
-  padding: 28px 0;
-  background: #e8f0f7;
-  box-shadow: 0 0 0 100vmax #e8f0f7;
+  padding: var(--space-7) 0;
+  background: var(--surface-section);
+  box-shadow: 0 0 0 100vmax var(--surface-section);
   clip-path: inset(0 -100vmax);
 }
 
 .public-evidence > h3 {
   font-size: 14px;
-  margin-bottom: 18px;
+  margin-bottom: var(--space-4-5);
 }
 
 .public-evidence > .note {
-  margin-top: 20px;
+  margin-top: var(--space-5);
   font-size: 10px;
   max-width: none;
 }
@@ -208,14 +208,14 @@
 .tool-example {
   display: grid;
   grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
-  gap: 20px;
+  gap: var(--space-5);
   align-items: center;
 }
 
 @media (max-width: 600px) {
   .tool-example {
     grid-template-columns: minmax(110px, 150px) minmax(0, 1fr);
-    gap: 16px;
+    gap: var(--space-4);
   }
 }
 

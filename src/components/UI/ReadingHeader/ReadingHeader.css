@@ -14,7 +14,7 @@
 .reading-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: var(--space-6);
   flex-shrink: 0;
   font-size: 12px;
 }
@@ -24,7 +24,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  gap: 8px;
+  gap: var(--space-2);
   text-decoration: none;
 }
 
@@ -48,7 +48,7 @@
 
 @media (max-width: 1100px) {
   .reading-actions {
-    gap: 18px;
+    gap: var(--space-4-5);
   }
 }
 
@@ -67,7 +67,7 @@
 @media (max-width: 650px) {
   .reading-actions {
     justify-content: space-between;
-    gap: 12px;
+    gap: var(--space-3);
     font-size: 11px;
   }
 }

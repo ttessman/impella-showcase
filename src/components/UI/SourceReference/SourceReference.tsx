@@ -1,5 +1,6 @@
 import { Icon } from "../Icon/Icon";
 export type SourceFileIllustration = {
+  bundleName?: string;
   path: string;
   context: string;
   example: string;
@@ -18,13 +19,19 @@ import { Button } from "../Button/Button";
 import { PreviewPopover } from "../PreviewPopover/PreviewPopover";
 
 /** Source-specific content composes the shared preview interaction. */
-export function SourceReference({ source }: { source: SourceReferenceData }) {
+export function SourceReference({
+  source,
+  "data-bundle-name": bundleName,
+}: {
+  source: SourceReferenceData;
+  "data-bundle-name"?: string;
+}) {
   const longestFile = Math.max(
     ...source.files.map((file) => file.example.split("\n").length),
   );
   const height = Math.min(380, Math.max(260, longestFile * 18 + 120));
   return (
-    <div className="source-note source-reference">
+    <div data-bundle-name={bundleName} className="source-note source-reference">
       <PreviewPopover
         title={source.title}
         className="source-reference-popup"
