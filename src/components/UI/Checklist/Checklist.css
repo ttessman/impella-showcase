@@ -1,0 +1,156 @@
+.checklist-showcase {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: 6px;
+  background: white;
+}
+
+.checklist-intro {
+  max-width: 660px;
+}
+
+.checklist-intro .eyebrow {
+  font-size: 10px;
+}
+
+.checklist-intro h3 {
+  font:
+    32px/1.15 Georgia,
+    serif;
+  margin: 12px 0;
+}
+
+.checklist-intro > p:last-child {
+  font-size: 13px;
+}
+
+.checklist-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.checklist-body fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0 0 20px;
+  min-width: 0;
+}
+
+.checklist-body legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.checklist-body label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checklist-body label:has(:checked) {
+  border-color: #8ca6be;
+  background: #edf3f9;
+}
+
+.checklist-body input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+}
+
+.checklist-result {
+  padding: 24px;
+  background: #f7f9fc;
+  border: 1px dashed #b7c9db;
+  border-radius: 4px;
+  align-self: stretch;
+}
+
+.checklist-result.has-result {
+  border-style: solid;
+  border-left: 3px solid var(--gold);
+  background: #fffdf6;
+}
+
+.checklist-result .eyebrow {
+  font-size: 10px;
+}
+
+.checklist-result h4 {
+  font:
+    28px/1.2 Georgia,
+    serif;
+  margin: 20px 0 12px;
+}
+
+.checklist-result p {
+  font-size: 13px;
+}
+
+.checklist-result .checklist-rule-note {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 24px;
+  font: 10px/1.6 monospace;
+}
+
+@media (max-width: 650px) {
+  .checklist-showcase {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .checklist-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .checklist-intro h3 {
+    font-size: 28px;
+  }
+}
+
+.checklist-group {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.checklist-group > summary {
+  padding: 14px;
+  color: var(--ink);
+  background: #edf3f9;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.checklist-questions {
+  padding: 16px;
+}
+
+.checklist-questions > fieldset:last-child {
+  margin-bottom: 0;
+}
+
+.checklist-questions > fieldset + fieldset {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}

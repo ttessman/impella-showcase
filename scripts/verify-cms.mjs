@@ -13,23 +13,23 @@ const server = await createServer({
 });
 try {
   const { parseDocument } = await server.ssrLoadModule(
-    "/src/components/CMS/model/validateDocument.ts",
+    "/src/utils/document.ts",
   );
   const { indexDocument, walkContent } = await server.ssrLoadModule(
-    "/src/components/CMS/model/document.ts",
+    "/src/utils/document.ts",
   );
   const { checklistDefinition } = await server.ssrLoadModule(
-    "/src/components/CMS/bundles/Checklist/model/checklistDefinition.ts",
+    "/src/components/CMS/bundles/ChecklistBundle/checklistDefinition.ts",
   );
   const { evaluateChecklist } = await server.ssrLoadModule(
-    "/src/components/CMS/bundles/Checklist/model/evaluateChecklist.ts",
+    "/src/utils/evaluateChecklist.ts",
   );
   const { renderDocument } = await server.ssrLoadModule(
     "/tests/helpers/renderCms.tsx",
   );
   const original = JSON.parse(
     await readFile(
-      new URL("../src/content/pages/impella.json", import.meta.url),
+      new URL("../src/content/impella.json", import.meta.url),
       "utf8",
     ),
   );
@@ -94,6 +94,138 @@ try {
   assert.ok(
     html.indexOf("Ordered body content.") < html.indexOf("Footer remains last"),
   );
+  // Specialized hero areas remain first-class CMS descendants for validation and reading.
+  const heroDoc = clone(fixture);
+  const hero = {
+    id: "fixture-hero",
+    bundle: "hero",
+    content: [],
+    metadata: {
+      variant: "editorial",
+      header: {
+        eyebrow: "An authored introduction",
+        title: "A *reusable* hero",
+        tags: ["React", "TypeScript"],
+      },
+      content: [
+        {
+          id: "hero-copy",
+          bundle: "text_block",
+          metadata: {},
+          content: "A **dynamic** introduction.\n\nAnother paragraph.",
+        },
+      ],
+      actions: [
+        {
+          id: "hero-action",
+          bundle: "action",
+          metadata: { href: "https://example.com/evidence" },
+          content: "Read the evidence",
+        },
+      ],
+      aside: [
+        {
+          id: "hero-aside-copy",
+          bundle: "text_block",
+          metadata: {},
+          content: "A quote instead of an image.",
+        },
+      ],
+      footer: [
+        {
+          id: "hero-footer-copy",
+          bundle: "text_block",
+          metadata: {},
+          content: "**Outcome**\n\nAn authored footer.",
+        },
+      ],
+    },
+  };
+  heroDoc.content[1].content.unshift(hero);
+  const heroIndex = indexDocument(parseDocument(heroDoc));
+  const heroHtml = renderDocument(heroDoc);
+  assert.ok(heroHtml.includes("A <em>reusable</em> hero"));
+  assert.ok(heroHtml.includes('aria-label="Project tags"'));
+  assert.ok(heroHtml.includes("<li>React</li>"));
+  assert.ok(heroHtml.includes("<strong>dynamic</strong>"));
+  assert.ok(heroHtml.includes("<p>Another paragraph.</p>"));
+  assert.ok(heroHtml.includes("A quote instead of an image."));
+  assert.ok(heroHtml.includes("<strong>Outcome</strong>"));
+  assert.ok(
+    heroHtml.indexOf("An authored footer.") >
+      heroHtml.indexOf("A quote instead of an image."),
+  );
+  for (const id of [
+    "hero-copy",
+    "hero-action",
+    "hero-aside-copy",
+    "hero-footer-copy",
+  ])
+    assert.ok(heroIndex.nodes.has(id));
+  const { documentText, publicLinks } = await server.ssrLoadModule(
+    "/src/utils/document.ts",
+  );
+  const narrative = documentText(heroIndex);
+  for (const text of [
+    "A reusable hero",
+    "React",
+    "A dynamic introduction.",
+    "Another paragraph.",
+    "A quote instead of an image.",
+    "An authored footer.",
+  ])
+    assert.ok(narrative.includes(text), text);
+  assert.ok(publicLinks(heroIndex).includes("https://example.com/evidence"));
+  const heroInvalid = [
+    (h) => h.metadata.aside.push(clone(h.metadata.content[0])),
+    (h) => (h.metadata.actions[0].metadata.href = "javascript:alert(1)"),
+    (h) => (h.metadata.footer[0].metadata.schema_version = 1),
+    (h) => (h.metadata.aside[0].bundle = "unknown"),
+    (h) => (h.metadata.aside = { content: [] }),
+    (h) => (h.metadata.header.tags = "not an array"),
+    (h) => (h.metadata.header.title = 42),
+    (h) => h.metadata.actions.push(clone(h.metadata.aside[0])),
+    (h) => h.content.push({ ...clone(h.metadata.content[0]), id: "misplaced" }),
+    (h) =>
+      h.metadata.footer.push({
+        id: "bad-image",
+        bundle: "media",
+        metadata: {
+          src: "/assets/../private",
+          alt: "x",
+          title: "x",
+          width: 10,
+          height: 10,
+          variant: "inline",
+        },
+        content: [],
+      }),
+    (h) =>
+      h.metadata.footer.push(
+        ...Array.from({ length: 1001 }, (_, i) => ({
+          id: `over-limit-${i}`,
+          bundle: "text_block",
+          metadata: {},
+          content: "Text",
+        })),
+      ),
+    (h) => {
+      let item = { id: "too-deep", bundle: "group", metadata: {}, content: [] };
+      for (let i = 0; i < 22; i++)
+        item = {
+          id: `deep-${i}`,
+          bundle: "group",
+          metadata: {},
+          content: [item],
+        };
+      h.metadata.aside.push(item);
+    },
+  ];
+  for (const mutate of heroInvalid) {
+    const doc = clone(heroDoc);
+    mutate(doc.content[1].content[0]);
+    assert.throws(() => parseDocument(doc));
+  }
   const renamed = clone(fixture);
   renamed.content[1].content.reverse();
   renamed.content[1].content[0].content[0].content[0].content =
@@ -214,7 +346,7 @@ try {
     assert.throws(() => parseDocument(bad));
   }
   console.log(
-    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, React/CMS card parity (3 variants), derived navigation, ${invalid.length + 2} invalid-document cases, 16 checklist combinations.`,
+    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, React/CMS card parity (3 variants), derived navigation, ${invalid.length + heroInvalid.length + 2} invalid-document cases, hero authored areas/Markdown/tags, 16 checklist combinations.`,
   );
 } finally {
   await server.close();

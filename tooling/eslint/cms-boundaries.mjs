@@ -45,7 +45,7 @@ export const cmsBaseBoundary = {
     return {
       ImportDeclaration(node) {
         if (
-          /(?:types\/cms|\/renderers\/|\/DocumentContext$|Bundle$)/.test(
+          /(?:types\/cms|\/CMS\/(?:types|DocumentContext)$|\/renderers\/|\/DocumentContext$|Bundle$|\/useDocument$)/.test(
             node.source.value,
           )
         )

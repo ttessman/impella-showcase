@@ -1,0 +1,34 @@
+.document-view {
+  padding: 4px 0;
+}
+
+.document-view > h2 {
+  font:
+    32px/1.2 Georgia,
+    serif;
+  margin-bottom: 28px;
+}
+
+.document-view section {
+  margin-top: 24px;
+  break-inside: avoid;
+}
+
+.document-view h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.document-view p {
+  font: 13px/1.8 var(--sans);
+}
+
+.document-view .eyebrow {
+  font-size: 10px;
+}
+
+@media print {
+  .document-view {
+    padding: 0;
+  }
+}

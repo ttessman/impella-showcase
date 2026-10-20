@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
+import type { StudioDocument } from "../src/utils/studio";
 import { openCompose, closeCompose } from "./helpers/studio";
 
 test("drag sections across containers, preserve IDs, and sync preview", async ({
@@ -39,8 +39,8 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
   await page.mouse.up();
   const moved = await read();
   await closeCompose(page);
-  expect(moved.primary_content_value[0]).toEqual(
-    start.primary_content_value.find((b) => b.id === "chapter"),
+  expect(moved.content[0]).toEqual(
+    start.content.find((b) => b.id === "chapter"),
   );
   await expect(
     page
@@ -64,21 +64,21 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
     "chapter",
   );
   await page.keyboard.press("Enter");
-  const nested = (await read()).primary_content_value[0];
-  expect(nested.bundle).toBe("demo_section");
-  if (nested.bundle === "demo_section")
-    expect(nested.children.map((b) => b.id)).toEqual(["intro", "prompt"]);
+  const nested = (await read()).content[0];
+  expect(nested.bundle).toBe("section");
+  if (nested.bundle === "section")
+    expect(nested.content.map((b) => b.id)).toEqual(["intro", "prompt"]);
   await expect(headingGrip).toBeFocused();
 
   await headingGrip.press("Space");
   await page.keyboard.press("End");
   await page.keyboard.press("Enter");
-  expect((await read()).primary_content_value.at(-1)?.id).toBe("intro");
+  expect((await read()).content.at(-1)?.id).toBe("intro");
   await headingGrip.press("Space");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Escape");
   await expect(page.locator(".drop-active")).toHaveCount(0);
-  expect((await read()).primary_content_value.at(-1)?.id).toBe("intro");
+  expect((await read()).content.at(-1)?.id).toBe("intro");
 
   await grip.focus();
   await page.keyboard.press("Space");
@@ -137,7 +137,7 @@ test("touch grip moves a section", async ({ page, context }, info) => {
   const data = JSON.parse(
     await page.getByLabel("Editable page JSON").inputValue(),
   ) as StudioDocument;
-  expect(data.primary_content_value[0].id).toBe("chapter");
+  expect(data.content[0].id).toBe("chapter");
   await cdp.detach();
 });
 
@@ -225,7 +225,7 @@ test("selected properties stay with the block and row halves show one insertion 
   const json = JSON.parse(
     await page.getByLabel("Editable page JSON").inputValue(),
   ) as StudioDocument;
-  expect(json.primary_content_value.map((b) => b.id)).toEqual([
+  expect(json.content.map((b) => b.id)).toEqual([
     "intro",
     "opening",
     "chapter",
@@ -245,7 +245,7 @@ test("drop a block directly inside an empty section", async ({ page }) => {
   await page.getByLabel("Section title", { exact: true }).fill("Empty chapter");
   const json = page.getByLabel("Editable page JSON");
   const initial = JSON.parse(await json.inputValue()) as StudioDocument;
-  const section = initial.primary_content_value.at(-1)!;
+  const section = initial.content.at(-1)!;
   const grip = page.getByRole("button", {
     name: "Drag Heading Small observations. New ideas.",
     exact: true,
@@ -282,12 +282,10 @@ test("drop a block directly inside an empty section", async ({ page }) => {
   );
   await page.mouse.up();
   const updated = JSON.parse(await json.inputValue()) as StudioDocument;
-  expect(updated.primary_content_value.some((b) => b.id === "intro")).toBe(
-    false,
-  );
-  expect(updated.primary_content_value.at(-1)).toMatchObject({
+  expect(updated.content.some((b) => b.id === "intro")).toBe(false);
+  expect(updated.content.at(-1)).toMatchObject({
     id: section.id,
-    children: [{ id: "intro" }],
+    content: [{ id: "intro" }],
   });
   await expect(
     page.getByRole("region", { name: "Block properties" }),

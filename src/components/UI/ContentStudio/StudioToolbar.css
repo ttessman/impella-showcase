@@ -1,0 +1,115 @@
+.playground-bar button {
+  background: transparent;
+  color: white;
+  border: 1px solid #829bb3;
+  padding: 9px 12px;
+  font-size: 11px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-right: 9px;
+}
+
+.demo-note {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .playground-bar {
+    padding: 14px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 760px) {
+  .playground-bar button {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .playground-bar {
+    flex-wrap: wrap;
+  }
+}
+
+.playground-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.playground-bar {
+  background: var(--ink);
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 20px;
+  font-size: 12px;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+}
+
+.playground-title {
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.playground-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 8px 9px;
+  font-size: 10px;
+}
+
+.playground-bar .demo-note {
+  grid-column: 1 / -1;
+  padding: 0;
+  border: 0;
+  color: #dae8f4;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+@media (max-width: 650px) {
+  .playground-bar {
+    padding: 12px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 650px) {
+  .playground-actions {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 650px) {
+  .playground-actions .action-label {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .playground-actions button {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    justify-content: center;
+  }
+}

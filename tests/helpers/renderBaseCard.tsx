@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { Card } from "../../src/components/card/Card/Card";
-import { Heading } from "../../src/components/CMS/bundles/Heading/Heading";
-import { TextBlock } from "../../src/components/CMS/bundles/TextBlock/TextBlock";
+import { Card } from "../../src/components/UI/Card/Card";
+import { Heading } from "../../src/components/UI/Heading/Heading";
+import { BlockText } from "../../src/components/UI/Text/variants/BlockText";
 
 /** Direct React use has no CMS renderer or document provider. */
 export function renderBaseCard(
@@ -17,11 +17,11 @@ export function renderBaseCard(
             Shared frame
           </Heading>
         ),
-        content: <TextBlock>Ordered body content.</TextBlock>,
+        content: <BlockText>Ordered body content.</BlockText>,
         footer: (
-          <TextBlock>
+          <BlockText>
             Footer remains last despite its authored position.
-          </TextBlock>
+          </BlockText>
         ),
       }}
     />,

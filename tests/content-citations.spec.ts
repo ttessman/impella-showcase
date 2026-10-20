@@ -1,10 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { openCompose, closeCompose } from "./helpers/studio";
-import type {
-  StudioDocument,
-  StudioSectionBundle,
-} from "../src/features/ContentStudio/model/studioDocument";
+import type { StudioDocument, StudioSectionBundle } from "../src/utils/studio";
 
 test("inline citations insert at the cursor, survive JSON edits and render safely in nested content", async ({
   page,
@@ -55,14 +52,14 @@ test("inline citations insert at the cursor, survive JSON edits and render safel
   await expect(preview.locator("details li")).toHaveCount(2);
   const json = page.getByLabel("Editable page JSON");
   const content = JSON.parse(await json.inputValue()) as StudioDocument;
-  const section = content.primary_content_value.find(
+  const section = content.content.find(
     (block) => block.id === "chapter",
   ) as StudioSectionBundle;
-  const paragraph = section.children[0];
+  const paragraph = section.content[0];
   if (paragraph.bundle !== "text_block")
     throw Error("Expected nested paragraph");
-  expect(paragraph.text_body).toContain("<sup>1,2</sup>");
-  paragraph.text_body =
+  expect(paragraph.content).toContain("<sup>1,2</sup>");
+  paragraph.content =
     'JSON edit<sup>2</sup> <img src=x onerror="alert(1)"> <sup>nope</sup><sup>1</sup>';
   await json.fill(JSON.stringify(content, null, 2));
   await page.getByRole("button", { name: "Apply JSON", exact: true }).click();
@@ -80,4 +77,45 @@ test("inline citations insert at the cursor, survive JSON edits and render safel
     .getByRole("button", { name: "Reset example", exact: true })
     .click();
   await expect(preview.locator("sup")).toHaveText("Reference 1");
+});
+
+test("rich text works without format flags and keeps HTML and unsafe URLs inert", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await openCompose(page);
+  await page
+    .getByRole("button", { name: /Edit Paragraph: A fictional journal/ })
+    .click();
+  await page
+    .getByLabel("Paragraph text", { exact: true })
+    .fill(
+      "A **bold** idea, an *unexpected* detail, and [field notes](https://example.com/notes).<sup>1</sup>\n\nAnother paragraph.\n\n- Look closely\n- Make something\n\n<img src=x onerror=alert(1)>\n\n[Unsafe](javascript:alert%281%29)",
+    );
+  await closeCompose(page);
+  const preview = page.getByRole("article", { name: "Mobile content preview" });
+  await expect(preview.locator("strong")).toHaveText("bold");
+  await expect(preview.locator("em")).toHaveText("unexpected");
+  await expect(
+    preview.getByRole("link", { name: "field notes" }),
+  ).toHaveAttribute("href", "https://example.com/notes");
+  await expect(
+    preview.getByText("Another paragraph.", { exact: true }),
+  ).toBeVisible();
+  await expect(preview.locator("ul li")).toHaveText([
+    "Look closely",
+    "Make something",
+  ]);
+  await expect(preview.getByText(/<img src=x onerror/)).toBeAttached();
+  await expect(
+    preview.locator('img[src="x"], [onerror], a[href^="javascript:"]'),
+  ).toHaveCount(0);
+  await expect(preview.locator("sup").first()).toHaveText("Reference 1");
+  const doc = JSON.parse(
+    await page.getByLabel("Editable page JSON").inputValue(),
+  );
+  expect(
+    doc.content.find((node: { id: string }) => node.id === "opening").metadata
+      .format,
+  ).toBeUndefined();
 });

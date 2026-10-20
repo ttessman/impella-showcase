@@ -1,0 +1,3945 @@
+{
+  "id": "impella",
+  "bundle": "page",
+  "metadata": {
+    "schema_version": 1,
+    "title": "Impella / Architecture as a product decision.",
+    "identity": {
+      "title": "Impella modernization — Tyler Tessmann, frontend engineer",
+      "description": "Tyler Tessmann’s work on Impella: native React Native CMS rendering, content contracts, calculators, Okta sign-in frontend, favorites and authoring workflows.",
+      "author": "Tyler Tessmann",
+      "role": "As a frontend engineer at Bounteous, I proposed native rendering for CMS-managed content, defined the JSON contracts and built the reusable React Native renderer. I also built calculator interfaces, favorites and their local app state, and the Okta employee sign-in frontend. Sample Drupal pages and documentation helped authors work with the system.",
+      "team": "I collaborated on content organization and navigation. The wider team delivered the application, CMS services and production content; I was not its sole developer or designer.",
+      "boundaries": "The wider team delivered the application and production content. Okta tenant setup and clinical formula authorship or independent clinical validation are not claimed. Offline caching is a broader product capability without individual ownership attribution.",
+      "reconstruction": "The Content studio is an independently written React web reconstruction with fictional, nonclinical content. Original React Native implementation files, credentials and private history are not published here. Generic recursive sections are a demo extension. Future semantic search/RAG was not shipped."
+    },
+    "navigation": {
+      "overview": {
+        "label": "Overview",
+        "target_id": "top"
+      },
+      "primary_action": {
+        "label": "Explore the renderer",
+        "target_id": "playground"
+      },
+      "sections_label": "Sections"
+    },
+    "skip_label": "Skip to case study",
+    "subject": {
+      "name": "Impella",
+      "publisher": "Abiomed"
+    }
+  },
+  "content": [
+    {
+      "id": "header",
+      "bundle": "reading_header",
+      "metadata": {},
+      "content": "IMPELLA"
+    },
+    {
+      "id": "main",
+      "bundle": "group",
+      "metadata": {
+        "element": "main"
+      },
+      "content": [
+        {
+          "id": "top",
+          "bundle": "hero",
+          "metadata": {
+            "variant": "editorial",
+            "header": {
+              "eyebrow": "CASE STUDY / MOBILE CONTENT ARCHITECTURE",
+              "title": "Content, composed\n*natively.*"
+            },
+            "content": [
+              {
+                "id": "impella-node-337",
+                "bundle": "text_block",
+                "metadata": {
+                  "variant": "hero-summary"
+                },
+                "content": "Modernizing a clinical app around the people using it—and the people keeping its content current."
+              },
+              {
+                "id": "impella-node-338",
+                "bundle": "text_block",
+                "metadata": {
+                  "variant": "hero-detail"
+                },
+                "content": "As a frontend engineer at Bounteous, I proposed and built the native content-rendering system and developed clinical tool interfaces alongside the wider product team."
+              },
+              {
+                "id": "impella-node-345",
+                "bundle": "group",
+                "metadata": {
+                  "variant": "hero-meta"
+                },
+                "content": [
+                  {
+                    "id": "impella-node-342",
+                    "bundle": "text_block",
+                    "metadata": {
+                      "element": "span"
+                    },
+                    "content": "React Native"
+                  },
+                  {
+                    "id": "impella-node-343",
+                    "bundle": "text_block",
+                    "metadata": {
+                      "element": "span"
+                    },
+                    "content": "Headless Drupal"
+                  },
+                  {
+                    "id": "impella-node-344",
+                    "bundle": "text_block",
+                    "metadata": {
+                      "element": "span"
+                    },
+                    "content": "JSON - TYPESCRIPT"
+                  }
+                ]
+              }
+            ],
+            "actions": [
+              {
+                "id": "impella-node-339",
+                "bundle": "action",
+                "metadata": {
+                  "href": "#playground",
+                  "variant": "primary"
+                },
+                "content": "Explore the content studio ↓"
+              },
+              {
+                "id": "impella-node-340",
+                "bundle": "action",
+                "metadata": {
+                  "href": "#architecture",
+                  "variant": "text"
+                },
+                "content": "Read the architectural decision ↓"
+              }
+            ],
+            "aside": [
+              {
+                "id": "impella-node-348",
+                "bundle": "media",
+                "metadata": {
+                  "src": "/assets/production/apple-home.webp",
+                  "width": 460,
+                  "height": 996,
+                  "alt": "Apple listing screenshot: Impella home with six authored collection tiles",
+                  "title": "Authored entry points. A native experience.",
+                  "variant": "hero"
+                },
+                "content": [
+                  {
+                    "id": "impella-node-347",
+                    "bundle": "text_block",
+                    "metadata": {},
+                    "content": "Apple listing evidence · Capture date unverified"
+                  }
+                ]
+              }
+            ],
+            "footer": [
+              {
+                "id": "impella-node-358",
+                "bundle": "list",
+                "metadata": {
+                  "variant": "summary",
+                  "ordered": false
+                },
+                "content": [
+                  {
+                    "id": "impella-node-355",
+                    "bundle": "list_item",
+                    "metadata": {},
+                    "content": [
+                      {
+                        "id": "impella-node-350",
+                        "bundle": "text_block",
+                        "metadata": {},
+                        "content": "**THE PROBLEM**\n\nAn aging app.\nFragmented resources and tools."
+                      }
+                    ]
+                  },
+                  {
+                    "id": "impella-node-356",
+                    "bundle": "list_item",
+                    "metadata": {},
+                    "content": [
+                      {
+                        "id": "impella-node-352",
+                        "bundle": "text_block",
+                        "metadata": {},
+                        "content": "**THE DECISION**\n\nAuthor structured data.\nRender with native components."
+                      }
+                    ]
+                  },
+                  {
+                    "id": "impella-node-357",
+                    "bundle": "list_item",
+                    "metadata": {},
+                    "content": [
+                      {
+                        "id": "impella-node-354",
+                        "bundle": "text_block",
+                        "metadata": {},
+                        "content": "**MY CONTRIBUTION**\n\nNative content architecture,\ninteractive tools & authoring guidance."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "content": []
+        },
+        {
+          "id": "overview",
+          "bundle": "section",
+          "metadata": {
+            "label": "Context & ownership",
+            "navigation": true,
+            "variant": "paper"
+          },
+          "content": [
+            {
+              "id": "impella-node-361",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "overview-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "A more useful app needed a stronger foundation."
+                },
+                {
+                  "id": "impella-node-360",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "Abiomed’s Impella application gave healthcare professionals resources for working with its heart pumps. Modernizing the existing app was an opportunity to bring clinical information, training and interactive tools into a more cohesive mobile experience."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-108",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "two-column"
+              },
+              "content": [
+                {
+                  "id": "impella-node-103",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "The previous app was outdated, buggy and difficult to maintain, with much of its value delivered through links to external clinical resources. The client wanted a modern experience where professionals could browse information and use tools together. A CMS could help keep information current; the choice of CMS and its delivery model were still open."
+                },
+                {
+                  "id": "impella-node-107",
+                  "bundle": "group",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-104",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "My role in the modernization"
+                    },
+                    {
+                      "id": "impella-node-105",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "As a frontend engineer at Bounteous, I proposed native rendering for CMS-managed content, defined the JSON contracts and built the reusable React Native renderer. I also built calculator interfaces, favorites and their local app state, and the Okta employee sign-in frontend. Sample Drupal pages and documentation helped authors work with the system."
+                    },
+                    {
+                      "id": "impella-node-106",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "note"
+                      },
+                      "content": "I collaborated on content organization and navigation. The wider team delivered the application, CMS services and production content; I was not its sole developer or designer."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "architecture",
+          "bundle": "section",
+          "metadata": {
+            "label": "The architectural decision",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-363",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "architecture-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Separate content authoring from the mobile experience."
+                },
+                {
+                  "id": "impella-node-362",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I wanted the modernization to address the maintenance problems behind the old app. When full-page webviews were proposed, I questioned whether a second presentation layer would recreate those difficulties."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-117",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "decision"
+              },
+              "content": [
+                {
+                  "id": "impella-node-112",
+                  "bundle": "group",
+                  "metadata": {
+                    "element": "article"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-109",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "INITIAL PROPOSAL"
+                    },
+                    {
+                      "id": "impella-node-110",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Web pages inside the app"
+                    },
+                    {
+                      "id": "impella-node-111",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Webviews offered a practical way to reuse CMS pages. My concern was the longer-term cost of coordinating web and native layouts, interactions and performance. That was an anticipated risk, rather than a measured problem with the proposal."
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-116",
+                  "bundle": "group",
+                  "metadata": {
+                    "element": "article"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-113",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "PROPOSED & IMPLEMENTED"
+                    },
+                    {
+                      "id": "impella-node-114",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Content interpreted by the app"
+                    },
+                    {
+                      "id": "impella-node-115",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "I proposed structured content rendered by reusable native components. Drupal became the authoring system; React Native controlled presentation and behavior. This required more upfront engineering: a schema, supported components, and coordination whenever that vocabulary changed."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-136",
+              "bundle": "figure",
+              "metadata": {
+                "variant": "architecture"
+              },
+              "content": [
+                {
+                  "id": "impella-node-134",
+                  "bundle": "list",
+                  "metadata": {
+                    "variant": "pipeline",
+                    "ordered": true
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-130",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-118",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "diagram-index",
+                            "element": "span"
+                          },
+                          "content": "01"
+                        },
+                        {
+                          "id": "impella-node-119",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "strong"
+                          },
+                          "content": "Drupal"
+                        },
+                        {
+                          "id": "impella-node-120",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Authors compose supported fields"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-131",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-121",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "diagram-index",
+                            "element": "span"
+                          },
+                          "content": "02"
+                        },
+                        {
+                          "id": "impella-node-122",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "strong"
+                          },
+                          "content": "JSON contract"
+                        },
+                        {
+                          "id": "impella-node-123",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Records, bundles & relationships"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-132",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-124",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "diagram-index",
+                            "element": "span"
+                          },
+                          "content": "03"
+                        },
+                        {
+                          "id": "impella-node-125",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "strong"
+                          },
+                          "content": "Native dispatch"
+                        },
+                        {
+                          "id": "impella-node-126",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "ContentView → BundleRender"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-133",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-127",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "diagram-index",
+                            "element": "span"
+                          },
+                          "content": "04"
+                        },
+                        {
+                          "id": "impella-node-128",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "strong"
+                          },
+                          "content": "Mobile experience"
+                        },
+                        {
+                          "id": "impella-node-129",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Reusable React Native UI"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-135",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "element": "figcaption"
+                  },
+                  "content": "Independent architecture reconstruction · Based on the original content contracts and CMS renderer modules."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-137",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "The benefit was a shared foundation: authors could compose supported pages without a separate screen implementation for every article. This was a maintainability and experience decision; no performance benchmark was recorded."
+            }
+          ]
+        },
+        {
+          "id": "playground",
+          "bundle": "section",
+          "metadata": {
+            "label": "Content studio",
+            "navigation": true,
+            "variant": "full-bleed"
+          },
+          "content": [
+            {
+              "id": "impella-node-365",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "playground-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "One content model. Many native experiences."
+                },
+                {
+                  "id": "impella-node-364",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I designed a content model so authors could assemble pages from reusable components. The app interpreted that content as native React Native interfaces. Explore the approach below in an independent web reconstruction with fictional content; generic nested sections are a demo extension."
+                }
+              ]
+            },
+            {
+              "id": "content-studio",
+              "bundle": "content_studio",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "impella-node-138",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 3
+                  },
+                  "content": "Content studio · independent reconstruction"
+                },
+                {
+                  "id": "impella-node-139",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "This fictional web example demonstrates adding, editing, nesting and reordering content blocks, inspecting JSON and previewing a mobile page. It is independently written portfolio code, separate from the original React Native application and clinical tools."
+                },
+                {
+                  "id": "impella-node-140",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "The interactive editor requires JavaScript. The original architecture, ownership and production evidence remain readable below."
+                },
+                {
+                  "id": "impella-node-141",
+                  "bundle": "action",
+                  "metadata": {
+                    "href": "#contract",
+                    "variant": "text"
+                  },
+                  "content": "Explore the original rendering architecture ↓"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "contract",
+          "bundle": "section",
+          "metadata": {
+            "label": "Content architecture",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-367",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "contract-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "A small contract. A reusable rendering system."
+                },
+                {
+                  "id": "impella-node-366",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I defined the boundary between authoring and presentation: Drupal supplied structured JSON, typed contracts described its shape, and the app selected a native component for each content type."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-162",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "source-summary"
+              },
+              "content": [
+                {
+                  "id": "impella-node-146",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "source-summary"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-142",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "01"
+                    },
+                    {
+                      "id": "impella-node-143",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Contract"
+                    },
+                    {
+                      "id": "impella-node-144",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Typed records define the fields authors can supply and the relationships between resources. Each article block carries a bundle name identifying its content type."
+                    },
+                    {
+                      "id": "impella-node-145",
+                      "bundle": "code",
+                      "metadata": {
+                        "language": "text",
+                        "variant": "inline"
+                      },
+                      "content": "src/types/content.d.ts"
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-151",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "source-summary"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-147",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "02"
+                    },
+                    {
+                      "id": "impella-node-148",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Composition"
+                    },
+                    {
+                      "id": "impella-node-149",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Reads blocks in the author’s chosen order and passes each block’s ID, type and fields to the renderer."
+                    },
+                    {
+                      "id": "impella-node-150",
+                      "bundle": "code",
+                      "metadata": {
+                        "language": "text",
+                        "variant": "inline"
+                      },
+                      "content": "src/components/CMS/ContentView/ContentView.tsx"
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-156",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "source-summary"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-152",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "03"
+                    },
+                    {
+                      "id": "impella-node-153",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Dispatch"
+                    },
+                    {
+                      "id": "impella-node-154",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Matches the bundle name to a supported component, such as a heading, media block or references accordion."
+                    },
+                    {
+                      "id": "impella-node-155",
+                      "bundle": "code",
+                      "metadata": {
+                        "language": "text",
+                        "variant": "inline"
+                      },
+                      "content": "src/components/CMS/BundleRender/BundleRender.tsx"
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-161",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "source-summary"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-157",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "04"
+                    },
+                    {
+                      "id": "impella-node-158",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Presentation"
+                    },
+                    {
+                      "id": "impella-node-159",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Renders authored HTML text fragments with native typography rules. Dedicated components handle media and interactions."
+                    },
+                    {
+                      "id": "impella-node-160",
+                      "bundle": "code",
+                      "metadata": {
+                        "language": "text",
+                        "variant": "inline"
+                      },
+                      "content": "src/components/CMS/BlockRender/BlockRender.tsx"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-163",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "Paths refer to the original private repository. These are descriptive summaries; original implementation files are not distributed with this portfolio."
+            }
+          ]
+        },
+        {
+          "id": "articles",
+          "bundle": "section",
+          "metadata": {
+            "label": "Article composition",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-369",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "articles-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Authors compose. Components render."
+                },
+                {
+                  "id": "impella-node-368",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I created sample pages and documentation to show authors how to build an article from supported blocks: headings, text, media, calls to action, tables and references. They could work on the content without implementing a mobile screen."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-177",
+              "bundle": "figure",
+              "metadata": {
+                "variant": "original-article"
+              },
+              "content": [
+                {
+                  "id": "impella-node-165",
+                  "bundle": "group",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-164",
+                      "bundle": "media",
+                      "metadata": {
+                        "src": "/assets/documentation/article_diagram_screenshot.png",
+                        "width": 1980,
+                        "height": 7240,
+                        "alt": "Original article documentation diagram with dashed outlines separating article actions and title, authored image, text, CTA, video, table, references and related-content cards",
+                        "title": "Original article layout diagram",
+                        "variant": "original",
+                        "trigger_label": "Enlarge original article diagram ↗",
+                        "close_label": "Close diagram",
+                        "caption_label": "Original project documentation · Scroll to inspect each outlined component.",
+                        "original_link_label": "Open source image at original resolution ↗",
+                        "provenance": "approved-original-documentation"
+                      },
+                      "content": []
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-176",
+                  "bundle": "group",
+                  "metadata": {
+                    "variant": "original-article-notes"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-166",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "ORIGINAL PROJECT DOCUMENTATION"
+                    },
+                    {
+                      "id": "impella-node-167",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "See where the components meet the page."
+                    },
+                    {
+                      "id": "impella-node-168",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "I used documentation like this to make composition tangible for authors. Each outlined region shows how a supported component contributes to a complete article. Follow the full page from media and text to references and related resources, alongside the content model that explains its structure."
+                    },
+                    {
+                      "id": "impella-node-78",
+                      "bundle": "figure",
+                      "metadata": {
+                        "variant": "anatomy"
+                      },
+                      "content": [
+                        {
+                          "id": "impella-node-51",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "diagram-label",
+                            "element": "div"
+                          },
+                          "content": "ARTICLE / CONTENT MODEL"
+                        },
+                        {
+                          "id": "impella-node-76",
+                          "bundle": "grid",
+                          "metadata": {
+                            "variant": "anatomy"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-65",
+                              "bundle": "group",
+                              "metadata": {
+                                "variant": "diagram-stack"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-55",
+                                  "bundle": "group",
+                                  "metadata": {
+                                    "variant": "diagram-box-fixed"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "impella-node-52",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "span"
+                                      },
+                                      "content": "Fixed presentation"
+                                    },
+                                    {
+                                      "id": "impella-node-53",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "strong"
+                                      },
+                                      "content": "Actions & article title"
+                                    },
+                                    {
+                                      "id": "impella-node-54",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "small"
+                                      },
+                                      "content": "Favorites · optional attachment"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "impella-node-60",
+                                  "bundle": "group",
+                                  "metadata": {
+                                    "variant": "diagram-box-authored"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "impella-node-56",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "span"
+                                      },
+                                      "content": "Primary content / authored order"
+                                    },
+                                    {
+                                      "id": "impella-node-57",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "strong"
+                                      },
+                                      "content": "Header → Text → Media"
+                                    },
+                                    {
+                                      "id": "impella-node-58",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "strong"
+                                      },
+                                      "content": "CTA → Table → References"
+                                    },
+                                    {
+                                      "id": "impella-node-59",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "small"
+                                      },
+                                      "content": "Flat primary_content_value array"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "impella-node-64",
+                                  "bundle": "group",
+                                  "metadata": {
+                                    "variant": "diagram-box"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "impella-node-61",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "span"
+                                      },
+                                      "content": "Separate authored region"
+                                    },
+                                    {
+                                      "id": "impella-node-62",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "strong"
+                                      },
+                                      "content": "Related content cards"
+                                    },
+                                    {
+                                      "id": "impella-node-63",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "small"
+                                      },
+                                      "content": "related_content_list"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "id": "impella-node-75",
+                              "bundle": "group",
+                              "metadata": {
+                                "variant": "diagram-annotation"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-68",
+                                  "bundle": "text_block",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-66",
+                                      "bundle": "text",
+                                      "metadata": {
+                                        "mark": "bold"
+                                      },
+                                      "content": "Authors choose the reading order."
+                                    },
+                                    {
+                                      "id": "impella-node-67",
+                                      "bundle": "text",
+                                      "metadata": {},
+                                      "content": " Drupal stores the primary blocks as an ordered list. Authors arrange text, media and actions without creating a separate screen."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "impella-node-71",
+                                  "bundle": "text_block",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-69",
+                                      "bundle": "text",
+                                      "metadata": {
+                                        "mark": "bold"
+                                      },
+                                      "content": "The app provides the shared frame."
+                                    },
+                                    {
+                                      "id": "impella-node-70",
+                                      "bundle": "text",
+                                      "metadata": {},
+                                      "content": " Native components keep article actions and layout consistent. Text fragments use a native HTML renderer; media and actions use dedicated components."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "impella-node-74",
+                                  "bundle": "text_block",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-72",
+                                      "bundle": "text",
+                                      "metadata": {
+                                        "mark": "bold"
+                                      },
+                                      "content": "Relationships connect the experience."
+                                    },
+                                    {
+                                      "id": "impella-node-73",
+                                      "bundle": "text",
+                                      "metadata": {},
+                                      "content": " Reference containers hold supporting sources, while a separate related-content list becomes resource cards below the article. Other content types, such as checklists, have their own nested question structures."
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "impella-node-77",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "figcaption"
+                          },
+                          "content": "Recreated from architecture/content/articles.md and content.d.ts. The original article layout artifact alongside this model shows how these regions appear on a composed page."
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-169",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "note"
+                      },
+                      "content": "The historical example includes publication metadata. The archived renderer later disables that bundle, so the image illustrates a documented layout rather than every behavior in the checked source version."
+                    },
+                    {
+                      "id": "impella-node-175",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "element": "figcaption"
+                      },
+                      "content": [
+                        {
+                          "id": "impella-node-170",
+                          "bundle": "text",
+                          "metadata": {},
+                          "content": "Original artifact: "
+                        },
+                        {
+                          "id": "impella-node-171",
+                          "bundle": "text",
+                          "metadata": {
+                            "mark": "code"
+                          },
+                          "content": "docs/static/img/article_diagram_screenshot.png"
+                        },
+                        {
+                          "id": "impella-node-172",
+                          "bundle": "text",
+                          "metadata": {},
+                          "content": ", referenced by "
+                        },
+                        {
+                          "id": "impella-node-173",
+                          "bundle": "text",
+                          "metadata": {
+                            "mark": "code"
+                          },
+                          "content": "architecture/content/articles.md"
+                        },
+                        {
+                          "id": "impella-node-174",
+                          "bundle": "text",
+                          "metadata": {},
+                          "content": ". Included with the contributor’s permission. The source image and its aspect ratio are preserved."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "collections",
+          "bundle": "section",
+          "metadata": {
+            "label": "Dynamic collections",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-371",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "collections-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Shared resources. Different reading paths."
+                },
+                {
+                  "id": "impella-node-370",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "Bringing resources into the app also meant giving people useful ways to find them. Shared resource records let authors organize articles, checklists and calculators into different collection layouts."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-102",
+              "bundle": "figure",
+              "metadata": {
+                "variant": "anatomy"
+              },
+              "content": [
+                {
+                  "id": "impella-node-79",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "diagram-label",
+                    "element": "div"
+                  },
+                  "content": "COLLECTION / TWO PRESENTATIONS"
+                },
+                {
+                  "id": "impella-node-100",
+                  "bundle": "grid",
+                  "metadata": {
+                    "variant": "collection"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-86",
+                      "bundle": "group",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-80",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 4
+                          },
+                          "content": "Continuous scrolling"
+                        },
+                        {
+                          "id": "impella-node-81",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "small"
+                          },
+                          "content": "Title + optional heading components"
+                        },
+                        {
+                          "id": "impella-node-82",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "resource-placeholder",
+                            "element": "div"
+                          },
+                          "content": "Article card"
+                        },
+                        {
+                          "id": "impella-node-83",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "resource-placeholder",
+                            "element": "div"
+                          },
+                          "content": "Calculator card"
+                        },
+                        {
+                          "id": "impella-node-84",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "resource-placeholder",
+                            "element": "div"
+                          },
+                          "content": "Checklist card"
+                        },
+                        {
+                          "id": "impella-node-85",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "small"
+                          },
+                          "content": "Initial 10 items → reveal more on scroll"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-99",
+                      "bundle": "group",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-87",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 4
+                          },
+                          "content": "Grouped collections"
+                        },
+                        {
+                          "id": "impella-node-88",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "variant": "small"
+                          },
+                          "content": "Title + optional heading components"
+                        },
+                        {
+                          "id": "impella-node-93",
+                          "bundle": "group",
+                          "metadata": {},
+                          "content": [
+                            {
+                              "id": "impella-node-91",
+                              "bundle": "group",
+                              "metadata": {
+                                "variant": "group-heading"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-89",
+                                  "bundle": "text",
+                                  "metadata": {},
+                                  "content": "Authored grouping label"
+                                },
+                                {
+                                  "id": "impella-node-90",
+                                  "bundle": "text_block",
+                                  "metadata": {
+                                    "element": "span"
+                                  },
+                                  "content": "View More →"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "impella-node-92",
+                              "bundle": "text_block",
+                              "metadata": {
+                                "variant": "resource-placeholder",
+                                "element": "div"
+                              },
+                              "content": "Resource card × up to 3 initially"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "impella-node-98",
+                          "bundle": "group",
+                          "metadata": {},
+                          "content": [
+                            {
+                              "id": "impella-node-96",
+                              "bundle": "group",
+                              "metadata": {
+                                "variant": "group-heading"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-94",
+                                  "bundle": "text",
+                                  "metadata": {},
+                                  "content": "Another authored group"
+                                },
+                                {
+                                  "id": "impella-node-95",
+                                  "bundle": "text_block",
+                                  "metadata": {
+                                    "element": "span"
+                                  },
+                                  "content": "View More →"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "impella-node-97",
+                              "bundle": "text_block",
+                              "metadata": {
+                                "variant": "resource-placeholder",
+                                "element": "div"
+                              },
+                              "content": "Resource card × up to 3 initially"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-101",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "element": "figcaption"
+                  },
+                  "content": "Recreated from architecture/content/collections.md. Authors could organize the same resource types into a continuous list or grouped reading paths."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-185",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "two-column"
+              },
+              "content": [
+                {
+                  "id": "impella-node-183",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-178",
+                      "bundle": "text",
+                      "metadata": {},
+                      "content": " A collection combines a title, optional introductory blocks and resource groups. One group becomes a continuous scrolling list; multiple groups become labeled previews with View More. "
+                    },
+                    {
+                      "id": "impella-node-179",
+                      "bundle": "text",
+                      "metadata": {
+                        "mark": "code"
+                      },
+                      "content": "CollectionContent"
+                    },
+                    {
+                      "id": "impella-node-180",
+                      "bundle": "text",
+                      "metadata": {},
+                      "content": " selects the mode and passes it to the shared "
+                    },
+                    {
+                      "id": "impella-node-181",
+                      "bundle": "text",
+                      "metadata": {
+                        "mark": "code"
+                      },
+                      "content": "CollectionBlock"
+                    },
+                    {
+                      "id": "impella-node-182",
+                      "bundle": "text",
+                      "metadata": {},
+                      "content": " renderer. "
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-184",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "Tags and grouping labels gave authors a way to organize related material. The same cards and resource references supported both layouts, so a new reading path did not need a new resource model."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-189",
+              "bundle": "source_reference",
+              "metadata": {
+                "title": "One collection model, two layouts",
+                "summary": "The number of resource groups selects continuous or grouped presentation. Both layouts reuse resource cards.",
+                "disclaimer": "Independently written illustration · Not original Impella source code."
+              },
+              "content": [
+                {
+                  "id": "impella-node-186",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "components/CollectionContent",
+                    "context": "Selects continuous or grouped presentation from the resource groups.",
+                    "language": "tsx"
+                  },
+                  "content": "// Simplified educational example\nconst mode = resourceGroups.length > 1\n  ? \"grouped\"\n  : \"continuous\";\n\nreturn <CollectionView\n  groups={resourceGroups}\n  mode={mode}\n  renderCard={renderResource}\n/>;"
+                },
+                {
+                  "id": "impella-node-187",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "CMS/CollectionBlock",
+                    "context": "Connects collection entries to shared resource cards.",
+                    "language": "tsx"
+                  },
+                  "content": "// Independent composition illustration\nreturn group.resources.map(resource => (\n  <ResourceCard key={resource.id} resource={resource} />\n));"
+                },
+                {
+                  "id": "impella-node-188",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "architecture/content/collections.md",
+                    "context": "Documents titles, optional headers, grouped resources and the scrolling layouts.",
+                    "language": "tsx"
+                  },
+                  "content": "// Documentation summary; not an API payload\nCollection\n  title + optional header\n  resource groups\n    resources → shared cards\n\nOne group: continuous list\nMultiple groups: grouped presentation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "navigation",
+          "bundle": "section",
+          "metadata": {
+            "label": "Dynamic navigation",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-373",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "navigation-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Navigation could adapt to the region."
+                },
+                {
+                  "id": "impella-node-372",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I supported navigation that could reflect regional needs. The app selected menu records by the user’s region and language, then resolved their labels, icons and destinations into supported native routes."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-202",
+              "bundle": "figure",
+              "metadata": {
+                "variant": "compact-flow"
+              },
+              "content": [
+                {
+                  "id": "impella-node-190",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "diagram-label",
+                    "element": "div"
+                  },
+                  "content": "REGIONAL MENU CONFIGURATION"
+                },
+                {
+                  "id": "impella-node-200",
+                  "bundle": "list",
+                  "metadata": {
+                    "variant": "navigation",
+                    "ordered": true
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-197",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-191",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "b"
+                          },
+                          "content": "Menu records"
+                        },
+                        {
+                          "id": "impella-node-192",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Labels, icons, order and destinations"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-198",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-193",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "b"
+                          },
+                          "content": "Region + language"
+                        },
+                        {
+                          "id": "impella-node-194",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Select the configured menu"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-199",
+                      "bundle": "list_item",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-195",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "b"
+                          },
+                          "content": "Native screens"
+                        },
+                        {
+                          "id": "impella-node-196",
+                          "bundle": "text_block",
+                          "metadata": {
+                            "element": "span"
+                          },
+                          "content": "Resolve supported routes into tabs"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-201",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "element": "figcaption"
+                  },
+                  "content": "Configuration changes the menu; new route types and native behavior still require application code."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-205",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "two-column"
+              },
+              "content": [
+                {
+                  "id": "impella-node-203",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "The documentation gives a concrete example: Favorites could be a tab in the US, while Japan could keep it accessible from Home. Authors could configure those regional differences."
+                },
+                {
+                  "id": "impella-node-204",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": "Home had its own configuration for collection tiles, featured content and role or specialty targeting—different entry points into the same shared resources."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-222",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "navigation"
+              },
+              "content": [
+                {
+                  "id": "impella-node-213",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "tinted"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-212",
+                      "bundle": "figure",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-206",
+                          "bundle": "media",
+                          "metadata": {
+                            "src": "/assets/production/home.png",
+                            "alt": "Impella home with Favorites and Browse regions above Favorites, Browse, Tools and IFUs bottom tabs",
+                            "width": 1260,
+                            "height": 2736,
+                            "title": "Home with persistent tabs",
+                            "variant": "linked",
+                            "trigger_label": "Open Home with persistent tabs screenshot at full size"
+                          },
+                          "content": []
+                        },
+                        {
+                          "id": "impella-node-211",
+                          "bundle": "group",
+                          "metadata": {
+                            "element": "figcaption"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-207",
+                              "bundle": "text_block",
+                              "metadata": {
+                                "variant": "eyebrow"
+                              },
+                              "content": "Supplied capture · Region unverified"
+                            },
+                            {
+                              "id": "impella-node-208",
+                              "bundle": "heading",
+                              "metadata": {
+                                "level": 3
+                              },
+                              "content": "Home with persistent tabs"
+                            },
+                            {
+                              "id": "impella-node-209",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "Favorites, Browse, Tools and IFUs are visible destinations in the bottom navigation. Home also presents saved resources and a Browse preview."
+                            },
+                            {
+                              "id": "impella-node-210",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "/assets/production/home.png",
+                                "variant": "text",
+                                "new_tab": true
+                              },
+                              "content": "View screenshot ↗"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-221",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "tinted"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-220",
+                      "bundle": "figure",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-214",
+                          "bundle": "media",
+                          "metadata": {
+                            "src": "/assets/production/apple-home.webp",
+                            "alt": "Impella home with six collection tiles above Favorites and no bottom tab bar visible in the capture",
+                            "width": 460,
+                            "height": 996,
+                            "title": "Home with collection tiles",
+                            "variant": "linked",
+                            "trigger_label": "Open Home with collection tiles screenshot at full size"
+                          },
+                          "content": []
+                        },
+                        {
+                          "id": "impella-node-219",
+                          "bundle": "group",
+                          "metadata": {
+                            "element": "figcaption"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-215",
+                              "bundle": "text_block",
+                              "metadata": {
+                                "variant": "eyebrow"
+                              },
+                              "content": "Apple listing · Region unverified"
+                            },
+                            {
+                              "id": "impella-node-216",
+                              "bundle": "heading",
+                              "metadata": {
+                                "level": 3
+                              },
+                              "content": "Home with collection tiles"
+                            },
+                            {
+                              "id": "impella-node-217",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "Six collection tiles provide entry points from Home, with Favorites below. No persistent bottom tab bar is visible in this capture."
+                            },
+                            {
+                              "id": "impella-node-218",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "/assets/production/apple-home.webp",
+                                "variant": "text",
+                                "new_tab": true
+                              },
+                              "content": "View screenshot ↗"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-223",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "These captures show different navigation layouts. Their regions and versions are unverified, so they illustrate the product’s range rather than a confirmed US/Japan comparison. Regional menu selection is verified in the source; the images do not establish how later changes were deployed."
+            },
+            {
+              "id": "impella-node-227",
+              "bundle": "source_reference",
+              "metadata": {
+                "title": "Selecting regional navigation",
+                "summary": "Menu selection uses region and language. The app resolves the selected records into supported destinations.",
+                "disclaimer": "Independently written illustration · Not original Impella source code."
+              },
+              "content": [
+                {
+                  "id": "impella-node-224",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "redux/menus/menus.selectors.ts",
+                    "context": "Selects menu records for the user’s region and language.",
+                    "language": "tsx"
+                  },
+                  "content": "// Independent selector illustration\nconst regionalMenus = menusByRegion[region];\nconst selectedMenu = regionalMenus[language];"
+                },
+                {
+                  "id": "impella-node-225",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "hooks/useTabNavigatorScreens.tsx",
+                    "context": "Maps selected labels, icons and destinations to supported native screens.",
+                    "language": "tsx"
+                  },
+                  "content": "// Conceptual shape; not the original payload\nconst regionalMenus = menusByRegion[region];\nconst items = regionalMenus[language];\n\nreturn items.map(item => ({\n  label: item.label,\n  icon: item.icon,\n  destination: resolveSupportedRoute(item),\n}));"
+                },
+                {
+                  "id": "impella-node-226",
+                  "bundle": "code",
+                  "metadata": {
+                    "path": "architecture/menus.md",
+                    "context": "Describes authored regional menus; new route behavior still requires app code.",
+                    "language": "tsx"
+                  },
+                  "content": "// Documentation summary; not an API payload\nRegion + language\n  → configured menu records\n  → labels, icons, ordering and links\n  → supported native destinations"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tools",
+          "bundle": "section",
+          "metadata": {
+            "label": "Interactive content",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-375",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "tools-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Clinical tools within the same mobile experience."
+                },
+                {
+                  "id": "impella-node-374",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "I built native calculator interfaces alongside the app’s clinical reference content. Reusable controls and CMS-managed copy gave the team a shared foundation; tool-specific behavior and integration with provided calculation helpers stayed in native code."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-288",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "tools"
+              },
+              "content": [
+                {
+                  "id": "impella-node-258",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "outlined"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-229",
+                      "bundle": "header",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-228",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 3
+                          },
+                          "content": "Purpose-built calculators"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-251",
+                      "bundle": "group",
+                      "metadata": {
+                        "variant": "tool-example"
+                      },
+                      "content": [
+                        {
+                          "id": "impella-node-231",
+                          "bundle": "media",
+                          "metadata": {
+                            "src": "/assets/production/apple-aki.webp",
+                            "alt": "Impella AKI calculator screen showing yes or no input controls",
+                            "width": 460,
+                            "height": 996,
+                            "title": "AKI calculator input",
+                            "variant": "evidence"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-230",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "Apple listing · Capture date unverified"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "impella-node-250",
+                          "bundle": "group",
+                          "metadata": {
+                            "variant": "tool-description"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-232",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "AKI, CPO, PAPi and heparin tools combined native inputs with existing calculation helpers. My frontend implementation connected shared controls, changing values and result presentation. Clinical formulas were provided; clinical validation was outside my role."
+                            },
+                            {
+                              "id": "impella-node-249",
+                              "bundle": "disclosure",
+                              "metadata": {
+                                "label": "How the calculator works",
+                                "variant": "implementation"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-248",
+                                  "bundle": "figure",
+                                  "metadata": {
+                                    "variant": "tool-flow"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "impella-node-233",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "diagram-label",
+                                        "element": "div"
+                                      },
+                                      "content": "CALCULATOR / NATIVE IMPLEMENTATION"
+                                    },
+                                    {
+                                      "id": "impella-node-246",
+                                      "bundle": "list",
+                                      "metadata": {
+                                        "variant": "tool-flow",
+                                        "ordered": true
+                                      },
+                                      "content": [
+                                        {
+                                          "id": "impella-node-242",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-234",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Configured copy"
+                                            },
+                                            {
+                                              "id": "impella-node-235",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "CMS labels, descriptions and units"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-243",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-236",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Native inputs"
+                                            },
+                                            {
+                                              "id": "impella-node-237",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Shared sliders, numeric entry and selections"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-244",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-238",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Existing helpers"
+                                            },
+                                            {
+                                              "id": "impella-node-239",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Tool-specific calculation integration"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-245",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-240",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Results"
+                                            },
+                                            {
+                                              "id": "impella-node-241",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Shared presentation, with conditional visibility"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "impella-node-247",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "figcaption"
+                                      },
+                                      "content": "Calculator fields had a fixed expected order. Changing a tool’s structure or behavior required application code."
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-257",
+                      "bundle": "footer",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-256",
+                          "bundle": "source_reference",
+                          "metadata": {
+                            "title": "Dedicated calculator behavior",
+                            "summary": "Dedicated components watch inputs, call existing helpers and share results. CMS copy follows a fixed field order; forms reset on navigation blur.",
+                            "initial_file": "components/{AKI,PAPi,CPO,Heparin}Calculator",
+                            "disclaimer": "Independently written illustration · Not original Impella source code."
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-252",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "screens/CalculatorScreen.tsx",
+                                "context": "Selects a dedicated native tool from the calculator record.",
+                                "language": "tsx"
+                              },
+                              "content": "// Independent screen-dispatch illustration\nconst tool = supportedTools[record.calculator_type];\nreturn <tool.Component contentUrl={record.content_url} />;"
+                            },
+                            {
+                              "id": "impella-node-253",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "components/{AKI,PAPi,CPO,Heparin}Calculator",
+                                "context": "Connects watched inputs, reusable controls, helper integration and conditional results. Resets on navigation blur.",
+                                "language": "tsx"
+                              },
+                              "content": "// Independent frontend illustration; no clinical math\n// A dedicated two-input tool, rather than generic CMS dispatch.\nfunction CalculatorExample({ record, navigation }) {\n  const [first, second, output] = record.calculator_components;\n  const { control, watch, reset } = useForm({\n    defaultValues: { first: 0, second: 0 },\n  });\n  const values = watch();\n\n  useEffect(() => navigation.addListener(\n    \"blur\", () => reset()\n  ), [navigation, reset]);\n\n  // Provided helper; formula deliberately omitted.\n  const result = providedCalculationHelper(values);\n  const showResult = toolSpecificResultCheck(values);\n\n  return <>\n    <CalculatorSlider\n      name=\"first\" control={control}\n      title={first.header} unit={first.unit}\n    />\n    <CalculatorSlider\n      name=\"second\" control={control}\n      title={second.header} unit={second.unit}\n    />\n    {showResult && <ResultsBlock\n      header={output.results_header}\n      results={[{\n        name: output.results_labels[0],\n        score: result,\n      }]}\n    />}\n  </>;\n}"
+                            },
+                            {
+                              "id": "impella-node-254",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "util/*_calculator.js",
+                                "context": "Provided calculation helpers consumed by the frontend. Formula authorship and clinical validation are outside this contribution.",
+                                "language": "tsx"
+                              },
+                              "content": "// Helper integration boundary; no clinical math\nconst values = watch();\nconst result = providedCalculationHelper(values);\n\n// The frontend presents the supplied result.\n// Formulas and clinical thresholds are omitted."
+                            },
+                            {
+                              "id": "impella-node-255",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "architecture/content/calculators.md",
+                                "context": "Documents fixed component order and CMS-authored labels, descriptions, units and result labels.",
+                                "language": "tsx"
+                              },
+                              "content": "// Independent two-input content illustration\n// Fixed order expected by the dedicated component\ncalculator_components: [\n  { header: \"First input\", unit: \"…\" },\n  { header: \"Second input\", unit: \"…\" },\n  { results_header: \"Results\", results_labels: [\"Output\"] }\n]\n\n// Changing tool structure requires native code."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-287",
+                  "bundle": "card",
+                  "metadata": {
+                    "variant": "outlined"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-260",
+                      "bundle": "header",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-259",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 3
+                          },
+                          "content": "Author-configured checklists"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-282",
+                      "bundle": "group",
+                      "metadata": {
+                        "variant": "tool-example"
+                      },
+                      "content": [
+                        {
+                          "id": "impella-node-262",
+                          "bundle": "media",
+                          "metadata": {
+                            "src": "/assets/production/apple-checklist.webp",
+                            "alt": "Apple listing screenshot of the patient selection checklist with a question accordion and checkbox options",
+                            "width": 460,
+                            "height": 996,
+                            "title": "Checklist selection example",
+                            "variant": "evidence"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-261",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "Apple listing · Capture date unverified"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "impella-node-281",
+                          "bundle": "group",
+                          "metadata": {
+                            "variant": "tool-description"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-263",
+                              "bundle": "text_block",
+                              "metadata": {},
+                              "content": "Authors configured questions and conditional results. The app evaluated selections on submit and brought matching result content into view, with supporting references."
+                            },
+                            {
+                              "id": "impella-node-280",
+                              "bundle": "disclosure",
+                              "metadata": {
+                                "label": "How the checklist works",
+                                "variant": "implementation"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-279",
+                                  "bundle": "figure",
+                                  "metadata": {
+                                    "variant": "tool-flow"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "impella-node-264",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "diagram-label",
+                                        "element": "div"
+                                      },
+                                      "content": "CHECKLIST / AUTHORED INTERACTION"
+                                    },
+                                    {
+                                      "id": "impella-node-277",
+                                      "bundle": "list",
+                                      "metadata": {
+                                        "variant": "tool-flow",
+                                        "ordered": true
+                                      },
+                                      "content": [
+                                        {
+                                          "id": "impella-node-273",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-265",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Question groups"
+                                            },
+                                            {
+                                              "id": "impella-node-266",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Optional headings, labels and selectable options"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-274",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-267",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Selection rules"
+                                            },
+                                            {
+                                              "id": "impella-node-268",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Authored AND/OR conditions, evaluated on submit"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-275",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-269",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Result content"
+                                            },
+                                            {
+                                              "id": "impella-node-270",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "Matching headers and text, scrolled into view"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "impella-node-276",
+                                          "bundle": "list_item",
+                                          "metadata": {},
+                                          "content": [
+                                            {
+                                              "id": "impella-node-271",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "b"
+                                              },
+                                              "content": "Supporting context"
+                                            },
+                                            {
+                                              "id": "impella-node-272",
+                                              "bundle": "text_block",
+                                              "metadata": {
+                                                "element": "span"
+                                              },
+                                              "content": "References and disclaimer copy"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "impella-node-278",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "element": "figcaption"
+                                      },
+                                      "content": "Recreated from the checklist documentation and renderer. Question and result content shared the CMS composition system."
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "id": "creative-checklist",
+                              "bundle": "checklist",
+                              "metadata": {
+                                "presentation": "dialog",
+                                "title": "Fictional checklist example",
+                                "description": "Explore grouped questions and live conditional creative prompts. An independent, nonclinical demonstration.",
+                                "dialog_heading": "Checklist example",
+                                "trigger_label": "Try a checklist",
+                                "close_label": "Close checklist example",
+                                "reset_label": "Start over",
+                                "intro_label": "Try the checklist pattern · Fictional example",
+                                "result_label": "Your mini adventure",
+                                "empty_result_label": "Your prompt",
+                                "result_region_label": "Creative checklist result",
+                                "caption": "Independent, nonclinical web example. Groups contain questions; JSON-authored AND/OR conditions choose the prompt as selections change. First matching rule wins.",
+                                "requires_javascript_label": "Enable JavaScript to try the fictional checklist.",
+                                "empty_outcome_id": "checklist-empty",
+                                "fallback_outcome_id": "checklist-fallback"
+                              },
+                              "content": [
+                                {
+                                  "id": "impella-node-1",
+                                  "bundle": "heading",
+                                  "metadata": {
+                                    "level": 3
+                                  },
+                                  "content": "Pack a tiny adventure."
+                                },
+                                {
+                                  "id": "impella-node-2",
+                                  "bundle": "text_block",
+                                  "metadata": {},
+                                  "content": "A fictional checklist. Choose your kit and watch your creative prompt change."
+                                },
+                                {
+                                  "id": "checklist-group-kit",
+                                  "bundle": "checklist_group",
+                                  "metadata": {
+                                    "label": "Build your field kit"
+                                  },
+                                  "content": [
+                                    {
+                                      "id": "checklist-question-supplies",
+                                      "bundle": "checklist_question",
+                                      "metadata": {
+                                        "label": "What’s coming with you?"
+                                      },
+                                      "content": [
+                                        {
+                                          "id": "checklist-option-notebook",
+                                          "bundle": "checklist_option",
+                                          "metadata": {},
+                                          "content": "A trusty notebook"
+                                        },
+                                        {
+                                          "id": "checklist-option-pencil",
+                                          "bundle": "checklist_option",
+                                          "metadata": {},
+                                          "content": "A pencil with big plans"
+                                        },
+                                        {
+                                          "id": "checklist-option-camera",
+                                          "bundle": "checklist_option",
+                                          "metadata": {},
+                                          "content": "A camera for tiny discoveries"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "checklist-question-setting",
+                                      "bundle": "checklist_question",
+                                      "metadata": {
+                                        "label": "Where could you explore?"
+                                      },
+                                      "content": [
+                                        {
+                                          "id": "checklist-option-outside",
+                                          "bundle": "checklist_option",
+                                          "metadata": {},
+                                          "content": "Somewhere under the sky"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-rule-0",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-pencil",
+                                      "checklist-option-camera",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-expedition"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-1",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-pencil",
+                                      "checklist-option-camera"
+                                    ],
+                                    "outcome_id": "checklist-outcome-story"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-2",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-pencil",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-sky-sketch"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-3",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-camera",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-wandering-report"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-4",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-pencil",
+                                      "checklist-option-camera",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-outdoor-shapes"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-5",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-pencil"
+                                    ],
+                                    "outcome_id": "checklist-outcome-sketch"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-6",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-camera"
+                                    ],
+                                    "outcome_id": "checklist-outcome-field-report"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-7",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-pencil",
+                                      "checklist-option-camera"
+                                    ],
+                                    "outcome_id": "checklist-outcome-photo-sketch"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-8",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-notebook",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-sky-note"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-9",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-pencil",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-fresh-air"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-10",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "and",
+                                    "selected_ids": [
+                                      "checklist-option-camera",
+                                      "checklist-option-outside"
+                                    ],
+                                    "outcome_id": "checklist-outcome-outdoor-color"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-11",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "or",
+                                    "selected_ids": [
+                                      "checklist-option-notebook"
+                                    ],
+                                    "outcome_id": "checklist-outcome-notice"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-12",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "or",
+                                    "selected_ids": ["checklist-option-pencil"],
+                                    "outcome_id": "checklist-outcome-line"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-rule-13",
+                                  "bundle": "checklist_rule",
+                                  "metadata": {
+                                    "operator": "or",
+                                    "selected_ids": ["checklist-option-camera"],
+                                    "outcome_id": "checklist-outcome-color"
+                                  },
+                                  "content": null
+                                },
+                                {
+                                  "id": "checklist-outcome-expedition",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-3",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Make a pocket expedition."
+                                    },
+                                    {
+                                      "id": "impella-node-4",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Step outside with the whole kit. Photograph a detail, sketch its shape, and give your tiny discovery a story."
+                                    },
+                                    {
+                                      "id": "impella-node-5",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Pencil + Camera + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-story",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-6",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Collect a tiny story."
+                                    },
+                                    {
+                                      "id": "impella-node-7",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Photograph one ordinary thing, sketch what the camera missed, and write the caption only you could give it."
+                                    },
+                                    {
+                                      "id": "impella-node-8",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Pencil + Camera · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-sky-sketch",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-9",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Sketch under open skies."
+                                    },
+                                    {
+                                      "id": "impella-node-10",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Find a comfortable spot outdoors. Let one page collect a shape, a few words, and a little fresh air."
+                                    },
+                                    {
+                                      "id": "impella-node-11",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Pencil + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-wandering-report",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-12",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Make a wandering field report."
+                                    },
+                                    {
+                                      "id": "impella-node-13",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Take a short walk. Pair one photograph with a notebook observation about the place you found it."
+                                    },
+                                    {
+                                      "id": "impella-node-14",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Camera + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-outdoor-shapes",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-15",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Chase a shape outdoors."
+                                    },
+                                    {
+                                      "id": "impella-node-16",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Photograph a shape you notice outside, then draw a wonderfully imperfect version beside it."
+                                    },
+                                    {
+                                      "id": "impella-node-17",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Pencil + Camera + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-sketch",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-18",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Sketch something ordinary."
+                                    },
+                                    {
+                                      "id": "impella-node-19",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Give a familiar object five minutes of your attention. Its wonky corners count as character."
+                                    },
+                                    {
+                                      "id": "impella-node-20",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Pencil · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-field-report",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-21",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Make a tiny field report."
+                                    },
+                                    {
+                                      "id": "impella-node-22",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Pair a photograph with three notebook observations. Look for something the picture cannot explain on its own."
+                                    },
+                                    {
+                                      "id": "impella-node-23",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Camera · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-photo-sketch",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-24",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "See it. Sketch it."
+                                    },
+                                    {
+                                      "id": "impella-node-25",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Take a photograph, then sketch the same scene from memory. The differences are the interesting part."
+                                    },
+                                    {
+                                      "id": "impella-node-26",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Pencil + Camera · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-sky-note",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-27",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Write a sky-side note."
+                                    },
+                                    {
+                                      "id": "impella-node-28",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Head outside and record one sound, one color, and one thing you almost walked past."
+                                    },
+                                    {
+                                      "id": "impella-node-29",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-fresh-air",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-30",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Draw a little fresh air."
+                                    },
+                                    {
+                                      "id": "impella-node-31",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Step outdoors and trace the outline of something nearby. No perfect lines required."
+                                    },
+                                    {
+                                      "id": "impella-node-32",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Pencil + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-outdoor-color",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-33",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Find a color in the wild."
+                                    },
+                                    {
+                                      "id": "impella-node-34",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Take your camera outside. Collect three shades of the same color, from a leaf to a wonderfully ordinary wall."
+                                    },
+                                    {
+                                      "id": "impella-node-35",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Camera + Outdoor setting · AND rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-notice",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-36",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Catch one tiny detail."
+                                    },
+                                    {
+                                      "id": "impella-node-37",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Save a shape, a sound or a stray idea in your notebook. It doesn’t have to become anything yet."
+                                    },
+                                    {
+                                      "id": "impella-node-38",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Notebook · OR rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-line",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-39",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Follow a wandering line."
+                                    },
+                                    {
+                                      "id": "impella-node-40",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Let your pencil explore the edge of an ordinary object. Keep the wobbles; they are part of the discovery."
+                                    },
+                                    {
+                                      "id": "impella-node-41",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Pencil · OR rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-outcome-color",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-42",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Hunt for a color."
+                                    },
+                                    {
+                                      "id": "impella-node-43",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Find three different things in the same shade. A tiny collection, entirely yours."
+                                    },
+                                    {
+                                      "id": "impella-node-44",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "Camera · OR rule"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-fallback",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-45",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "Bring your curiosity."
+                                    },
+                                    {
+                                      "id": "impella-node-46",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "No kit required. Step outside and notice something you’ve walked past a hundred times before."
+                                    },
+                                    {
+                                      "id": "impella-node-47",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": "No matching kit rule · fallback prompt"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "checklist-empty",
+                                  "bundle": "checklist_outcome",
+                                  "metadata": {},
+                                  "content": [
+                                    {
+                                      "id": "impella-node-48",
+                                      "bundle": "heading",
+                                      "metadata": {
+                                        "level": 4
+                                      },
+                                      "content": "A small adventure awaits."
+                                    },
+                                    {
+                                      "id": "impella-node-49",
+                                      "bundle": "text_block",
+                                      "metadata": {},
+                                      "content": "Choose any option. Your prompt changes as your kit comes together."
+                                    },
+                                    {
+                                      "id": "impella-node-50",
+                                      "bundle": "text_block",
+                                      "metadata": {
+                                        "variant": "rule-note"
+                                      },
+                                      "content": ""
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "impella-node-286",
+                      "bundle": "footer",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-285",
+                          "bundle": "source_reference",
+                          "metadata": {
+                            "title": "Authored questions and conditional results",
+                            "summary": "Selected options match authored AND/OR conditions on submit. The first matching result or fallback renders through ContentView.",
+                            "disclaimer": "Independently written illustration · Not original Impella source code."
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-283",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "components/CheckListContent/ChecklistContent.tsx",
+                                "context": "Collects grouped selections, evaluates conditions on submit and scrolls matching result content into view.",
+                                "language": "tsx"
+                              },
+                              "content": "// Independent illustration; no clinical rules\nconst outcome = selectAuthoredOutcome({\n  selectedOptions,\n  configuredConditions,\n});\n\nreturn <ContentView blocks={outcome.blocks} />;"
+                            },
+                            {
+                              "id": "impella-node-284",
+                              "bundle": "code",
+                              "metadata": {
+                                "path": "architecture/content/checklists.md",
+                                "context": "Documents accordion groups, question labels/options, authored results and supporting references.",
+                                "language": "tsx"
+                              },
+                              "content": "// Independent structural illustration\nChecklist\n  accordion group\n    question label\n    selectable options\n    another question + options\n  AND / OR result conditions\n  result headers + text\n  references + disclaimer"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "product",
+          "bundle": "section",
+          "metadata": {
+            "label": "Production application",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-377",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "product-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Information and tools, brought together."
+                },
+                {
+                  "id": "impella-node-376",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "The shipped product brought browsing, articles, embedded media, references, favorites and calculators into one mobile experience. Follow the experience from home and browsing into an article, its supporting resources, and finally checklists and calculators. Select any image for a closer look."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-297",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "gallery"
+              },
+              "content": [
+                {
+                  "id": "impella-node-289",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/apple-home.webp",
+                    "alt": "Impella landing screen with six collection tiles and a Favorites section",
+                    "width": 460,
+                    "height": 996,
+                    "title": "Home & favorites",
+                    "variant": "gallery",
+                    "caption_label": "01 / Apple listing",
+                    "body": "Configured collection tiles support discovery; personal favorites provide a way back to saved resources."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-290",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/browse.png",
+                    "alt": "Impella Browse screen with calculator, article and video resource cards",
+                    "width": 1260,
+                    "height": 2736,
+                    "title": "Browse & embedded media",
+                    "variant": "gallery",
+                    "caption_label": "02 / Supplied capture",
+                    "body": "Shared resource cards bring articles, videos and tools into the same browsing experience."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-291",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/apple-article.webp",
+                    "alt": "Apple listing screenshot of an article with favorites and PDF actions, a video thumbnail and article text",
+                    "width": 460,
+                    "height": 996,
+                    "title": "Native article composition",
+                    "variant": "gallery",
+                    "caption_label": "03 / Apple listing",
+                    "body": "Article actions, video and text share one reading interface. This listing image includes a date; article metadata is disabled in the archived renderer."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-292",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/references.png",
+                    "alt": "Impella article with text and an expanded numbered references list",
+                    "width": 1260,
+                    "height": 2736,
+                    "title": "Articles & references",
+                    "variant": "gallery",
+                    "caption_label": "04 / Supplied capture",
+                    "body": "References sit alongside the article they support, within the shared reading layout."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-293",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/related.png",
+                    "alt": "Related Content section with two skills video cards beneath article references",
+                    "width": 1260,
+                    "height": 2736,
+                    "title": "Related resources",
+                    "variant": "gallery",
+                    "caption_label": "05 / Supplied capture",
+                    "body": "Related-resource cards give readers a path from an article to supporting skills videos."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-294",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/apple-checklist.webp",
+                    "alt": "Apple listing screenshot of the patient selection checklist with a question accordion and checkbox options",
+                    "width": 460,
+                    "height": 996,
+                    "title": "Structured checklists",
+                    "variant": "gallery",
+                    "caption_label": "06 / Apple listing",
+                    "body": "Grouped questions and selectable options turn structured content into an interactive checklist."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-295",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/apple-aki.webp",
+                    "alt": "Impella AKI calculator screen showing yes or no input controls",
+                    "width": 460,
+                    "height": 996,
+                    "title": "AKI calculator",
+                    "variant": "gallery",
+                    "caption_label": "07 / Apple listing",
+                    "body": "Input controls and calculated results extend the experience beyond browsing and reading."
+                  },
+                  "content": []
+                },
+                {
+                  "id": "impella-node-296",
+                  "bundle": "media",
+                  "metadata": {
+                    "src": "/assets/production/apple-heparin.webp",
+                    "alt": "Apple listing screenshot showing heparin calculator sliders and displayed input values",
+                    "width": 460,
+                    "height": 996,
+                    "title": "Heparin calculator",
+                    "variant": "gallery",
+                    "caption_label": "08 / Apple listing",
+                    "body": "Sliders provide inputs to a purpose-built calculator. This product screenshot illustrates the UI; the portfolio does not perform clinical calculations."
+                  },
+                  "content": []
+                }
+              ]
+            },
+            {
+              "id": "impella-node-302",
+              "bundle": "group",
+              "metadata": {
+                "variant": "product-workflow"
+              },
+              "content": [
+                {
+                  "id": "impella-node-298",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 3
+                  },
+                  "content": "A complete mobile workflow"
+                },
+                {
+                  "id": "impella-node-301",
+                  "bundle": "grid",
+                  "metadata": {
+                    "variant": "two-column"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-299",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "I implemented favorites and their local app state, along with the Okta employee sign-in frontend. Identity tenant setup was handled separately. The team’s application also supported customer sign-in, profile-based content and local search across resource titles and tags."
+                    },
+                    {
+                      "id": "impella-node-300",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Downloaded article media and attachments could be read from local storage. Cache updates depended on connectivity and content changes; this supported reading after download, rather than making every account or synchronization action available offline."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-303",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "Historical captures and Apple listing images show the broader team’s product. Their capture dates and app versions are unverified. Current listings still describe articles, media, calculators and checklists; recognizable patterns do not establish that the original implementation is unchanged."
+            },
+            {
+              "id": "impella-node-308",
+              "bundle": "group",
+              "metadata": {
+                "variant": "store-links",
+                "element": "p"
+              },
+              "content": [
+                {
+                  "id": "impella-node-304",
+                  "bundle": "text",
+                  "metadata": {},
+                  "content": "Public product listings: "
+                },
+                {
+                  "id": "impella-node-305",
+                  "bundle": "action",
+                  "metadata": {
+                    "href": "https://apps.apple.com/us/app/impella-app/id991345042",
+                    "variant": "text"
+                  },
+                  "content": "Apple App Store ↗"
+                },
+                {
+                  "id": "impella-node-306",
+                  "bundle": "action",
+                  "metadata": {
+                    "href": "https://play.google.com/store/apps/details?id=com.abiomed.impella&hl=en_US",
+                    "variant": "text"
+                  },
+                  "content": "Google Play ↗"
+                },
+                {
+                  "id": "impella-node-307",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "element": "span"
+                  },
+                  "content": "Reviewed October 19, 2026. Listings describe the broader product, not individual ownership."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ownership",
+          "bundle": "section",
+          "metadata": {
+            "label": "Impact & ownership",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-379",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "ownership-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Building for the people using and maintaining the product."
+                },
+                {
+                  "id": "impella-node-378",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "variant": "section-intro"
+                  },
+                  "content": "The product brought resources and tools together. My content architecture supported that experience by giving authors and developers a shared way to build and maintain it."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-321",
+              "bundle": "list",
+              "metadata": {
+                "variant": "impact",
+                "ordered": false
+              },
+              "content": [
+                {
+                  "id": "impella-node-318",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-309",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "01"
+                    },
+                    {
+                      "id": "impella-node-310",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Healthcare professionals"
+                    },
+                    {
+                      "id": "impella-node-311",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "The broader team brought clinical resources, training media, documentation, favorites and interactive tools into one mobile experience."
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-319",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-312",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "02"
+                    },
+                    {
+                      "id": "impella-node-313",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Content authors"
+                    },
+                    {
+                      "id": "impella-node-314",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "My content model and renderer let authors arrange supported article blocks, media and references without a separately coded screen for each article. Related resources and purpose-specific nested structures connected that content; sample pages and documentation made the patterns tangible."
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-320",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-315",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "diagram-index",
+                        "element": "span"
+                      },
+                      "content": "03"
+                    },
+                    {
+                      "id": "impella-node-316",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Development team"
+                    },
+                    {
+                      "id": "impella-node-317",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Shared native components centralized presentation and interaction behavior. Developers could extend a supported vocabulary rather than recreate each article layout, while new component types and native behaviors still required engineering work."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-322",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "This flexibility required upfront work on the schema, renderer and component library, followed by ongoing coordination as the content model changed. The capabilities shipped; reduced maintenance effort was an architectural aim, not a measured result."
+            }
+          ]
+        },
+        {
+          "id": "reflection",
+          "bundle": "section",
+          "metadata": {
+            "label": "Reflection & future evolution",
+            "navigation": true
+          },
+          "content": [
+            {
+              "id": "impella-node-380",
+              "bundle": "header",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "reflection-heading",
+                  "bundle": "heading",
+                  "metadata": {
+                    "level": 2
+                  },
+                  "content": "Modernization starts with why the old system struggled."
+                }
+              ]
+            },
+            {
+              "id": "impella-node-332",
+              "bundle": "grid",
+              "metadata": {
+                "variant": "two-column"
+              },
+              "content": [
+                {
+                  "id": "impella-node-326",
+                  "bundle": "group",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-323",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Design for the next change"
+                    },
+                    {
+                      "id": "impella-node-324",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "The lesson I take from this project is to look beyond replacing outdated technology. I needed to understand how content, presentation and maintenance had become entangled, then create a boundary that people could keep working with."
+                    },
+                    {
+                      "id": "impella-node-325",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "I would make that boundary explicit again, while investing early in runtime validation and author feedback. A reusable renderer still needs stewardship: schemas, supported components and documentation must evolve together. Flexibility only helps when authors and developers understand its limits."
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-331",
+                  "bundle": "group",
+                  "metadata": {
+                    "variant": "future-concept"
+                  },
+                  "content": [
+                    {
+                      "id": "impella-node-327",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "FUTURE CONCEPT / NOT SHIPPED"
+                    },
+                    {
+                      "id": "impella-node-328",
+                      "bundle": "heading",
+                      "metadata": {
+                        "level": 3
+                      },
+                      "content": "Source-grounded discovery"
+                    },
+                    {
+                      "id": "impella-node-329",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Today, I would explore semantic search or retrieval-augmented generation as another use of structured content. Retrieval would need approved, versioned sources, preserved source IDs and grounded citations."
+                    },
+                    {
+                      "id": "impella-node-330",
+                      "bundle": "text_block",
+                      "metadata": {},
+                      "content": "Any clinical use would require appropriate human review and explicit handling of missing or conflicting evidence. This is a future exploration, separate from the shipped content system and deterministic calculators."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "footer",
+      "bundle": "footer",
+      "metadata": {
+        "variant": "site"
+      },
+      "content": [
+        {
+          "id": "impella-node-413",
+          "bundle": "group",
+          "metadata": {
+            "variant": "footer-summary"
+          },
+          "content": [
+            {
+              "id": "impella-node-411",
+              "bundle": "group",
+              "metadata": {},
+              "content": [
+                {
+                  "id": "impella-node-406",
+                  "bundle": "text_block",
+                  "metadata": {
+                    "element": "b"
+                  },
+                  "content": "Impella / Architecture as a product decision."
+                },
+                {
+                  "id": "impella-node-409",
+                  "bundle": "text_block",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-407",
+                      "bundle": "text",
+                      "metadata": {
+                        "break_after": true
+                      },
+                      "content": "Independent portfolio case study. Product names and imagery belong to their respective owners."
+                    },
+                    {
+                      "id": "impella-node-408",
+                      "bundle": "text",
+                      "metadata": {},
+                      "content": "Original evidence, descriptive source summaries and educational reconstructions are labeled throughout."
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-410",
+                  "bundle": "action",
+                  "metadata": {
+                    "action": "reader",
+                    "href": "./case-study.txt",
+                    "variant": "reader"
+                  },
+                  "content": "Read case-study summary ↗"
+                }
+              ]
+            },
+            {
+              "id": "impella-node-412",
+              "bundle": "action",
+              "metadata": {
+                "href": "#top",
+                "variant": "text"
+              },
+              "content": "Back to top ↑"
+            }
+          ]
+        },
+        {
+          "id": "impella-node-405",
+          "bundle": "group",
+          "metadata": {
+            "variant": "public-evidence"
+          },
+          "content": [
+            {
+              "id": "public-evidence-title",
+              "bundle": "heading",
+              "metadata": {
+                "level": 3
+              },
+              "content": "Product history & public sources"
+            },
+            {
+              "id": "impella-node-403",
+              "bundle": "list",
+              "metadata": {
+                "variant": "public-evidence",
+                "ordered": false
+              },
+              "content": [
+                {
+                  "id": "impella-node-400",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-381",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "March 6, 2023"
+                    },
+                    {
+                      "id": "impella-node-386",
+                      "bundle": "group",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-382",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 4
+                          },
+                          "content": "A documented redesign"
+                        },
+                        {
+                          "id": "impella-node-383",
+                          "bundle": "text_block",
+                          "metadata": {},
+                          "content": "Apple records the redesign in version 3.3.1. Version 3.3.2 followed with bug fixes."
+                        },
+                        {
+                          "id": "impella-node-385",
+                          "bundle": "group",
+                          "metadata": {
+                            "variant": "public-evidence-sources",
+                            "element": "p"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-384",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "https://apps.apple.com/us/app/impella-app/id991345042",
+                                "variant": "text"
+                              },
+                              "content": "Apple version history ↗"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-401",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-387",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "Public feedback"
+                    },
+                    {
+                      "id": "impella-node-392",
+                      "bundle": "group",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-388",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 4
+                          },
+                          "content": "Mixed user feedback"
+                        },
+                        {
+                          "id": "impella-node-389",
+                          "bundle": "text_block",
+                          "metadata": {},
+                          "content": "Apple reviews include praise for the layout in March 2023, alongside video and sign-in complaints. This small sample is mixed."
+                        },
+                        {
+                          "id": "impella-node-391",
+                          "bundle": "group",
+                          "metadata": {
+                            "variant": "public-evidence-sources",
+                            "element": "p"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-390",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "https://apps.apple.com/us/app/impella-app/id991345042",
+                                "variant": "text"
+                              },
+                              "content": "Apple ratings and reviews ↗"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "impella-node-402",
+                  "bundle": "list_item",
+                  "metadata": {},
+                  "content": [
+                    {
+                      "id": "impella-node-393",
+                      "bundle": "text_block",
+                      "metadata": {
+                        "variant": "eyebrow"
+                      },
+                      "content": "Later releases"
+                    },
+                    {
+                      "id": "impella-node-399",
+                      "bundle": "group",
+                      "metadata": {},
+                      "content": [
+                        {
+                          "id": "impella-node-394",
+                          "bundle": "heading",
+                          "metadata": {
+                            "level": 4
+                          },
+                          "content": "Later updates & availability"
+                        },
+                        {
+                          "id": "impella-node-395",
+                          "bundle": "text_block",
+                          "metadata": {},
+                          "content": "Both listings remain available, with updates through December 2025. Google Play lists the Android package as Clinical Care and reports 10K+ lifetime downloads."
+                        },
+                        {
+                          "id": "impella-node-398",
+                          "bundle": "group",
+                          "metadata": {
+                            "variant": "public-evidence-sources",
+                            "element": "p"
+                          },
+                          "content": [
+                            {
+                              "id": "impella-node-396",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "https://apps.apple.com/us/app/impella-app/id991345042",
+                                "variant": "text"
+                              },
+                              "content": "Apple App Store ↗"
+                            },
+                            {
+                              "id": "impella-node-397",
+                              "bundle": "action",
+                              "metadata": {
+                                "href": "https://play.google.com/store/apps/details?id=com.abiomed.impella&hl=en_US",
+                                "variant": "text"
+                              },
+                              "content": "Google Play ↗"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "impella-node-404",
+              "bundle": "text_block",
+              "metadata": {
+                "variant": "note"
+              },
+              "content": "Reviewed October 19, 2026. Product-level context: reviews and lifetime downloads do not measure my contribution or redesign-era adoption; later releases do not establish unchanged source code."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

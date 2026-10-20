@@ -6,7 +6,7 @@ export {
   buildAgentIndex,
   buildReaderText,
   resolveSiteUrl,
-} from "./features/CaseStudy/metadata/buildMetadata";
+} from "./utils/siteMetadata";
 
 export function renderPage() {
   return renderToString(createElement(StrictMode, null, createElement(App)));

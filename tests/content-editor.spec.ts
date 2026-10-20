@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
-import { relocateBlock } from "../src/features/ContentStudio/model/contentTree";
-import { defaultPage } from "../src/content/studioExample";
-import { parsePage } from "../src/features/ContentStudio/model/parseContentPage";
+import type { StudioDocument } from "../src/utils/studio";
+import { relocateBlock } from "../src/utils/studio";
+import { defaultPage } from "../src/hooks/useContentEditor";
+import { parsePage } from "../src/utils/studio";
 import { openCompose, closeCompose } from "./helpers/studio";
 
 test("complete visual → JSON → preview workflow", async ({ page }) => {
@@ -21,7 +21,7 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   const initial = JSON.parse(await json.inputValue()) as StudioDocument;
   expect(initial).toEqual(defaultPage());
   await expect(
-    preview.getByRole("heading", { name: initial.title }),
+    preview.getByRole("heading", { name: initial.metadata.title }),
   ).toBeVisible();
   await page.getByRole("button", { name: "+ Heading", exact: true }).click();
   await page
@@ -33,8 +33,8 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await page.getByRole("button", { name: "+ Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Sketchbook");
   const data = JSON.parse(await json.inputValue()) as StudioDocument;
-  const section = data.primary_content_value.find(
-    (b) => b.bundle === "demo_section" && b.header === "Sketchbook",
+  const section = data.content.find(
+    (b) => b.bundle === "section" && b.metadata.label === "Sketchbook",
   )!;
   await page
     .getByLabel("Add blocks to", { exact: true })
@@ -59,18 +59,21 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
     preview.getByRole("heading", { name: "A new perspective" }),
   ).toHaveCount(0);
   const updated = JSON.parse(await json.inputValue()) as StudioDocument;
-  const last = updated.primary_content_value.at(-1)!;
-  expect(last.bundle).toBe("demo_section");
-  if (last.bundle === "demo_section")
-    expect(last.children[0]).toMatchObject({
+  const last = updated.content.at(-1)!;
+  expect(last.bundle).toBe("section");
+  if (last.bundle === "section")
+    expect(last.content[0]).toMatchObject({
       bundle: "text_block",
-      text_body: "Observe the color of the afternoon sky.",
+      content: "Observe the color of the afternoon sky.",
     });
-  const draft = { ...updated, title: "Applied from JSON" };
+  const draft = {
+    ...updated,
+    metadata: { ...updated.metadata, title: "Applied from JSON" },
+  };
   await json.fill(JSON.stringify(draft));
   await expect(page.getByLabel("Page title", { exact: true })).toBeDisabled();
   await expect(
-    preview.getByRole("heading", { name: initial.title }),
+    preview.getByRole("heading", { name: initial.metadata.title }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "Validate JSON", exact: true })
@@ -91,22 +94,22 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   ).toBeVisible();
   await json.fill(
     JSON.stringify({
-      title: "Bad",
-      primary_content_value: [
-        { id: "x", bundle: "header", header: 42, level: 2 },
+      ...updated,
+      content: [
+        { id: "x", bundle: "heading", metadata: { level: 2 }, content: 42 },
       ],
     }),
   );
   await page.getByRole("button", { name: "Apply JSON", exact: true }).click();
   await expect(page.getByRole("alert")).toContainText(
-    "primary_content_value[0].header: expected text",
+    "content[0].content: expected text",
   );
   await page
     .getByRole("button", { name: "Reset example", exact: false })
     .click();
   expect(JSON.parse(await json.inputValue())).toEqual(initial);
   await expect(
-    preview.getByRole("heading", { name: initial.title }),
+    preview.getByRole("heading", { name: initial.metadata.title }),
   ).toBeVisible();
   await expect(page.getByRole("alert")).toHaveCount(0);
   expect(errors).toEqual([]);
@@ -127,17 +130,17 @@ test("image editing, nested sections, references and safe removal", async ({
   await page.getByLabel("Section title", { exact: true }).fill("Nested study");
   const json = page.getByLabel("Editable page JSON");
   const data = JSON.parse(await json.inputValue()) as StudioDocument;
-  const parent = data.primary_content_value.find((b) => b.id === "chapter");
-  expect(parent?.bundle).toBe("demo_section");
-  if (parent?.bundle !== "demo_section") throw Error("Expected section");
-  const nested = parent.children.find((b) => b.bundle === "demo_section")!;
+  const parent = data.content.find((b) => b.id === "chapter");
+  expect(parent?.bundle).toBe("section");
+  if (parent?.bundle !== "section") throw Error("Expected section");
+  const nested = parent.content.find((b) => b.bundle === "section")!;
   await page
     .getByLabel("Add blocks to", { exact: true })
     .selectOption(nested.id);
   await page.getByRole("button", { name: "+ Image", exact: true }).click();
   await page
     .getByLabel("Image asset", { exact: true })
-    .selectOption("assets/demo/studio-notes.svg");
+    .selectOption("/assets/demo/studio-notes.svg");
   await page
     .getByLabel("Alternative text", { exact: true })
     .fill("A fictional studio notebook");
@@ -174,22 +177,45 @@ test("image editing, nested sections, references and safe removal", async ({
 
 test("strict validation rejects dangerous or ambiguous content", () => {
   const raw = (node: unknown) =>
-    JSON.stringify({ title: "Test", primary_content_value: [node] });
+    JSON.stringify({
+      id: "test-page",
+      bundle: "page",
+      metadata: { schema_version: 1, title: "Test" },
+      content: [node],
+    });
+  const text = { id: "a", bundle: "text_block", metadata: {}, content: "Text" };
   const invalid: [unknown, RegExp][] = [
-    [{ id: "a", bundle: "unknown" }, /unsupported bundle/],
-    [{ id: "a", bundle: "text_block", text_body: [] }, /expected text/],
-    [{ id: "a", bundle: "demo_section", header: "Group" }, /expected an array/],
-    [{ id: "a", bundle: "header", header: "Hello", level: 8 }, /choose 2 or 3/],
+    [{ ...text, bundle: "unknown" }, /unsupported bundle/],
+    [{ ...text, bundle: ["text_block"] }, /unsupported bundle/],
+    [{ ...text, content: [] }, /expected text/],
     [
-      { id: "a", bundle: "text_block", text_body: "Hi", children: [] },
-      /unsupported property/,
+      {
+        id: "a",
+        bundle: "section",
+        metadata: { label: "Group", variant: "preview", navigation: false },
+        content: null,
+      },
+      /expected an array/,
     ],
+    [
+      { ...text, bundle: "heading", metadata: { level: 8 } },
+      /unsupported value|choose 2 or 3/,
+    ],
+    [{ ...text, children: [] }, /unsupported property/],
+    [{ ...text, metadata: { schema_version: 1 } }, /unknown property/],
     [
       {
         id: "a",
         bundle: "media",
-        media: { bundle: "demo_image", url: "javascript:alert(1)", alt: "x" },
-        media_caption: "",
+        metadata: {
+          src: "javascript:alert(1)",
+          alt: "x",
+          title: "x",
+          width: 800,
+          height: 480,
+          variant: "inline",
+        },
+        content: [],
       },
       /bundled demo image/,
     ],
@@ -197,8 +223,8 @@ test("strict validation rejects dangerous or ambiguous content", () => {
       {
         id: "a",
         bundle: "references_accordion",
-        references_accordion_title: "Sources",
-        references_container: { references: [123] },
+        metadata: { label: "Sources" },
+        content: [{ ...text, id: "b", content: 123 }],
       },
       /expected text/,
     ],
@@ -206,38 +232,42 @@ test("strict validation rejects dangerous or ambiguous content", () => {
   for (const [node, match] of invalid)
     expect(() => parsePage(raw(node))).toThrow(match);
   const duplicate = defaultPage();
-  duplicate.primary_content_value.push(duplicate.primary_content_value[0]);
+  duplicate.content.push(duplicate.content[0]);
   expect(() => parsePage(JSON.stringify(duplicate))).toThrow(/duplicate ID/);
   expect(() => parsePage("x".repeat(100_001))).toThrow(/maximum size/);
   const nested = (depth: number): unknown => ({
     id: `s${depth}`,
-    bundle: "demo_section",
-    header: "Section",
-    children: depth > 0 ? [nested(depth - 1)] : [],
+    bundle: "section",
+    metadata: { label: "Section", variant: "preview", navigation: false },
+    content: depth > 0 ? [nested(depth - 1)] : [],
   });
   expect(() => parsePage(raw(nested(6)))).toThrow(/at most 5/);
   const tooMany = {
-    title: "Long",
-    primary_content_value: Array.from({ length: 101 }, (_, i) => ({
-      id: `b${i}`,
-      bundle: "text_block",
-      text_body: "Text",
-    })),
+    ...defaultPage(),
+    content: Array.from({ length: 101 }, (_, i) => ({ ...text, id: `b${i}` })),
   };
   expect(() => parsePage(JSON.stringify(tooMany))).toThrow(/maximum 100/);
   expect(
+    parsePage(raw({ ...text, content: "<script>alert(1)</script>" }))
+      .content[0],
+  ).toMatchObject({ content: "<script>alert(1)</script>" });
+  expect(() =>
     parsePage(
-      raw({
-        id: "text",
-        bundle: "text_block",
-        text_body: "<script>alert(1)</script>",
-      }),
-    ).primary_content_value[0],
-  ).toMatchObject({ text_body: "<script>alert(1)</script>" });
+      JSON.stringify({ title: "Old schema", primary_content_value: [] }),
+    ),
+  ).toThrow(/unsupported property/);
+  const versioned = {
+    ...defaultPage(),
+    metadata: { schema_version: 2, title: "Unknown version" },
+  };
+  expect(() => parsePage(JSON.stringify(versioned))).toThrow(/schema_version/);
+  const colliding = defaultPage();
+  colliding.content[0].id = colliding.id;
+  expect(() => parsePage(JSON.stringify(colliding))).toThrow(/duplicate ID/);
 });
 
 test("subtree moves reject cycles and invalid destinations without dropping content", () => {
-  const blocks = defaultPage().primary_content_value;
+  const blocks = defaultPage().content;
   expect(
     relocateBlock(blocks, "chapter", { parentId: "chapter", beforeId: null }),
   ).toBe(blocks);
@@ -254,20 +284,24 @@ test("subtree moves reject cycles and invalid destinations without dropping cont
   expect(nested.find((b) => b.id === "intro")).toBeUndefined();
   expect(blocks[0].id).toBe("intro");
   expect(nested.find((b) => b.id === "chapter")).toMatchObject({
-    children: [{ id: "intro" }, { id: "prompt" }],
+    content: [{ id: "intro" }, { id: "prompt" }],
   });
   const subtree = {
     ...blocks[3],
-    children: [
+    content: [
       {
         id: "inner",
-        bundle: "demo_section" as const,
-        header: "Inside",
-        children: [],
+        bundle: "section" as const,
+        metadata: {
+          label: "Inside",
+          variant: "preview" as const,
+          navigation: false,
+        },
+        content: [],
       },
     ],
   };
-  const tree = [subtree] as StudioDocument["primary_content_value"];
+  const tree = [subtree] as StudioDocument["content"];
   expect(
     relocateBlock(tree, "chapter", { parentId: "inner", beforeId: null }),
   ).toBe(tree);

@@ -1,0 +1,21 @@
+.builder-status {
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  flex: 0 0 auto;
+  margin-top: 0;
+  padding: 9px 18px;
+  font-size: 10px;
+}
+
+.validation-error {
+  padding: 15px;
+  background: #fae9df;
+  border: 1px solid #ad4d27;
+  color: #762a16;
+  font: 12px/1.7 monospace;
+  overflow-wrap: anywhere;
+  flex: 0 0 auto;
+  max-height: 90px;
+  overflow: auto;
+  margin: 10px 18px;
+}

@@ -1,0 +1,46 @@
+.footer-reader-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 11px;
+}
+
+.case-study-reader {
+  width: min(760px, calc(100vw - 32px));
+  max-height: 90dvh;
+}
+
+.reader-download {
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .case-study-reader .reader-print {
+    max-width: 105px;
+  }
+}
+
+@media print {
+  body:has(.case-study-reader) > :not(.case-study-reader) {
+    display: none !important;
+  }
+}
+
+@media print {
+  body:has(.case-study-reader) {
+    overflow: visible !important;
+    background: white;
+  }
+}
+
+@media print {
+  .case-study-reader {
+    display: block !important;
+    position: static;
+    transform: none;
+    overflow: visible;
+    width: auto;
+    max-height: none;
+    border: 0;
+    padding: 0;
+  }
+}

@@ -40,8 +40,58 @@ export default tseslint.config(
     rules: { "local/cms-adapter-boundary": "error" },
   },
   {
-    files: ["src/components/CMS/bundles/**/*.tsx"],
-    ignores: ["**/*Bundle.tsx", "**/*Fields.tsx"],
+    files: ["src/components/UI/ContentStudio/PageComposer.tsx"],
+    rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true, allowExportNames: ["bundles"] },
+      ],
+    },
+  },
+  {
+    files: ["src/components/UI/**/*.tsx"],
+    ignores: [
+      "src/components/UI/ContentStudio/**",
+      "src/components/UI/CaseStudy/**",
+    ],
     rules: { "local/cms-base-boundary": "error" },
+  },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/components/UI/Icon/Icon.tsx"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@radix-ui/react-icons",
+              message: "Use the shared UI/Icon registry and semantic names.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/components/UI/CaseStudy/CaseStudy.tsx"],
+    rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        {
+          allowConstantExport: true,
+          allowExportNames: ["pageDocument", "pageIndex"],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/components/CMS/bundles/MediaBundle/MediaFields.tsx"],
+    rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true, allowExportNames: ["imageOptions"] },
+      ],
+    },
   },
 );

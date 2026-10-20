@@ -1,0 +1,63 @@
+.hero-summary {
+  font-size: 21px;
+  line-height: 1.5;
+  max-width: 510px;
+}
+
+.hero-detail {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 470px;
+  margin-top: 23px;
+}
+
+@media (max-width: 1100px) {
+  .hero-summary {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-summary {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-detail {
+    font-size: 14px;
+  }
+}
+
+.section-intro {
+  font-size: 17px;
+  color: var(--muted);
+  margin-top: 23px;
+  max-width: 730px;
+}
+
+@media (max-width: 760px) {
+  .section-intro {
+    font-size: 15px;
+  }
+}
+
+.diagram-index {
+  font: 11px/1.5 monospace;
+  color: #5e7288;
+}
+
+.diagram-label {
+  font: 10px/1.5 monospace;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.resource-placeholder {
+  border: 1px solid var(--line);
+  font-size: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  background: #f7f9fc;
+}

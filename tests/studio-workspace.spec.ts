@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
+import type { StudioDocument } from "../src/utils/studio";
 import {
   openCompose,
   closeCompose,
@@ -21,7 +21,7 @@ test("collapse Compose and change output layouts without losing edits or JSON dr
   const current = JSON.parse(await json.inputValue()) as StudioDocument;
   const draft = JSON.stringify({
     ...current,
-    title: "Layout changes preserve drafts",
+    metadata: { ...current.metadata, title: "Layout changes preserve drafts" },
   });
   await page
     .getByRole("button", { name: "Collapse Compose", exact: true })
@@ -454,7 +454,7 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
     preview.getByRole("heading", { name: "Mobile journal", exact: true }),
   ).toBeVisible();
   const data = JSON.parse(await json.inputValue()) as StudioDocument;
-  const section = data.primary_content_value.at(-1)!;
+  const section = data.content.at(-1)!;
   await open.click();
   await page
     .getByLabel("Add blocks to", { exact: true })
@@ -483,11 +483,14 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
     preview.getByRole("heading", { name: "Mobile journal", exact: true }),
   ).toHaveCount(0);
   const changed = JSON.parse(await json.inputValue()) as StudioDocument;
-  expect(changed.primary_content_value.at(-1)).toMatchObject({
+  expect(changed.content.at(-1)).toMatchObject({
     id: section.id,
-    children: [{ text_body: "A mobile observation." }],
+    content: [{ content: "A mobile observation." }],
   });
-  const draft = JSON.stringify({ ...changed, title: "Applied on mobile" });
+  const draft = JSON.stringify({
+    ...changed,
+    metadata: { ...changed.metadata, title: "Applied on mobile" },
+  });
   await json.fill(draft);
   await open.click();
   await expect(page.getByLabel("Page title", { exact: true })).toBeDisabled();

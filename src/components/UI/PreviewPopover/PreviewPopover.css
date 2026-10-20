@@ -1,0 +1,47 @@
+.preview-popover-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.preview-popover-heading h4 {
+  font-size: 13px;
+  margin: 0;
+}
+
+.preview-popover-heading button {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: white;
+  font-size: 20px;
+}
+
+.preview-popover {
+  z-index: 60;
+  max-height: min(
+    460px,
+    calc(100dvh - 32px),
+    var(--radix-popover-content-available-height)
+  );
+}
+
+.preview-popover-arrow {
+  fill: var(--paper);
+  stroke: #b7c9db;
+  stroke-width: 1;
+}
+
+.preview-popover-anchor {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+}

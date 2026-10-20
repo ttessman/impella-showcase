@@ -1,8 +1,5 @@
 import { test, expect } from "@playwright/test";
-import {
-  buildMetadata,
-  resolveSiteUrl,
-} from "../src/features/CaseStudy/metadata/buildMetadata";
+import { buildMetadata, resolveSiteUrl } from "../src/utils/siteMetadata";
 
 test("built HTML and plain-text companions explain original ownership before JavaScript runs", async ({
   request,

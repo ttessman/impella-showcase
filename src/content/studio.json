@@ -1,0 +1,80 @@
+{
+  "id": "field-notes",
+  "bundle": "page",
+  "metadata": {
+    "schema_version": 1,
+    "title": "A field guide to noticing"
+  },
+  "content": [
+    {
+      "id": "intro",
+      "bundle": "heading",
+      "metadata": {
+        "level": 2
+      },
+      "content": "Small observations. New ideas."
+    },
+    {
+      "id": "opening",
+      "bundle": "text_block",
+      "metadata": {
+        "variant": "plain"
+      },
+      "content": "A fictional journal about making time to look closely. Collect a color, sketch a shape, and write down one unexpected detail."
+    },
+    {
+      "id": "landscape",
+      "bundle": "media",
+      "metadata": {
+        "src": "/assets/demo/field-notes.svg",
+        "alt": "Illustrated green mountains under a golden sun",
+        "title": "Field journal illustration",
+        "width": 800,
+        "height": 480,
+        "variant": "inline"
+      },
+      "content": [
+        {
+          "id": "landscape-caption",
+          "bundle": "text_block",
+          "metadata": {},
+          "content": "Field notes, an invented creative project."
+        }
+      ]
+    },
+    {
+      "id": "chapter",
+      "bundle": "section",
+      "metadata": {
+        "label": "Take a closer look",
+        "variant": "preview",
+        "navigation": false
+      },
+      "content": [
+        {
+          "id": "prompt",
+          "bundle": "text_block",
+          "metadata": {
+            "variant": "plain"
+          },
+          "content": "Choose an ordinary object. Describe its texture without naming the object.<sup>1</sup>"
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "bundle": "references_accordion",
+      "metadata": {
+        "label": "Reading notes"
+      },
+      "content": [
+        {
+          "id": "reference-one",
+          "bundle": "text_block",
+          "metadata": {},
+          "content": "Fictional field journal, volume one."
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
-import { TooltipProvider } from "../components/overlays/Tooltip/TooltipProvider";
-import { CaseStudyPage } from "../features/CaseStudy/CaseStudyPage";
+import { TooltipProvider } from "../components/UI/Tooltip/TooltipProvider";
+import { CaseStudy } from "../components/UI/CaseStudy/CaseStudy";
 export default function App() {
   return (
     <TooltipProvider delayDuration={350}>
-      <CaseStudyPage />
+      <CaseStudy />
     </TooltipProvider>
   );
 }
