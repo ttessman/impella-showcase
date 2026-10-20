@@ -52,13 +52,13 @@
   color: white;
   justify-content: space-between;
   align-items: center;
-  padding: 17px 20px;
+  padding: 10px 16px;
   font-size: 12px;
   flex-wrap: wrap;
   flex: 0 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 6px 12px;
+  gap: 3px 12px;
 }
 
 .playground-title {
@@ -77,7 +77,7 @@
 }
 
 .playground-bar .demo-note {
-  grid-column: 1 / -1;
+  margin: 0;
   padding: 0;
   border: 0;
   color: #dae8f4;
@@ -112,4 +112,24 @@
     padding: 10px;
     justify-content: center;
   }
+}
+
+.playground-actions {
+  align-self: center;
+  align-items: center;
+}
+.playground-actions button {
+  justify-content: center;
+}
+@media (max-width: 650px) {
+  .playground-bar {
+    padding: 9px 12px;
+  }
+}
+
+.playground-heading {
+  min-width: 0;
+}
+.playground-heading .demo-note {
+  margin: 3px 0 0;
 }

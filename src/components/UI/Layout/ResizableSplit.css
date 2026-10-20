@@ -10,6 +10,7 @@
 
 .resizable-split {
   display: grid;
+  height: 100%;
   min-width: 0;
   min-height: 0;
 }
@@ -22,7 +23,6 @@
 }
 
 :where(.resizable-split).axis-y {
-  height: 1000px;
   grid-template-rows: minmax(0, var(--first-pane)) 12px minmax(
       0,
       var(--second-pane)

@@ -1,6 +1,9 @@
+import type { DialogSize } from "../Dialog/Dialog";
 import { Icon } from "../Icon/Icon";
 import type { EvidenceImage } from "../Dialog/variants/ImageDialog";
+import { ImageDialogTrigger } from "../Dialog/variants/ImageDialogTrigger";
 export type MediaDefinition = {
+  dialog?: { title?: string; closeLabel?: string; size?: DialogSize };
   image: EvidenceImage;
   title: string;
   variant: "hero" | "original" | "linked" | "evidence" | "gallery" | "inline";
@@ -42,6 +45,19 @@ export function Media({
           <span>{caption}</span>
         </figcaption>
       </figure>
+    );
+  if (m.variant === "linked" && m.dialog)
+    return (
+      <ImageDialogTrigger
+        image={image}
+        title={m.dialog.title ?? m.title}
+        closeLabel={m.dialog.closeLabel ?? m.closeLabel ?? "Close screenshot"}
+        size={m.dialog.size}
+        label={m.triggerLabel}
+        className="image-dialog-trigger"
+      >
+        {img}
+      </ImageDialogTrigger>
     );
   if (m.variant === "linked")
     return (
@@ -108,9 +124,10 @@ export function Media({
       )}
       <ImageDialog
         state={{ open, onOpenChange }}
-        title={m.title}
+        title={m.dialog?.title ?? m.title}
+        size={m.dialog?.size ?? (m.variant === "original" ? "large" : "small")}
         image={image}
-        closeLabel={m.closeLabel}
+        closeLabel={m.dialog?.closeLabel ?? m.closeLabel}
         className={m.variant === "original" ? "article-diagram-dialog" : ""}
         caption={m.variant === "original" ? m.captionLabel : undefined}
         footer={

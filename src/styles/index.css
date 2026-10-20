@@ -38,4 +38,7 @@
 @import "../components/UI/Text/variants/BlockText.css";
 @import "../components/UI/Tooltip/Tooltip.css";
 @import "../components/UI/Icon/Icon.css";
+@import "../components/UI/Dropdown/Dropdown.css";
+@import "../components/UI/Select/Select.css";
+@import "../components/UI/Dialog/variants/ImageDialogTrigger.css";
 @import "app.css";

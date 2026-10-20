@@ -1,3 +1,4 @@
+import { visit } from "jsonc-parser";
 import type { NodeOf } from "../components/CMS/renderers/ContentViewRender";
 import { imageOptions } from "../components/CMS/bundles/MediaBundle/MediaFields";
 import { validateBundleMetadata } from "./document";
@@ -163,10 +164,31 @@ export function parsePage(raw: string): StudioDocument {
   try {
     input = JSON.parse(raw);
   } catch {
+    const location = { line: 0, column: 0, found: false };
+    visit(
+      raw,
+      {
+        onError: (_error, _offset, _length, line, column) => {
+          if (location.found) return;
+          location.line = line + 1;
+          location.column = column + 1;
+          location.found = true;
+        },
+      },
+      {
+        disallowComments: true,
+        allowTrailingComma: false,
+        allowEmptyContent: false,
+      },
+    );
+    const at = location.found
+      ? ` at line ${location.line}, column ${location.column}`
+      : "";
     throw Error(
-      "JSON syntax error. Check quotes, commas and closing brackets.",
+      `JSON syntax error${at}. Check quotes, commas and closing brackets.`,
     );
   }
+
   const ids = new Set<string>();
   let count = 0;
   function object(value: unknown, path: string): Record<string, unknown> {

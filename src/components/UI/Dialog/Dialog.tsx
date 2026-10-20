@@ -2,6 +2,8 @@ import * as Primitive from "@radix-ui/react-dialog";
 import { useRef } from "react";
 import type { ReactNode } from "react";
 
+export type DialogSize = "small" | "default" | "large";
+
 export type DialogState = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -16,6 +18,7 @@ type Props = {
     footer?: ReactNode;
   };
   variant?: "standard" | "workspace";
+  size?: DialogSize;
   className?: string;
   id?: string;
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
@@ -28,6 +31,7 @@ export function Dialog({
   slots,
   className = "",
   variant = "standard",
+  size = "default",
   id,
   onEscapeKeyDown,
 }: Props) {
@@ -39,7 +43,7 @@ export function Dialog({
         <Primitive.Content
           id={id}
           onEscapeKeyDown={onEscapeKeyDown}
-          className={`dialog-surface dialog-${variant} ${className}`}
+          className={`dialog-surface dialog-${variant} dialog-size-${size} ${className}`}
           {...(!definition.description
             ? { "aria-describedby": undefined }
             : {})}

@@ -12,9 +12,15 @@ export function StudioToolbar({
   const { mobile, composeOpen } = layout;
   return (
     <div className="playground-bar">
-      <span className="playground-title">
-        <span className="live-dot" /> Content studio
-      </span>
+      <div className="playground-heading">
+        <span className="playground-title">
+          <span className="live-dot" /> Content studio
+        </span>
+        <p className="demo-note">
+          Fictional creative journal · Independently written web demo · Not
+          original Impella code or a clinical application
+        </p>
+      </div>
       <div className="playground-actions">
         {mobile && (
           <button
@@ -49,10 +55,6 @@ export function StudioToolbar({
           <span className="action-label">Reset example</span>
         </button>
       </div>
-      <p className="demo-note">
-        Fictional creative journal · Independently written web demo · Not
-        original Impella code or a clinical application
-      </p>
     </div>
   );
 }

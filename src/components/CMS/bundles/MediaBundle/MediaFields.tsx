@@ -1,3 +1,4 @@
+import { Select } from "../../../UI/Select/Select";
 import type { StudioMediaBundle } from "../../../../utils/studio";
 export const imageOptions = [
   "assets/demo/field-notes.svg",
@@ -16,7 +17,7 @@ export function MediaFields({
     <>
       <label>
         Image asset
-        <select
+        <Select
           aria-label="Image asset"
           value={block.metadata.src}
           onChange={(e) =>
@@ -39,7 +40,7 @@ export function MediaFields({
                 : "Mountain landscape"}
             </option>
           ))}
-        </select>
+        </Select>
       </label>
       <label>
         Alternative text

@@ -94,11 +94,15 @@ export function useContentEditor() {
     "Working example loaded. Select a block to edit.",
   );
   const [error, setError] = useState("");
+  const [validationTone, setValidationTone] = useState<"neutral" | "success">(
+    "neutral",
+  );
   const palette = useRef<HTMLButtonElement>(null);
   const dirty = draft !== null;
   const json = JSON.stringify(page, null, 2);
   const current = selected ? findBlock(page.content, selected) : undefined;
   function commit(next: StudioDocument, announcement?: string): boolean {
+    setValidationTone("neutral");
     try {
       const checked = parsePage(JSON.stringify(next));
       setPage(checked);
@@ -160,6 +164,7 @@ export function useContentEditor() {
   function validate(apply: boolean) {
     try {
       const next = parsePage(draft ?? json);
+      setValidationTone("success");
       setError("");
       if (apply) {
         drag.cancel();
@@ -208,6 +213,7 @@ export function useContentEditor() {
     }
   }
   function reset() {
+    setValidationTone("neutral");
     drag.cancel();
     setPage(defaultPage());
     setDraft(null);
@@ -217,15 +223,17 @@ export function useContentEditor() {
     setMessage("Original example restored.");
   }
   function editJson(value: string) {
+    setValidationTone("neutral");
     drag.cancel();
     setDraft(value);
     setError("");
     setMessage("JSON draft pending. Preview shows the last applied page.");
   }
   function discardDraft() {
+    setValidationTone("neutral");
     setDraft(null);
     setError("");
-    setMessage("Draft discarded. Last applied page restored.");
+    setMessage("");
   }
   return {
     page,
@@ -237,6 +245,7 @@ export function useContentEditor() {
     json,
     message,
     error,
+    validationTone,
     palette,
     drag,
     destinations: sections(page.content).filter((section) => section.depth < 5),

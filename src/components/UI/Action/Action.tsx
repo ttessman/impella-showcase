@@ -12,7 +12,7 @@ export function Action({
   children: ReactNode;
 }) {
   return (
-    <Button asChild>
+    <Button asChild size={variant === "primary" ? "large" : "default"}>
       <a
         href={href}
         className={variant === "primary" ? "button primary" : "text-link"}

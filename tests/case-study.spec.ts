@@ -76,7 +76,7 @@ test("responsive layout, images, console and accessible controls", async ({
     }),
   ).toBeFocused();
   await openCompose(page);
-  await page.getByRole("button", { name: "+ Heading", exact: true }).focus();
+  await page.getByRole("button", { name: "Add Heading", exact: true }).focus();
   await page.keyboard.press("Enter");
   await page.getByLabel("Heading text", { exact: true }).focus();
   await page.keyboard.press("ControlOrMeta+A");
@@ -172,4 +172,79 @@ test("original article diagram displays its full height beside the model and ope
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();
   await expect(enlarge).toBeFocused();
+});
+
+test("regional screenshot actions and images open the shared CMS-configured dialog", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const actions = page.locator("#navigation .image-dialog-action");
+  const titles = ["Home with persistent tabs", "Home with collection tiles"];
+  await expect(actions).toHaveCount(2);
+  for (let index = 0; index < titles.length; index++) {
+    const action = actions.nth(index);
+    await action.click();
+    const dialog = page.getByRole("dialog", {
+      name: titles[index],
+      exact: true,
+    });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator("img")).toBeVisible();
+    await expect(dialog).toHaveClass(/dialog-size-small/);
+    const renderedImage = (await dialog.locator("img").boundingBox())!;
+    expect(renderedImage.width).toBeLessThanOrEqual(360);
+    expect((await dialog.boundingBox())!.width).toBeLessThanOrEqual(480);
+
+    await dialog
+      .getByRole("button", { name: "Close screenshot", exact: true })
+      .click();
+    await expect(dialog).not.toBeVisible();
+    await expect(action).toBeFocused();
+    const image = page.getByRole("button", {
+      name: `Open ${titles[index]} screenshot at full size`,
+      exact: true,
+    });
+    await image.click();
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible();
+    await expect(image).toBeFocused();
+  }
+});
+
+test("hero aside moves above copy only at the mobile breakpoint", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const aside = page.locator(".hero-aside");
+  const copy = page.locator(".hero-copy");
+  const before = await page
+    .locator(".hero")
+    .evaluate((el) => Array.from(el.children).map((child) => child.className));
+  for (const width of [390, 700, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    const a = (await aside.boundingBox())!;
+    const c = (await copy.boundingBox())!;
+    if (width <= 650) {
+      expect(a.y + a.height).toBeLessThanOrEqual(c.y);
+      await expect(aside).toHaveCSS("order", "-1");
+      expect(a.x).toBeCloseTo(0, 1);
+      expect(a.width).toBeCloseTo(width, 1);
+      expect(a.y).toBeCloseTo(
+        (await page.locator(".hero-band").boundingBox())!.y,
+        1,
+      );
+    } else {
+      await expect(aside).toHaveCSS("order", "0");
+      if (width <= 760) expect(c.y).toBeLessThan(a.y);
+      else expect(a.x).toBeGreaterThan(c.x);
+    }
+    expect(
+      await page
+        .locator(".hero")
+        .evaluate((el) =>
+          Array.from(el.children).map((child) => child.className),
+        ),
+    ).toEqual(before);
+  }
 });

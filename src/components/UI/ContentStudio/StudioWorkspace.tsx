@@ -14,7 +14,7 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
     composeOpen,
     closeCompose: onCloseCompose,
     value,
-    change: onChange,
+    change: changeLayout,
   } = controller;
   const { compose, inspect, preview, feedback: composeFeedback } = slots;
   const { collapsed, layout, composeWidth, inspectWidth, previewHeight } =
@@ -34,8 +34,43 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
     onChange({ collapsed: !collapsed });
   }
   const workspace = useRef<HTMLDivElement>(null);
+  const scrollPositions = useRef<
+    { element: HTMLElement; top: number; left: number }[]
+  >([]);
+  function onChange(patch: Parameters<typeof changeLayout>[0]) {
+    scrollPositions.current = Array.from(
+      workspace.current?.querySelectorAll<HTMLElement>(
+        "[data-editor-scroll], .preview-content",
+      ) ?? [],
+    ).map((element) => ({
+      element,
+      top: element.scrollTop,
+      left: element.scrollLeft,
+    }));
+    changeLayout(patch);
+  }
+  useLayoutEffect(() => {
+    const positions = scrollPositions.current;
+    const restore = () => {
+      for (const { element, top, left } of positions) {
+        if (!element.isConnected) continue;
+        element.scrollTop = top;
+        element.scrollLeft = left;
+      }
+    };
+    restore();
+    const frame = requestAnimationFrame(restore);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
   const size = useElementSize(workspace);
-  const narrow = size.width > 0 ? size.width <= 600 : window.innerWidth <= 650;
+  const outputWidth =
+    size.width > 0
+      ? collapsed
+        ? size.width - 48
+        : (size.width - 12) * (1 - composeWidth / 100)
+      : window.innerWidth;
+  const narrow = outputWidth <= 600;
   const stacked = mobile || layout === "stacked" || narrow;
   const layoutAction = stacked
     ? "Show panels side by side"
@@ -52,6 +87,7 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
   );
   const composeAction = (
     <IconButton
+      size="small"
       type="button"
       ref={collapseButton}
 
@@ -71,10 +107,15 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
         {composeHeading}
         {composeAction}
       </div>
-      <div className="workspace-panel" data-editor-scroll>
+      <div
+        className="workspace-panel"
+        data-editor-scroll
+        role="region"
+        aria-label="Compose content"
+        tabIndex={0}
+      >
         {compose}
       </div>
-      {mobile && composeFeedback}
     </div>
   );
   const outputPanel = (
@@ -82,6 +123,7 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
       <div className="workspace-pane-header workspace-output-header">
         <span className="workspace-output-title">Output</span>
         <IconButton
+          size="small"
           type="button"
 
           label={layoutAction}
@@ -118,7 +160,6 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
   return (
     <div
       ref={workspace}
-      data-editor-scroll
       className={`builder-grid panel-workspace${mobile ? " mobile-workspace" : ""}`}
       role="region"
       aria-label="Content studio workspace"
@@ -133,6 +174,7 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
           {outputPanel}
           <Dialog
             id="mobile-compose"
+            size="small"
             variant="workspace"
             onEscapeKeyDown={controller.escapeCompose}
             className="compose-dialog"
@@ -147,15 +189,17 @@ export function StudioWorkspace({ layout: controller, slots }: Props) {
               header: composeHeading,
               actions: composeAction,
               body: (
-                <div
-                  id="compose-panel"
-                  className="workspace-panel"
-                  data-editor-scroll
-                >
-                  {compose}
-                </div>
+                <>
+                  {composeFeedback}
+                  <div
+                    id="compose-panel"
+                    className="workspace-panel"
+                    data-editor-scroll
+                  >
+                    {compose}
+                  </div>
+                </>
               ),
-              footer: composeFeedback,
             }}
           />
         </>

@@ -241,7 +241,7 @@ test("selected properties stay with the block and row halves show one insertion 
 test("drop a block directly inside an empty section", async ({ page }) => {
   await page.goto("/");
   await openCompose(page);
-  await page.getByRole("button", { name: "+ Section", exact: true }).click();
+  await page.getByRole("button", { name: "Add Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Empty chapter");
   const json = page.getByLabel("Editable page JSON");
   const initial = JSON.parse(await json.inputValue()) as StudioDocument;

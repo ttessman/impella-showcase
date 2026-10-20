@@ -7,9 +7,10 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 12px;
-  padding: 15px 18px;
-  gap: 25px;
+  min-height: var(--button-height, 36px);
+  font-size: var(--button-font-size, 12px);
+  padding: var(--button-padding, 7px 12px);
+  gap: var(--button-gap, 6px);
   border: 1px solid var(--ink);
 }
 
@@ -21,4 +22,31 @@
 
 .primary:hover {
   background: #075c92;
+}
+.button-secondary {
+  border: 1px solid #afc0d1;
+  border-radius: 3px;
+  background: #edf3f9;
+  color: var(--ink);
+}
+.button-secondary:hover {
+  background: #ddebf7;
+}
+.button-size-small {
+  --button-height: 28px;
+  --button-padding: 4px 8px;
+  --button-font-size: 11px;
+  --button-gap: 5px;
+}
+.button-size-default {
+  --button-height: 36px;
+  --button-padding: 7px 12px;
+  --button-font-size: 12px;
+  --button-gap: 6px;
+}
+.button-size-large {
+  --button-height: 44px;
+  --button-padding: 10px 16px;
+  --button-font-size: 13px;
+  --button-gap: 8px;
 }

@@ -115,6 +115,13 @@ test("section dropdown uses page definitions, keyboard navigation and keeps the 
   await expect(popup).toBeVisible();
   const links = popup.getByRole("link");
   await expect(links).toHaveCount(11);
+  const sizing = await popup.evaluate((el) => ({
+    visible: el.clientHeight,
+    full: el.scrollHeight,
+  }));
+  expect(sizing.full).toBeLessThanOrEqual(sizing.visible + 1);
+  await expect(links.nth(10)).toBeInViewport();
+
   const actual = await page.locator(".case-section").evaluateAll((sections) =>
     sections.map((section) => ({
       id: section.id,

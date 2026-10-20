@@ -48,7 +48,8 @@
           "id": "top",
           "bundle": "hero",
           "metadata": {
-            "variant": "editorial",
+            "variant": "split",
+            "aside_padding": "none",
             "header": {
               "eyebrow": "CASE STUDY / MOBILE CONTENT ARCHITECTURE",
               "title": "Content, composed\n*natively.*"
@@ -886,7 +887,10 @@
                         "close_label": "Close diagram",
                         "caption_label": "Original project documentation · Scroll to inspect each outlined component.",
                         "original_link_label": "Open source image at original resolution ↗",
-                        "provenance": "approved-original-documentation"
+                        "provenance": "approved-original-documentation",
+                        "dialog": {
+                          "size": "large"
+                        }
                       },
                       "content": []
                     }
@@ -1711,7 +1715,12 @@
                             "height": 2736,
                             "title": "Home with persistent tabs",
                             "variant": "linked",
-                            "trigger_label": "Open Home with persistent tabs screenshot at full size"
+                            "trigger_label": "Open Home with persistent tabs screenshot at full size",
+                            "dialog": {
+                              "title": "Home with persistent tabs",
+                              "close_label": "Close screenshot",
+                              "size": "small"
+                            }
                           },
                           "content": []
                         },
@@ -1750,7 +1759,8 @@
                               "metadata": {
                                 "href": "/assets/production/home.png",
                                 "variant": "text",
-                                "new_tab": true
+                                "action": "image",
+                                "target_id": "impella-node-206"
                               },
                               "content": "View screenshot ↗"
                             }
@@ -1782,7 +1792,12 @@
                             "height": 996,
                             "title": "Home with collection tiles",
                             "variant": "linked",
-                            "trigger_label": "Open Home with collection tiles screenshot at full size"
+                            "trigger_label": "Open Home with collection tiles screenshot at full size",
+                            "dialog": {
+                              "title": "Home with collection tiles",
+                              "close_label": "Close screenshot",
+                              "size": "small"
+                            }
                           },
                           "content": []
                         },
@@ -1821,7 +1836,8 @@
                               "metadata": {
                                 "href": "/assets/production/apple-home.webp",
                                 "variant": "text",
-                                "new_tab": true
+                                "action": "image",
+                                "target_id": "impella-node-214"
                               },
                               "content": "View screenshot ↗"
                             }
@@ -1960,7 +1976,10 @@
                             "width": 460,
                             "height": 996,
                             "title": "AKI calculator input",
-                            "variant": "evidence"
+                            "variant": "evidence",
+                            "dialog": {
+                              "size": "small"
+                            }
                           },
                           "content": [
                             {
@@ -2225,7 +2244,10 @@
                             "width": 460,
                             "height": 996,
                             "title": "Checklist selection example",
-                            "variant": "evidence"
+                            "variant": "evidence",
+                            "dialog": {
+                              "size": "small"
+                            }
                           },
                           "content": [
                             {
@@ -3217,7 +3239,10 @@
                     "title": "Home & favorites",
                     "variant": "gallery",
                     "caption_label": "01 / Apple listing",
-                    "body": "Configured collection tiles support discovery; personal favorites provide a way back to saved resources."
+                    "body": "Configured collection tiles support discovery; personal favorites provide a way back to saved resources.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3232,7 +3257,10 @@
                     "title": "Browse & embedded media",
                     "variant": "gallery",
                     "caption_label": "02 / Supplied capture",
-                    "body": "Shared resource cards bring articles, videos and tools into the same browsing experience."
+                    "body": "Shared resource cards bring articles, videos and tools into the same browsing experience.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3247,7 +3275,10 @@
                     "title": "Native article composition",
                     "variant": "gallery",
                     "caption_label": "03 / Apple listing",
-                    "body": "Article actions, video and text share one reading interface. This listing image includes a date; article metadata is disabled in the archived renderer."
+                    "body": "Article actions, video and text share one reading interface. This listing image includes a date; article metadata is disabled in the archived renderer.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3262,7 +3293,10 @@
                     "title": "Articles & references",
                     "variant": "gallery",
                     "caption_label": "04 / Supplied capture",
-                    "body": "References sit alongside the article they support, within the shared reading layout."
+                    "body": "References sit alongside the article they support, within the shared reading layout.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3277,7 +3311,10 @@
                     "title": "Related resources",
                     "variant": "gallery",
                     "caption_label": "05 / Supplied capture",
-                    "body": "Related-resource cards give readers a path from an article to supporting skills videos."
+                    "body": "Related-resource cards give readers a path from an article to supporting skills videos.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3292,7 +3329,10 @@
                     "title": "Structured checklists",
                     "variant": "gallery",
                     "caption_label": "06 / Apple listing",
-                    "body": "Grouped questions and selectable options turn structured content into an interactive checklist."
+                    "body": "Grouped questions and selectable options turn structured content into an interactive checklist.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3307,7 +3347,10 @@
                     "title": "AKI calculator",
                     "variant": "gallery",
                     "caption_label": "07 / Apple listing",
-                    "body": "Input controls and calculated results extend the experience beyond browsing and reading."
+                    "body": "Input controls and calculated results extend the experience beyond browsing and reading.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 },
@@ -3322,7 +3365,10 @@
                     "title": "Heparin calculator",
                     "variant": "gallery",
                     "caption_label": "08 / Apple listing",
-                    "body": "Sliders provide inputs to a purpose-built calculator. This product screenshot illustrates the UI; the portfolio does not perform clinical calculations."
+                    "body": "Sliders provide inputs to a purpose-built calculator. This product screenshot illustrates the UI; the portfolio does not perform clinical calculations.",
+                    "dialog": {
+                      "size": "small"
+                    }
                   },
                   "content": []
                 }

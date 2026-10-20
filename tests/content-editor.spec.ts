@@ -23,14 +23,14 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await expect(
     preview.getByRole("heading", { name: initial.metadata.title }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "+ Heading", exact: true }).click();
+  await page.getByRole("button", { name: "Add Heading", exact: true }).click();
   await page
     .getByLabel("Heading text", { exact: true })
     .fill("A new perspective");
   await expect(
     preview.getByRole("heading", { name: "A new perspective" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "+ Section", exact: true }).click();
+  await page.getByRole("button", { name: "Add Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Sketchbook");
   const data = JSON.parse(await json.inputValue()) as StudioDocument;
   const section = data.content.find(
@@ -39,7 +39,9 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await page
     .getByLabel("Add blocks to", { exact: true })
     .selectOption(section.id);
-  await page.getByRole("button", { name: "+ Paragraph", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Add Paragraph", exact: true })
+    .click();
   await page
     .getByLabel("Paragraph text", { exact: true })
     .fill("Observe the color of the afternoon sky.");
@@ -75,6 +77,7 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await expect(
     preview.getByRole("heading", { name: initial.metadata.title }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
   await page
     .getByRole("button", { name: "Validate JSON", exact: true })
     .click();
@@ -126,7 +129,7 @@ test("image editing, nested sections, references and safe removal", async ({
       exact: true,
     })
     .click();
-  await page.getByRole("button", { name: "+ Section", exact: true }).click();
+  await page.getByRole("button", { name: "Add Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Nested study");
   const json = page.getByLabel("Editable page JSON");
   const data = JSON.parse(await json.inputValue()) as StudioDocument;
@@ -137,7 +140,7 @@ test("image editing, nested sections, references and safe removal", async ({
   await page
     .getByLabel("Add blocks to", { exact: true })
     .selectOption(nested.id);
-  await page.getByRole("button", { name: "+ Image", exact: true }).click();
+  await page.getByRole("button", { name: "Add Image", exact: true }).click();
   await page
     .getByLabel("Image asset", { exact: true })
     .selectOption("/assets/demo/studio-notes.svg");
@@ -153,7 +156,9 @@ test("image editing, nested sections, references and safe removal", async ({
     preview.getByRole("img", { name: "A fictional studio notebook" }),
   ).toHaveAttribute("src", /studio-notes.svg/);
   await openCompose(page);
-  await page.getByRole("button", { name: "+ References", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Add References", exact: true })
+    .click();
   await page
     .getByLabel("References (one per line)", { exact: true })
     .fill("Fictional notebook one\nFictional notebook two");
@@ -305,4 +310,110 @@ test("subtree moves reject cycles and invalid destinations without dropping cont
   expect(
     relocateBlock(tree, "chapter", { parentId: "inner", beforeId: null }),
   ).toBe(tree);
+});
+
+test("JSON action menu validates visibly and reverts without moving its toolbar", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const json = page.getByRole("textbox", { name: "Editable page JSON" });
+  const initial = await json.inputValue();
+  const trigger = page.getByRole("button", {
+    name: "JSON actions",
+    exact: true,
+  });
+  await json.fill("{broken");
+  await trigger.click();
+  await page
+    .getByRole("button", { name: "Validate JSON", exact: true })
+    .click();
+  await expect(json).toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator(".json-pane > .editor-feedback")).not.toBeEmpty();
+  expect(await json.inputValue()).toBe("{broken");
+  await trigger.click();
+  const before = await trigger.boundingBox();
+  await page.getByRole("button", { name: "Revert JSON", exact: true }).click();
+  await expect(json).toHaveValue(initial);
+  await expect(json).not.toHaveAttribute("aria-invalid");
+  await expect(trigger).toBeFocused();
+  const after = await trigger.boundingBox();
+  expect(Math.abs(after!.y - before!.y)).toBeLessThan(2);
+  await trigger.click();
+  await expect(
+    page.getByRole("button", { name: "Revert JSON", exact: true }),
+  ).toBeDisabled();
+  await page.keyboard.press("Escape");
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await page.keyboard.press("Home");
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".json-pane > .editor-feedback")).toContainText(
+    "JSON is valid",
+  );
+});
+
+test("JSON editor grows with content and wrapping instead of scrolling internally", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const json = page.getByRole("textbox", { name: "Editable page JSON" });
+  const initial = await json.inputValue();
+  const firstHeight = await json.evaluate((el) => el.clientHeight);
+  await json.fill(initial + "\n".repeat(120) + " ".repeat(1500));
+  await expect
+    .poll(() => json.evaluate((el) => el.clientHeight))
+    .toBeGreaterThan(firstHeight);
+  for (const width of [390, 820, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await expect
+      .poll(() => json.evaluate((el) => el.scrollHeight - el.clientHeight))
+      .toBeLessThanOrEqual(1);
+    await expect
+      .poll(() => json.evaluate((el) => el.scrollWidth - el.clientWidth))
+      .toBeLessThanOrEqual(1);
+    await expect(json).toHaveCSS("overflow-y", "hidden");
+  }
+});
+
+test("validation bar stays below Inspect actions and reports syntax locations with state colors", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const json = page.getByRole("textbox", { name: "Editable page JSON" });
+  const initial = await json.inputValue();
+  const header = page.locator(".json-pane-header");
+  const bar = page.locator(".json-pane > .editor-feedback");
+  const studioHeight = (await page.locator(".playground").boundingBox())!
+    .height;
+  const initialHeader = (await header.boundingBox())!;
+  const initialBar = (await bar.boundingBox())!;
+  expect(initialBar.y).toBeCloseTo(initialHeader.y + initialHeader.height, 1);
+  await expect(bar).toHaveAttribute("data-tone", "neutral");
+  await json.fill('{\n  "id": "demo",\n  "bundle": ?\n}');
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Validate JSON", exact: true })
+    .click();
+  await expect(bar).toHaveAttribute("data-tone", "error");
+  await expect(bar.getByRole("alert")).toContainText("line 3, column 13");
+  await expect(json).toHaveCSS("border-color", "rgb(184, 107, 99)");
+  await json.fill(initial);
+  await expect(bar).toHaveAttribute("data-tone", "neutral");
+  await expect(json).toHaveCSS("border-color", "rgb(16, 46, 75)");
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Validate JSON", exact: true })
+    .click();
+  await expect(bar).toHaveAttribute("data-tone", "success");
+  await expect(bar.getByRole("status")).toContainText("JSON is valid");
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
+  await page.getByRole("button", { name: "Revert JSON", exact: true }).click();
+  await expect(bar).toHaveAttribute("data-tone", "neutral");
+  await expect(bar.getByRole("status")).toBeEmpty();
+  await expect(page.locator(".studio-footer")).toBeEmpty();
+  expect((await bar.boundingBox())!.height).toBe(initialBar.height);
+  expect((await header.boundingBox())!.height).toBe(initialHeader.height);
+  expect((await page.locator(".playground").boundingBox())!.height).toBe(
+    studioHeight,
+  );
 });

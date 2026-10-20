@@ -16,6 +16,8 @@
   overflow: hidden;
   margin: 0;
   padding: 0;
+  width: min(var(--dialog-width, 760px), calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
   max-height: 90dvh;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -27,9 +29,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
   flex-shrink: 0;
-  padding: 16px 20px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--line);
   background: var(--paper);
 }
@@ -39,7 +41,7 @@
 }
 
 .dialog-heading h3 {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
 }
 
@@ -90,7 +92,7 @@
 }
 
 .dialog-workspace .dialog-header {
-  padding: 12px 18px;
+  padding: 8px 12px;
   background: #f7f9fc;
 }
 
@@ -102,7 +104,7 @@
 @media (max-width: 760px) {
   .dialog-header {
     gap: 12px;
-    padding: 12px 16px;
+    padding: 8px 12px;
   }
 }
 
@@ -122,4 +124,14 @@
   .dialog-footer {
     padding: 10px 16px;
   }
+}
+
+.dialog-size-small {
+  --dialog-width: 480px;
+}
+.dialog-size-default {
+  --dialog-width: 760px;
+}
+.dialog-size-large {
+  --dialog-width: 960px;
 }

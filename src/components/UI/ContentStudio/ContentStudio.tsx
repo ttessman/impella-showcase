@@ -27,7 +27,11 @@ export default function ContentStudio() {
           />
         ),
         feedback: (
-          <EditorFeedback error={editor.error} message={editor.message} />
+          <EditorFeedback
+            error={editor.error}
+            message={editor.message}
+            tone={editor.validationTone}
+          />
         ),
       }}
     />

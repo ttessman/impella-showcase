@@ -1,3 +1,4 @@
+import { assetUrl } from "../../../../utils/assets";
 import type { NodeOf } from "../../renderers/ContentViewRender";
 import { Hero } from "../../../UI/Hero/Hero";
 import { ContentViewRender } from "../../renderers/ContentViewRender";
@@ -7,6 +8,14 @@ export function HeroBundle({ node }: { node: NodeOf<"hero"> }) {
     <Hero
       id={node.id}
       header={m.header}
+      variant={m.variant}
+      asidePadding={m.aside_padding}
+      contentWidth={m.content_width}
+      background={
+        m.background
+          ? { ...m.background, src: assetUrl(m.background.src) }
+          : undefined
+      }
       areas={{
         content: <ContentViewRender blocks={m.content} />,
         actions: m.actions.length ? (

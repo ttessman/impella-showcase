@@ -46,9 +46,11 @@ test("collapse Compose and change output layouts without losing edits or JSON dr
     page.getByRole("button", { name: "Show panels side by side", exact: true }),
   ).toHaveAttribute("data-layout", "stacked");
   expect(await json.inputValue()).toBe(draft);
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
   await expect(
-    page.getByRole("button", { name: "Discard draft", exact: true }),
-  ).toBeVisible();
+    page.getByRole("button", { name: "Revert JSON", exact: true }),
+  ).toBeEnabled();
+  await page.keyboard.press("Escape");
   const inspect = await page.locator(".workspace-inspect").boundingBox();
   const preview = await page.locator(".workspace-preview").boundingBox();
   expect(inspect!.y).toBeGreaterThan(preview!.y + preview!.height - 2);
@@ -135,6 +137,7 @@ test("workspace dividers resize with pointer and keyboard and respect limits", a
   await page
     .getByRole("button", { name: "Collapse Compose", exact: true })
     .click();
+  await setWorkspaceLayout(page, "side");
   const output = page.getByRole("separator", {
     name: "Resize Inspect and Preview",
     exact: true,
@@ -442,9 +445,9 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
   expect(a11y.violations).toEqual([]);
-  await page.getByRole("button", { name: "+ Heading", exact: true }).click();
+  await page.getByRole("button", { name: "Add Heading", exact: true }).click();
   await page.getByLabel("Heading text", { exact: true }).fill("Mobile journal");
-  await page.getByRole("button", { name: "+ Section", exact: true }).click();
+  await page.getByRole("button", { name: "Add Section", exact: true }).click();
   await page
     .getByLabel("Section title", { exact: true })
     .fill("Mobile chapter");
@@ -459,7 +462,7 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
   await page
     .getByLabel("Add blocks to", { exact: true })
     .selectOption(section.id);
-  await page.getByRole("button", { name: "+ Paragraph", exact: true }).click();
+  await page.getByRole("button", { name: "Add Paragraph", exact: true }).click();
   await page
     .getByLabel("Paragraph text", { exact: true })
     .fill("A mobile observation.");
@@ -496,6 +499,7 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
   await expect(page.getByLabel("Page title", { exact: true })).toBeDisabled();
   await close.click();
   expect(await json.inputValue()).toBe(draft);
+  await page.getByRole("button", { name: "JSON actions", exact: true }).click();
   await page
     .getByRole("button", { name: "Validate JSON", exact: true })
     .click();
@@ -573,4 +577,93 @@ test("studio background spans the viewport and minimum height stays within short
       () => document.documentElement.scrollWidth > innerWidth,
     ),
   ).toBe(false);
+});
+
+test("pane bodies own scrolling and layout changes preserve reading positions", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const studio = page.locator(".playground");
+  await studio.scrollIntoViewIfNeeded();
+  const shell = page.locator(".panel-workspace");
+  const inspect = page.getByRole("region", {
+    name: "JSON content",
+    exact: true,
+  });
+  await expect(shell).toHaveCSS("overflow-y", "hidden");
+  await expect
+    .poll(() => shell.evaluate((el) => el.scrollHeight - el.clientHeight))
+    .toBeLessThanOrEqual(1);
+  await inspect.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  const code = page.getByRole("textbox", { name: "Editable page JSON" });
+  const codeBottom = await code.evaluate(
+    (el) => el.getBoundingClientRect().bottom,
+  );
+  const paneBottom = await inspect.evaluate(
+    (el) => el.getBoundingClientRect().bottom,
+  );
+  expect(codeBottom).toBeLessThanOrEqual(paneBottom);
+  expect(paneBottom - codeBottom).toBeLessThan(40);
+  expect(await code.inputValue()).toMatch(/}\s*$/);
+  expect(
+    await code.evaluate((el) => el.scrollHeight - el.clientHeight),
+  ).toBeLessThanOrEqual(1);
+  await inspect.screenshot({
+    path: test.info().outputPath("json-final-lines.png"),
+  });
+  const headingBounds = (await page
+    .locator(".playground-heading")
+    .boundingBox())!;
+  const actionsBounds = (await page
+    .locator(".playground-actions")
+    .boundingBox())!;
+  expect(headingBounds.x + headingBounds.width).toBeLessThanOrEqual(
+    actionsBounds.x,
+  );
+  expect(
+    Math.abs(
+      headingBounds.y +
+        headingBounds.height / 2 -
+        actionsBounds.y -
+        actionsBounds.height / 2,
+    ),
+  ).toBeLessThan(2);
+  const initialHeight = (await studio.boundingBox())!.height;
+  const header = page.locator(".json-pane-header");
+  const initialHeader = (await header.boundingBox())!.y;
+  await expect(header.locator("h3")).toHaveCSS("margin-bottom", "0px");
+  await inspect.evaluate((el) => {
+    el.scrollTop = 200;
+  });
+  expect(await inspect.evaluate((el) => el.scrollTop)).toBe(200);
+  expect((await header.boundingBox())!.y).toBeCloseTo(initialHeader, 1);
+  if ((page.viewportSize()?.width ?? 0) > 650) {
+    const compose = page.getByRole("region", {
+      name: "Compose content",
+      exact: true,
+    });
+    await compose.evaluate((el) => {
+      el.scrollTop = 150;
+    });
+    const composePosition = await compose.evaluate((el) => el.scrollTop);
+    for (const mode of ["side", "stacked", "side"] as const) {
+      await setWorkspaceLayout(page, mode);
+      await expect.poll(() => inspect.evaluate((el) => el.scrollTop)).toBe(200);
+      expect(await compose.evaluate((el) => el.scrollTop)).toBe(
+        composePosition,
+      );
+      expect((await studio.boundingBox())!.height).toBeCloseTo(
+        initialHeight,
+        1,
+      );
+      expect(
+        await shell.evaluate((el) => el.scrollHeight - el.clientHeight),
+      ).toBeLessThanOrEqual(1);
+    }
+  }
+  await studio.screenshot({
+    path: test.info().outputPath("bounded-pane-workspace.png"),
+  });
 });

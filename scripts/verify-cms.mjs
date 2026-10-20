@@ -61,6 +61,22 @@ try {
       assets.push(access(`${root}public${node.metadata.src}`));
   });
   await Promise.all(assets);
+  const imageActions = [...index.nodes.values()].filter(
+    (n) => n.bundle === "action" && n.metadata.action === "image",
+  );
+  assert.equal(imageActions.length, 2);
+  for (const action of imageActions) {
+    const media = index.nodes.get(action.metadata.target_id);
+    assert.equal(media.bundle, "media");
+    assert.equal(media.metadata.dialog.close_label, "Close screenshot");
+  }
+  const badImageAction = clone(original);
+  walkContent(badImageAction, (n) => {
+    if (n.bundle === "action" && n.metadata.action === "image")
+      n.metadata.target_id = "missing-image";
+  });
+  assert.throws(() => parseDocument(badImageAction), /matching media target/);
+
   const { renderBaseCard } = await server.ssrLoadModule(
     "/tests/helpers/renderBaseCard.tsx",
   );
@@ -101,7 +117,7 @@ try {
     bundle: "hero",
     content: [],
     metadata: {
-      variant: "editorial",
+      variant: "split",
       header: {
         eyebrow: "An authored introduction",
         title: "A *reusable* hero",
@@ -176,7 +192,34 @@ try {
   ])
     assert.ok(narrative.includes(text), text);
   assert.ok(publicLinks(heroIndex).includes("https://example.com/evidence"));
+  const backgroundDoc = clone(heroDoc);
+  const backgroundHero = backgroundDoc.content[1].content[0];
+  backgroundHero.metadata.variant = "background";
+  backgroundHero.metadata.background = {
+    src: "/assets/production/apple-home.webp",
+    position: "top",
+  };
+  const backgroundHtml = renderDocument(parseDocument(backgroundDoc));
+  assert.ok(backgroundHtml.includes("hero-variant-background"));
+  assert.ok(backgroundHtml.includes("--hero-background:"));
+  assert.ok(!backgroundHtml.includes('class="hero-aside"'));
+  assert.ok(backgroundHtml.includes("A <em>reusable</em> hero"));
+  for (const width of ["narrow", "default", "wide"]) {
+    backgroundHero.metadata.content_width = width;
+    assert.ok(
+      renderDocument(parseDocument(backgroundDoc)).includes(
+        `hero-content-${width}`,
+      ),
+    );
+  }
   const heroInvalid = [
+    (h) => (h.metadata.content_width = "unsupported"),
+    (h) => (h.metadata.variant = "background"),
+    (h) => (h.metadata.background = { src: "javascript:alert(1)" }),
+    (h) =>
+      (h.metadata.background = { src: "/assets/documentation/private.png" }),
+    (h) => (h.metadata.aside_variant = "full-bleed"),
+    (h) => (h.metadata.aside_padding = "unsupported"),
     (h) => h.metadata.aside.push(clone(h.metadata.content[0])),
     (h) => (h.metadata.actions[0].metadata.href = "javascript:alert(1)"),
     (h) => (h.metadata.footer[0].metadata.schema_version = 1),
@@ -346,7 +389,7 @@ try {
     assert.throws(() => parseDocument(bad));
   }
   console.log(
-    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, React/CMS card parity (3 variants), derived navigation, ${invalid.length + heroInvalid.length + 2} invalid-document cases, hero authored areas/Markdown/tags, 16 checklist combinations.`,
+    `CMS verified: ${count} nodes, 11 sections, bundled assets, second document rendered, React/CMS card parity (3 variants), derived navigation, ${invalid.length + heroInvalid.length + 3} invalid-document cases, hero authored areas/Markdown/tags, 16 checklist combinations.`,
   );
 } finally {
   await server.close();

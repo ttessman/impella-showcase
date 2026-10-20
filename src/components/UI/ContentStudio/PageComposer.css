@@ -45,7 +45,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .property-panel {
@@ -68,13 +68,6 @@
   overflow-wrap: anywhere;
 }
 
-.draft-warning {
-  font-size: 11px;
-  padding: 12px;
-  background: #fff0ce;
-  margin-bottom: 15px;
-}
-
 .drag-help {
   margin-bottom: 12px;
   font-size: 10px;
@@ -88,24 +81,4 @@
 .author-pane .property-panel select,
 .author-pane .property-panel textarea {
   font-size: 13px;
-}
-
-.palette button {
-  padding: 9px 10px;
-  background: #edf3f9;
-  border: 1px solid #afc0d1;
-  border-radius: 3px;
-  font-size: 10px;
-  min-height: 34px;
-}
-
-.palette button:hover {
-  background: #ddebf7;
-}
-
-@media (max-width: 760px) {
-  .palette button {
-    min-height: 40px;
-    font-size: 11px;
-  }
 }

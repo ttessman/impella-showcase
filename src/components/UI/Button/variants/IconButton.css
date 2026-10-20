@@ -3,9 +3,9 @@
   padding: 0;
   display: inline-grid;
   place-items: center;
-  flex: 0 0 30px;
-  width: 30px;
-  height: 30px;
+  flex: 0 0 var(--button-height, 36px);
+  width: var(--button-height, 36px);
+  height: var(--button-height, 36px);
   border: 1px solid #b7c9db;
   border-radius: 3px;
   background: white;

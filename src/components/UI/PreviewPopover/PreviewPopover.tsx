@@ -9,16 +9,9 @@ type Props = {
   slots: { trigger: ReactElement; body: ReactNode; footer?: ReactNode };
   className?: string;
   style?: CSSProperties;
-  anchor?: "center" | "start";
 };
 /** Accessible nonmodal preview with caller-supplied trigger, body and footer slots. */
-export function PreviewPopover({
-  title,
-  slots,
-  className = "",
-  style,
-  anchor = "center",
-}: Props) {
+export function PreviewPopover({ title, slots, className = "", style }: Props) {
   const {
     open,
     trigger: triggerRef,
@@ -33,11 +26,6 @@ export function PreviewPopover({
   } = usePreviewPopover();
   return (
     <Primitive.Root open={open} onOpenChange={onOpenChange}>
-      {anchor === "start" && (
-        <Primitive.Anchor asChild>
-          <span aria-hidden="true" className="preview-popover-anchor" />
-        </Primitive.Anchor>
-      )}
       <Primitive.Trigger
         asChild
         ref={triggerRef}
@@ -60,7 +48,6 @@ export function PreviewPopover({
           style={style}
           side="top"
           align="start"
-          alignOffset={anchor === "start" ? -20 : 0}
           sideOffset={10}
           collisionPadding={16}
           sticky="always"

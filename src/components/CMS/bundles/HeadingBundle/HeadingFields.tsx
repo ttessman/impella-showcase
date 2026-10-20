@@ -1,3 +1,4 @@
+import { Select } from "../../../UI/Select/Select";
 import type { StudioHeadingBundle } from "../../../../utils/studio";
 
 /** Fields for the bounded studio draft of this bundle. */
@@ -20,7 +21,7 @@ export function HeadingFields({
       </label>
       <label>
         Heading level
-        <select
+        <Select
           aria-label="Heading level"
           value={block.metadata.level}
           onChange={(e) =>
@@ -35,7 +36,7 @@ export function HeadingFields({
         >
           <option value="2">Section heading</option>
           <option value="3">Subheading</option>
-        </select>
+        </Select>
       </label>
     </>
   );

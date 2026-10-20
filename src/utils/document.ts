@@ -200,7 +200,13 @@ const metadata: Record<BundleName, Record<string, Field>> = {
   footer: { variant: optional(["site"]) },
   reading_header: {},
   hero: {
-    variant: ["editorial"],
+    variant: ["split", "background"],
+    aside_padding: optional(["default", "none"]),
+    content_width: optional(["narrow", "default", "wide"]),
+    background: optional({
+      src: "string",
+      position: optional(["center", "top", "bottom", "left", "right"]),
+    }),
     header: {
       eyebrow: optional("string"),
       title: "string",
@@ -242,6 +248,11 @@ const metadata: Record<BundleName, Record<string, Field>> = {
     close_label: optional("string"),
     original_link_label: optional("string"),
     provenance: optional(["approved-original-documentation"]),
+    dialog: optional({
+      title: optional("string"),
+      close_label: optional("string"),
+      size: optional(["small", "default", "large"]),
+    }),
   },
   figure: { variant: optional(Object.keys(variants.figure)) },
   list: {
@@ -253,7 +264,8 @@ const metadata: Record<BundleName, Record<string, Field>> = {
     href: "string",
     variant: optional(["text", "primary", "reader"]),
     new_tab: optional("boolean"),
-    action: optional(["reader"]),
+    action: optional(["reader", "image"]),
+    target_id: optional("string"),
   },
   disclosure: {
     label: "string",
@@ -435,6 +447,20 @@ export function parseDocument(input: unknown): PageDocument {
           "hero content belongs in metadata.content; outer content must be empty",
         );
       const m = value.metadata as Record<string, unknown>;
+      if (m.variant === "background" && !m.background)
+        fail(path, "background hero requires metadata.background");
+      if (m.background) {
+        const src = (m.background as { src: string }).src;
+        if (
+          !/^\/assets\/[\w./-]+$/.test(src) ||
+          src.includes("..") ||
+          src.startsWith("/assets/documentation/")
+        )
+          fail(
+            path,
+            "hero background must use a safe public bundled asset path",
+          );
+      }
       for (const area of ["content", "actions", "aside", "footer"]) {
         (m[area] as unknown[]).forEach((child, i) => {
           if (
@@ -599,6 +625,20 @@ export function parseDocument(input: unknown): PageDocument {
       )
         fail(current.id, "unsupported checklist content");
     }
+  });
+  walkContent(page, (current) => {
+    if (current.bundle !== "action" || current.metadata.action !== "image")
+      return;
+    const media = index.nodes.get(current.metadata.target_id ?? "");
+    if (
+      media?.bundle !== "media" ||
+      !media.metadata.dialog ||
+      media.metadata.src !== current.metadata.href
+    )
+      fail(
+        current.id,
+        "image action requires a matching media target with dialog settings",
+      );
   });
   for (const action of [
     page.metadata.navigation.overview,

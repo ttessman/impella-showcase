@@ -5,7 +5,6 @@
 }
 
 .case-study-reader {
-  width: min(760px, calc(100vw - 32px));
   max-height: 90dvh;
 }
 

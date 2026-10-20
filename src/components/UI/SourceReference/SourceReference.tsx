@@ -28,7 +28,6 @@ export function SourceReference({ source }: { source: SourceReferenceData }) {
       <PreviewPopover
         title={source.title}
         className="source-reference-popup"
-        anchor="start"
         style={{ "--source-preview-height": `${height}px` } as CSSProperties}
         slots={{
           trigger: (

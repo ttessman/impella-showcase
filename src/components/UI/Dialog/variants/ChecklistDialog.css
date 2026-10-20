@@ -1,12 +1,5 @@
 .checklist-launch {
   margin-top: 16px;
-  padding: 10px 14px;
-  min-height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: #edf3f9;
-  color: var(--ink);
-  font: 12px var(--sans);
 }
 
 .checklist-launch:disabled {
@@ -14,7 +7,6 @@
 }
 
 .checklist-dialog {
-  width: min(960px, calc(100vw - 32px));
   max-height: 90dvh;
 }
 

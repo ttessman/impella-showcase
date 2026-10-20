@@ -1,14 +1,15 @@
 .image-dialog {
-  width: min(94vw, 800px);
+  --image-display-width: 360px;
   max-height: 92dvh;
 }
-
-.article-diagram-dialog {
-  width: min(1200px, 94vw);
-  max-width: 94vw;
-}
-
-.article-diagram-dialog > img {
+.image-dialog .dialog-body > img {
+  display: block;
   width: 100%;
-  max-width: none;
+  max-width: min(100%, var(--image-natural-width), var(--image-display-width));
+  height: auto;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+.article-diagram-dialog {
+  --image-display-width: 100%;
 }

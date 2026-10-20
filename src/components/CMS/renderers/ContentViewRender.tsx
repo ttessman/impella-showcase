@@ -43,7 +43,13 @@ export type MetadataByBundle = {
   footer: { variant?: "site" };
   reading_header: Record<string, never>;
   hero: {
-    variant: "editorial";
+    variant: "split" | "background";
+    aside_padding?: "default" | "none";
+    content_width?: "narrow" | "default" | "wide";
+    background?: {
+      src: string;
+      position?: "center" | "top" | "bottom" | "left" | "right";
+    };
     header: { eyebrow?: string; title: string; tags?: string[] };
     content: CmsNode[];
     actions: NodeOf<"action">[];
@@ -70,6 +76,11 @@ export type MetadataByBundle = {
     close_label?: string;
     original_link_label?: string;
     provenance?: "approved-original-documentation";
+    dialog?: {
+      title?: string;
+      close_label?: string;
+      size?: "small" | "default" | "large";
+    };
   };
   figure: { variant?: Variant<"figure"> };
   list: { variant?: Variant<"list">; ordered?: boolean };
@@ -78,7 +89,8 @@ export type MetadataByBundle = {
     href: string;
     variant?: "text" | "primary" | "reader";
     new_tab?: boolean;
-    action?: "reader";
+    action?: "reader" | "image";
+    target_id?: string;
   };
   disclosure: {
     label: string;

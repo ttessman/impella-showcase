@@ -59,6 +59,14 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
   });
   expect(centered).toBe(true);
   const initialPopup = (await popup.boundingBox())!;
+  const anchorBounds = (await trigger.boundingBox())!;
+  const gap =
+    initialPopup.y >= anchorBounds.y + anchorBounds.height
+      ? initialPopup.y - anchorBounds.y - anchorBounds.height
+      : anchorBounds.y - initialPopup.y - initialPopup.height;
+  expect(gap).toBeGreaterThanOrEqual(9);
+  expect(gap).toBeLessThanOrEqual(22);
+
   await expect(popup.locator(".preview-popover-arrow")).toBeAttached();
   await componentTab.focus();
   await page.keyboard.press("Home");
@@ -144,6 +152,18 @@ test("source previews support hover, keyboard, tap, dismissal and viewport bound
   await expect(
     page.getByRole("dialog", { name: "One collection model, two layouts" }),
   ).toBeVisible();
+  const collectionPopup = page.getByRole("dialog", {
+    name: "One collection model, two layouts",
+  });
+  await expect
+    .poll(async () => {
+      const link = (await triggers.nth(0).boundingBox())!;
+      const panel = (await collectionPopup.boundingBox())!;
+      return panel.y >= link.y + link.height
+        ? panel.y - link.y - link.height
+        : link.y - panel.y - panel.height;
+    })
+    .toBeLessThanOrEqual(22);
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await expect(
     page.locator('.source-reference-popup[data-state="open"]'),

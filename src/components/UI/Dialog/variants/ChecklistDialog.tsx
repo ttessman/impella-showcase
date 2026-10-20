@@ -28,6 +28,8 @@ export function ChecklistDialog({
   return (
     <>
       <Button
+        variant="secondary"
+        size="default"
         className="checklist-launch"
         disabled={!ready}
         aria-haspopup="dialog"
@@ -38,6 +40,7 @@ export function ChecklistDialog({
       </Button>
       {!ready && <p className="small">{definition.requiresJavaScriptLabel}</p>}
       <Dialog
+        size="large"
         state={{ open, onOpenChange: changeOpen }}
         definition={definition.dialog}
         className="checklist-dialog"

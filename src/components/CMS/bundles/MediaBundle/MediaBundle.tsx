@@ -20,6 +20,13 @@ export function MediaBundle({ node }: { node: NodeOf<"media"> }) {
           height: node.metadata.height,
         },
         title: node.metadata.title,
+        dialog: node.metadata.dialog
+          ? {
+              title: node.metadata.dialog.title,
+              closeLabel: node.metadata.dialog.close_label,
+              size: node.metadata.dialog.size,
+            }
+          : undefined,
         variant: node.metadata.variant,
         body: node.metadata.body,
         captionLabel: node.metadata.caption_label,

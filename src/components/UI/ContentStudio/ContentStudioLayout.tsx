@@ -21,7 +21,7 @@ export function ContentStudioLayout({
     <div className="playground">
       {slots.toolbar}
       <StudioWorkspace layout={layout} slots={slots} />
-      {slots.feedback}
+      <footer className="studio-footer" aria-hidden="true" />
     </div>
   );
 }

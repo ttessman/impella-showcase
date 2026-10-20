@@ -1,3 +1,6 @@
+import { Select } from "../Select/Select";
+import { Button } from "../Button/Button";
+import { Icon } from "../Icon/Icon";
 import type { StudioBundleName } from "../../../utils/studio";
 export const bundles: { value: StudioBundleName; label: string }[] = [
   { value: "heading", label: "Heading" },
@@ -26,11 +29,6 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
   } = editor;
   return (
     <div className="author-pane">
-      {dirty && (
-        <p className="draft-warning">
-          JSON draft pending. Apply or discard it to resume visual editing.
-        </p>
-      )}
       <fieldset disabled={dirty}>
         <legend className="sr-only">Visual authoring controls</legend>
         <label>
@@ -43,7 +41,7 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
         </label>
         <label>
           Add blocks to
-          <select
+          <Select
             aria-label="Add blocks to"
             value={destination}
             onChange={(e) => actions.setDestination(e.target.value)}
@@ -56,18 +54,21 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
                 {block.id.slice(0, 8)})
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <div className="palette">
           {bundles.map((b, i) => (
-            <button
+            <Button
+              variant="secondary"
+              size="small"
+              aria-label={`Add ${b.label}`}
               ref={i === 0 ? palette : undefined}
               type="button"
               key={b.value}
               onClick={() => actions.add(b.value)}
             >
-              + {b.label}
-            </button>
+              <Icon type="add" size={16} /> {b.label}
+            </Button>
           ))}
         </div>
         {page.content.length === 0 && <p>No blocks yet. Add one above.</p>}

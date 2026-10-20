@@ -36,12 +36,3 @@
   stroke: #b7c9db;
   stroke-width: 1;
 }
-
-.preview-popover-anchor {
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  pointer-events: none;
-}
