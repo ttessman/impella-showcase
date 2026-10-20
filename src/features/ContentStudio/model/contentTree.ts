@@ -1,9 +1,9 @@
-import type { ContentBlock } from "../../../types/content";
-import type { SectionBlock } from "../../../types/content";
+import type { StudioBundle } from "./studioDocument";
+import type { StudioSectionBundle } from "./studioDocument";
 export function findBlock(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   id: string,
-): ContentBlock | undefined {
+): StudioBundle | undefined {
   for (const block of blocks) {
     if (block.id === id) return block;
     if (block.bundle === "demo_section") {
@@ -13,10 +13,10 @@ export function findBlock(
   }
 }
 export function updateBlock(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   id: string,
-  update: (b: ContentBlock) => ContentBlock,
-): ContentBlock[] {
+  update: (b: StudioBundle) => StudioBundle,
+): StudioBundle[] {
   return blocks.map((b) =>
     b.id === id
       ? update(b)
@@ -26,9 +26,9 @@ export function updateBlock(
   );
 }
 export function removeBlock(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   id: string,
-): ContentBlock[] {
+): StudioBundle[] {
   return blocks
     .filter((b) => b.id !== id)
     .map((b) =>
@@ -38,10 +38,10 @@ export function removeBlock(
     );
 }
 export function moveBlock(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   id: string,
   delta: number,
-): ContentBlock[] {
+): StudioBundle[] {
   const index = blocks.findIndex((b) => b.id === id);
   if (index >= 0) {
     const next = [...blocks],
@@ -57,16 +57,16 @@ export function moveBlock(
   );
 }
 export function sections(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   depth = 0,
-): { block: SectionBlock; depth: number }[] {
+): { block: StudioSectionBundle; depth: number }[] {
   return blocks.flatMap((b) =>
     b.bundle === "demo_section"
       ? [{ block: b, depth }, ...sections(b.children, depth + 1)]
       : [],
   );
 }
-export function blockLabel(block: ContentBlock): string {
+export function blockLabel(block: StudioBundle): string {
   switch (block.bundle) {
     case "header":
       return block.header || "Untitled heading";
@@ -85,10 +85,10 @@ export type DropTarget = { parentId: string | null; beforeId: string | null };
 
 /** Move a complete subtree without changing its IDs or losing its descendants. */
 export function relocateBlock(
-  blocks: ContentBlock[],
+  blocks: StudioBundle[],
   id: string,
   target: DropTarget,
-): ContentBlock[] {
+): StudioBundle[] {
   const block = findBlock(blocks, id);
   if (!block || target.beforeId === id) return blocks;
   const parent = target.parentId ? findBlock(blocks, target.parentId) : null;
@@ -104,7 +104,7 @@ export function relocateBlock(
   if (target.beforeId && !siblings.some((b) => b.id === target.beforeId))
     return blocks;
   const remaining = removeBlock(blocks, id);
-  const insert = (list: ContentBlock[]) => {
+  const insert = (list: StudioBundle[]) => {
     const next = [...list];
     const index = target.beforeId
       ? next.findIndex((b) => b.id === target.beforeId)

@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { ReadingNavigation as ReadingNavigationView } from "../../../layout/ReadingHeader/ReadingNavigation";
+import { ReadingNavigation as ReadingNavigationView } from "./ReadingNavigation";
 import { useDocument } from "../../model/DocumentContext";
 
 export function ReadingHeader({ node }: { node: NodeOf<"reading_header"> }) {

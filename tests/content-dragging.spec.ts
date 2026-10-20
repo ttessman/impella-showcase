@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import type { ContentPage } from "../src/types/content";
+import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
 import { openCompose, closeCompose } from "./helpers/studio";
 
 test("drag sections across containers, preserve IDs, and sync preview", async ({
@@ -8,7 +8,8 @@ test("drag sections across containers, preserve IDs, and sync preview", async ({
   await page.goto("/");
   await openCompose(page);
   const json = page.getByLabel("Editable page JSON");
-  const read = async () => JSON.parse(await json.inputValue()) as ContentPage;
+  const read = async () =>
+    JSON.parse(await json.inputValue()) as StudioDocument;
   const start = await read();
   const grip = page.getByRole("button", {
     name: "Drag Section Take a closer look",
@@ -135,7 +136,7 @@ test("touch grip moves a section", async ({ page, context }, info) => {
   await expect(page.getByRole("status")).toContainText("Block moved");
   const data = JSON.parse(
     await page.getByLabel("Editable page JSON").inputValue(),
-  ) as ContentPage;
+  ) as StudioDocument;
   expect(data.primary_content_value[0].id).toBe("chapter");
   await cdp.detach();
 });
@@ -223,7 +224,7 @@ test("selected properties stay with the block and row halves show one insertion 
   await page.mouse.up();
   const json = JSON.parse(
     await page.getByLabel("Editable page JSON").inputValue(),
-  ) as ContentPage;
+  ) as StudioDocument;
   expect(json.primary_content_value.map((b) => b.id)).toEqual([
     "intro",
     "opening",
@@ -243,7 +244,7 @@ test("drop a block directly inside an empty section", async ({ page }) => {
   await page.getByRole("button", { name: "+ Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Empty chapter");
   const json = page.getByLabel("Editable page JSON");
-  const initial = JSON.parse(await json.inputValue()) as ContentPage;
+  const initial = JSON.parse(await json.inputValue()) as StudioDocument;
   const section = initial.primary_content_value.at(-1)!;
   const grip = page.getByRole("button", {
     name: "Drag Heading Small observations. New ideas.",
@@ -280,7 +281,7 @@ test("drop a block directly inside an empty section", async ({ page }) => {
     section.id,
   );
   await page.mouse.up();
-  const updated = JSON.parse(await json.inputValue()) as ContentPage;
+  const updated = JSON.parse(await json.inputValue()) as StudioDocument;
   expect(updated.primary_content_value.some((b) => b.id === "intro")).toBe(
     false,
   );

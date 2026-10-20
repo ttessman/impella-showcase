@@ -19,10 +19,10 @@ try {
     "/src/components/CMS/model/document.ts",
   );
   const { checklistDefinition } = await server.ssrLoadModule(
-    "/src/components/CMS/model/checklistDefinition.ts",
+    "/src/components/CMS/bundles/Checklist/model/checklistDefinition.ts",
   );
   const { evaluateChecklist } = await server.ssrLoadModule(
-    "/src/components/forms/Checklist/checklistModel.ts",
+    "/src/components/CMS/bundles/Checklist/model/evaluateChecklist.ts",
   );
   const { renderDocument } = await server.ssrLoadModule(
     "/tests/helpers/renderCms.tsx",

@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../ContentView/ContentView";
+import { ContentView } from "../../renderers/ContentView";
 import { variantClass } from "../../model/variants";
 
 export function Grid({ node }: { node: NodeOf<"grid"> }) {

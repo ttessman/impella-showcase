@@ -1,7 +1,7 @@
-import type { ContentPage, ContentBlock } from "../../../types/content";
+import type { StudioDocument, StudioBundle } from "./studioDocument";
 import { imageOptions } from "../../../content/studioAssets";
 // No casts of untrusted input into state: runtime validation must succeed first.
-export function parsePage(raw: string): ContentPage {
+export function parsePage(raw: string): StudioDocument {
   if (raw.length > 100_000)
     throw Error("JSON: maximum size is 100,000 characters.");
   let input: unknown;
@@ -34,7 +34,7 @@ export function parsePage(raw: string): ContentPage {
       throw Error(`${path}: maximum length is 5,000 characters.`);
     return value;
   }
-  function list(value: unknown, path: string, depth: number): ContentBlock[] {
+  function list(value: unknown, path: string, depth: number): StudioBundle[] {
     if (!Array.isArray(value))
       throw Error(`${path}: expected an array of blocks.`);
     if (depth > 5)
@@ -43,7 +43,7 @@ export function parsePage(raw: string): ContentPage {
       block(item, `${path}[${i}]`, depth),
     );
   }
-  function block(value: unknown, path: string, depth: number): ContentBlock {
+  function block(value: unknown, path: string, depth: number): StudioBundle {
     if (++count > 100) throw Error(`${path}: maximum 100 blocks per page.`);
     const node = object(value, path);
     const id = text(node.id, `${path}.id`);

@@ -1,3 +1,4 @@
+import { oneComponentPerFile } from "./tooling/eslint/one-component-per-file.mjs";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import hooks from "eslint-plugin-react-hooks";
@@ -16,5 +17,12 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    files: ["src/**/*.tsx"],
+    plugins: {
+      local: { rules: { "one-component-per-file": oneComponentPerFile } },
+    },
+    rules: { "local/one-component-per-file": "error" },
   },
 );

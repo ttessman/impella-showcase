@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { SourceReference as SourceReferenceView } from "../../../source/SourceReference/SourceReference";
+import { SourceReferenceView } from "./SourceReferenceView";
 export function SourceReference({
   node,
 }: {

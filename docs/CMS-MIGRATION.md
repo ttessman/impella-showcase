@@ -107,3 +107,26 @@ This changes organization, not the authored contract or presentation.
 
 Verification after the folder split: typecheck, lint, CMS checks and production
 build passed. Full browser suite: **80 passed, 7 expected skips in 34.3 seconds**.
+
+### Existing bundle consolidation and renderer grouping — October 20, 2026
+
+Moved the original checklist, source-reference, reading-navigation, evidence and
+studio-fallback implementations into their owning bundle folders. Bundle-specific
+studio field editors now live with Heading, TextBlock, Media, Section and
+ReferencesAccordion; the studio dispatcher selects them. Its compatibility types,
+factory and palette use explicit StudioBundle naming in the studio model folder.
+Normalization happens before ContentView, which now accepts only CMS nodes.
+
+BundleRender.tsx, DocumentRenderer.tsx and ContentView.tsx are siblings in
+CMS/renderers. FrameContent/RichContent belong to this renderer family; context
+and document operations live in model, while asset formatting lives in utils.
+The generic shared folder and obsolete block/component directories were removed.
+Each React component has its own file; constants remain allowed. DialogClose and
+TooltipProvider were separated, and a focused ESLint rule checks component count.
+
+Typecheck, lint, CMS verification and production build pass. Component-boundary
+checks confirm that ordinary constants remain allowed and multiple components
+are rejected. The production browser suite passed **80 tests with 7 expected
+skips in 34.7 seconds**. The subsequent renderer-path grouping produced identical
+JavaScript and CSS asset hashes and passed the build/CMS checks. No authored
+content, studio draft payload, evidence asset or dependency changed.

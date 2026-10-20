@@ -1,14 +1,15 @@
+import { studioNode } from "../../model/toCmsBundle";
 import { useElementSize } from "../../../../hooks/useElementSize";
 import { useRef } from "react";
-import type { ContentPage } from "../../../../types/content";
-import { ContentView } from "../../../../components/CMS/ContentView/ContentView";
+import type { StudioDocument } from "../../model/studioDocument";
+import { ContentView } from "../../../../components/CMS/renderers/ContentView";
 
 const DEVICE = { width: 390, height: 844 };
 export function MobilePreview({
   page,
   compact,
 }: {
-  page: ContentPage;
+  page: StudioDocument;
   compact: boolean;
 }) {
   const stage = useRef<HTMLDivElement>(null);
@@ -55,7 +56,9 @@ export function MobilePreview({
               aria-label="Mobile content preview"
             >
               <h2>{page.title}</h2>
-              <ContentView blocks={page.primary_content_value} />
+              <ContentView
+                blocks={page.primary_content_value.map(studioNode)}
+              />
             </article>
             <div className="phone-bottom">Independent web renderer</div>
           </div>

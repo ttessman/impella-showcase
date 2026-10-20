@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
-import { bundles } from "../model/blockDefinitions";
-import { makeBlock } from "../model/blockFactory";
+import { bundles } from "../model/bundleDefinitions";
+import { makeBundle } from "../model/bundleFactory";
 import { defaultPage } from "../../../content/studioExample";
 import { parsePage } from "../model/parseContentPage";
-import type { ContentBlock, ContentPage, Bundle } from "../../../types/content";
+import type {
+  StudioBundle,
+  StudioDocument,
+  StudioBundleName,
+} from "../model/studioDocument";
 import {
   findBlock,
   moveBlock,
@@ -16,7 +20,7 @@ import { useBlockDrag } from "./useBlockDrag";
 
 /** Owns valid content, authoring selection and the explicit JSON draft lifecycle. */
 export function useContentEditor() {
-  const [page, setPage] = useState<ContentPage>(defaultPage);
+  const [page, setPage] = useState<StudioDocument>(defaultPage);
   const [selected, setSelected] = useState<string | null>("intro");
   const [destination, setDestination] = useState("root");
   const [draft, setDraft] = useState<string | null>(null);
@@ -30,7 +34,7 @@ export function useContentEditor() {
   const current = selected
     ? findBlock(page.primary_content_value, selected)
     : undefined;
-  function commit(next: ContentPage, announcement?: string): boolean {
+  function commit(next: StudioDocument, announcement?: string): boolean {
     try {
       const checked = parsePage(JSON.stringify(next));
       setPage(checked);
@@ -69,8 +73,8 @@ export function useContentEditor() {
         ?.scrollIntoView({ block: "nearest" }),
     );
   }
-  function add(bundle: Bundle) {
-    const block = makeBlock(bundle);
+  function add(bundle: StudioBundleName) {
+    const block = makeBundle(bundle);
     const blocks =
       destination === "root"
         ? [...page.primary_content_value, block]
@@ -116,7 +120,7 @@ export function useContentEditor() {
     if (findBlock(page.primary_content_value, id)?.bundle === "demo_section")
       setDestination(id);
   }
-  function changeBlock(updated: ContentBlock) {
+  function changeBlock(updated: StudioBundle) {
     commit({
       ...page,
       primary_content_value: updateBlock(

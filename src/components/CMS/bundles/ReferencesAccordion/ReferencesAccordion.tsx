@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { RichContent } from "../../shared/RichContent";
+import { RichContent } from "../../renderers/RichContent";
 
 export function ReferencesAccordion({
   node,

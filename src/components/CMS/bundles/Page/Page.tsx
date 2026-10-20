@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../ContentView/ContentView";
+import { ContentView } from "../../renderers/ContentView";
 
 export function Page({ node }: { node: NodeOf<"page"> }) {
   const reading = node.content.filter(

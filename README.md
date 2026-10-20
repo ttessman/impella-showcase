@@ -33,13 +33,13 @@ Tests run against the **production build**, so run `npm run build` first. Playwr
 - `src/features/ContentStudio/hooks/`: content editing, JSON draft lifecycle, workspace layout and dragging.
 - `src/features/ContentStudio/model/`: validation, block definitions/factories, immutable tree operations and layout defaults.
 - `src/types/`: shared content, editorial and source-reference contracts.
-- `src/components/CMS/`: recursive ContentView, typed BundleRender registry, document validation/indexing and one component folder per bundle under `CMS/bundles/`.
-- `src/components/layout/`: shared reading header/navigation and resizable split. Document bundle components and their styles live under `CMS/bundles/`.
+- `src/components/CMS/`: `renderers/` contains ContentView, BundleRender and DocumentRenderer; `bundles/` owns bundle components; `model/` and `utils/` hold data operations and small utilities.
+- `src/components/layout/`: shared resizable split. Reading header/navigation and other bundle components live under `CMS/bundles/`.
 - `src/components/actions/`: reusable Button and IconButton with Radix Slot composition.
 - `src/components/overlays/`: shared Radix dialog, preview popover and tooltip behavior.
-- `src/components/media/`: shared evidence screenshot and image dialog primitives.
-- `src/components/forms/Checklist/`: definition-driven grouped options, live rule evaluation and fictional result presentation.
-- `src/components/source/`: source-specific content composed into the shared popover.
+- `src/components/CMS/bundles/Media/`: media variants and evidence screenshots; the generic image dialog lives under `components/overlays/`.
+- `src/components/CMS/bundles/Checklist/`: grouped options, live rule evaluation, views, dialog, hooks and model.
+- `src/components/CMS/bundles/SourceReference/`: source-specific views and code tabs composed into the shared popover.
 - `src/hooks/`: element measurement, scroll direction, reading position/progress and preview disclosure.
 - `src/styles/`: tokens, global foundations and the explicit stylesheet manifest. Component and feature styles are colocated with their owners and scoped by class selectors.
 - `public/assets/`: reviewed production screenshots, the approved original article diagram, fictional demo artwork and a custom navy/gold portfolio favicon.

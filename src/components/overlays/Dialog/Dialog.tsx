@@ -85,4 +85,3 @@ export function Dialog({
     </Primitive.Root>
   );
 }
-export const DialogClose = Primitive.Close;

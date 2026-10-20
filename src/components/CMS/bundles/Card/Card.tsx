@@ -1,8 +1,8 @@
 import type { NodeOf } from "../../../../types/cms";
 import { Card as CardFrame } from "../../../card/Card/Card";
-import { ContentView } from "../../ContentView/ContentView";
+import { ContentView } from "../../renderers/ContentView";
 import { frameParts } from "../../model/document";
-import { FrameContent } from "../../shared/FrameContent";
+import { FrameContent } from "../../renderers/FrameContent";
 
 export function Card({ node }: { node: NodeOf<"card"> }) {
   const parts = frameParts(node);

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import type { ContentPage } from "../src/types/content";
+import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
 import { relocateBlock } from "../src/features/ContentStudio/model/contentTree";
 import { defaultPage } from "../src/content/studioExample";
 import { parsePage } from "../src/features/ContentStudio/model/parseContentPage";
@@ -18,7 +18,7 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await page.goto("/");
   const json = page.getByRole("textbox", { name: "Editable page JSON" });
   const preview = page.getByRole("article", { name: "Mobile content preview" });
-  const initial = JSON.parse(await json.inputValue()) as ContentPage;
+  const initial = JSON.parse(await json.inputValue()) as StudioDocument;
   expect(initial).toEqual(defaultPage());
   await expect(
     preview.getByRole("heading", { name: initial.title }),
@@ -32,7 +32,7 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   ).toBeVisible();
   await page.getByRole("button", { name: "+ Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Sketchbook");
-  const data = JSON.parse(await json.inputValue()) as ContentPage;
+  const data = JSON.parse(await json.inputValue()) as StudioDocument;
   const section = data.primary_content_value.find(
     (b) => b.bundle === "demo_section" && b.header === "Sketchbook",
   )!;
@@ -58,7 +58,7 @@ test("complete visual → JSON → preview workflow", async ({ page }) => {
   await expect(
     preview.getByRole("heading", { name: "A new perspective" }),
   ).toHaveCount(0);
-  const updated = JSON.parse(await json.inputValue()) as ContentPage;
+  const updated = JSON.parse(await json.inputValue()) as StudioDocument;
   const last = updated.primary_content_value.at(-1)!;
   expect(last.bundle).toBe("demo_section");
   if (last.bundle === "demo_section")
@@ -126,7 +126,7 @@ test("image editing, nested sections, references and safe removal", async ({
   await page.getByRole("button", { name: "+ Section", exact: true }).click();
   await page.getByLabel("Section title", { exact: true }).fill("Nested study");
   const json = page.getByLabel("Editable page JSON");
-  const data = JSON.parse(await json.inputValue()) as ContentPage;
+  const data = JSON.parse(await json.inputValue()) as StudioDocument;
   const parent = data.primary_content_value.find((b) => b.id === "chapter");
   expect(parent?.bundle).toBe("demo_section");
   if (parent?.bundle !== "demo_section") throw Error("Expected section");
@@ -267,7 +267,7 @@ test("subtree moves reject cycles and invalid destinations without dropping cont
       },
     ],
   };
-  const tree = [subtree] as ContentPage["primary_content_value"];
+  const tree = [subtree] as StudioDocument["primary_content_value"];
   expect(
     relocateBlock(tree, "chapter", { parentId: "inner", beforeId: null }),
   ).toBe(tree);

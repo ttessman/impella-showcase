@@ -1,6 +1,6 @@
 import { imageOptions } from "./studioAssets";
-import type { ContentPage } from "../types/content";
-export function defaultPage(): ContentPage {
+import type { StudioDocument } from "../features/ContentStudio/model/studioDocument";
+export function defaultPage(): StudioDocument {
   return {
     title: "A field guide to noticing",
     primary_content_value: [

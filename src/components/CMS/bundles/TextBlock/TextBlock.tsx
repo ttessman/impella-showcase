@@ -1,6 +1,6 @@
 import type { NodeOf } from "../../../../types/cms";
 import { variantClass } from "../../model/variants";
-import { RichContent } from "../../shared/RichContent";
+import { RichContent } from "../../renderers/RichContent";
 
 export function TextBlock({ node }: { node: NodeOf<"text_block"> }) {
   const Element = node.metadata.element ?? "p";

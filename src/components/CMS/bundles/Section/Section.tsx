@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import type { NodeOf } from "../../../../types/cms";
-import { ContentView } from "../../ContentView/ContentView";
+import { ContentView } from "../../renderers/ContentView";
 import { children } from "../../model/document";
 import { frameParts } from "../../model/document";
 import { DocumentContext } from "../../model/DocumentContext";
 import { SectionLabel } from "../../../content/SectionLabel/SectionLabel";
-import { FrameContent } from "../../shared/FrameContent";
+import { FrameContent } from "../../renderers/FrameContent";
 
 export function Section({ node }: { node: NodeOf<"section"> }) {
   const context = useContext(DocumentContext);

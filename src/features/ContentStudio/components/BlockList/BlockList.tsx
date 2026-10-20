@@ -1,18 +1,18 @@
 import type { ReactNode } from "react";
 import { blockLabel } from "../../model/contentTree";
-import { bundles } from "../../model/blockDefinitions";
-import type { ContentBlock } from "../../../../types/content";
+import { bundles } from "../../model/bundleDefinitions";
+import type { StudioBundle } from "../../model/studioDocument";
 import { targetKey } from "../../hooks/useBlockDrag";
 import type { BlockDrag } from "../../hooks/useBlockDrag";
 import type { DropTarget } from "../../model/contentTree";
 type Props = {
-  blocks: ContentBlock[];
+  blocks: StudioBundle[];
   drag: BlockDrag;
   parentId?: string | null;
   blocked?: boolean;
   parentLabel?: string;
   selected: string | null;
-  renderProperties: (block: ContentBlock) => ReactNode;
+  renderProperties: (block: StudioBundle) => ReactNode;
   select: (id: string) => void;
   move: (id: string, delta: number) => void;
   remove: (id: string) => void;

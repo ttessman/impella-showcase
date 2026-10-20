@@ -1,7 +1,10 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { openCompose, closeCompose } from "./helpers/studio";
-import type { ContentPage, SectionBlock } from "../src/types/content";
+import type {
+  StudioDocument,
+  StudioSectionBundle,
+} from "../src/features/ContentStudio/model/studioDocument";
 
 test("inline citations insert at the cursor, survive JSON edits and render safely in nested content", async ({
   page,
@@ -51,10 +54,10 @@ test("inline citations insert at the cursor, survive JSON edits and render safel
   await expect(preview.locator("sup")).toHaveText("References 1,2");
   await expect(preview.locator("details li")).toHaveCount(2);
   const json = page.getByLabel("Editable page JSON");
-  const content = JSON.parse(await json.inputValue()) as ContentPage;
+  const content = JSON.parse(await json.inputValue()) as StudioDocument;
   const section = content.primary_content_value.find(
     (block) => block.id === "chapter",
-  ) as SectionBlock;
+  ) as StudioSectionBundle;
   const paragraph = section.children[0];
   if (paragraph.bundle !== "text_block")
     throw Error("Expected nested paragraph");

@@ -1,16 +1,16 @@
 import type { NodeOf } from "../../../../types/cms";
 import { useDocument } from "../../model/DocumentContext";
 import { Button } from "../../../actions/Button/Button";
-import { assetUrl } from "../../model/assets";
-import { DocumentDialog } from "../../../content/Document/DocumentDialog";
+import { assetUrl } from "../../utils/assets";
+import { ReaderDialog } from "./ReaderDialog";
 import { buildReaderDocument } from "../../model/reader";
-import { RichContent } from "../../shared/RichContent";
+import { RichContent } from "../../renderers/RichContent";
 
 export function Action({ node }: { node: NodeOf<"action"> }) {
   const context = useDocument();
   if (node.metadata.action === "reader")
     return (
-      <DocumentDialog
+      <ReaderDialog
         definition={buildReaderDocument(context)}
         label={typeof node.content === "string" ? node.content : undefined}
       />

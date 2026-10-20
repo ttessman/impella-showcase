@@ -1,5 +1,5 @@
 import type { NodeOf } from "../../../../types/cms";
-import { RichContent } from "../../shared/RichContent";
+import { RichContent } from "../../renderers/RichContent";
 
 export function Heading({ node }: { node: NodeOf<"heading"> }) {
   const Element = `h${node.metadata.level}` as

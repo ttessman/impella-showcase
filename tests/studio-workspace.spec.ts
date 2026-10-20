@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import type { ContentPage } from "../src/types/content";
+import type { StudioDocument } from "../src/features/ContentStudio/model/studioDocument";
 import {
   openCompose,
   closeCompose,
@@ -18,7 +18,7 @@ test("collapse Compose and change output layouts without losing edits or JSON dr
   await setWorkspaceLayout(page, "side");
   await page.getByLabel("Heading text", { exact: true }).fill("Keep this edit");
   const json = page.getByLabel("Editable page JSON");
-  const current = JSON.parse(await json.inputValue()) as ContentPage;
+  const current = JSON.parse(await json.inputValue()) as StudioDocument;
   const draft = JSON.stringify({
     ...current,
     title: "Layout changes preserve drafts",
@@ -453,7 +453,7 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
   await expect(
     preview.getByRole("heading", { name: "Mobile journal", exact: true }),
   ).toBeVisible();
-  const data = JSON.parse(await json.inputValue()) as ContentPage;
+  const data = JSON.parse(await json.inputValue()) as StudioDocument;
   const section = data.primary_content_value.at(-1)!;
   await open.click();
   await page
@@ -482,7 +482,7 @@ test("mobile Compose modal supports the full authoring and JSON workflow with fo
   await expect(
     preview.getByRole("heading", { name: "Mobile journal", exact: true }),
   ).toHaveCount(0);
-  const changed = JSON.parse(await json.inputValue()) as ContentPage;
+  const changed = JSON.parse(await json.inputValue()) as StudioDocument;
   expect(changed.primary_content_value.at(-1)).toMatchObject({
     id: section.id,
     children: [{ text_body: "A mobile observation." }],

@@ -29,7 +29,7 @@ the shared tooltip provider. Neither composes project-specific section markup.
 5. `CMS/bundles/<BundleName>/<BundleName>.tsx` gives each bundle its own component
    and folder, adapting authored nodes into shared React components. Normal nested
    content returns to ContentView. Bundle styles are colocated in their folders;
-   common frame/text rendering helpers live in `CMS/shared/`.
+   common frame/text rendering helpers live beside ContentView in `CMS/renderers/`.
 
 Array order is the default. Page/card/section/hero frames recognize direct header
 and footer bundles and place them predictably. Heading is a distinct text bundle.
@@ -65,11 +65,11 @@ server fallback are ordinary document content.
 
 The studio deliberately retains its bounded educational editing format:
 `title` / `primary_content_value`, original field vocabulary and `demo_section`.
-`CMS/model/studioAdapter.ts` converts its validated blocks to the shared node
+`features/ContentStudio/model/toCmsBundle.ts` converts its validated blocks to the shared node
 contract before preview rendering. Derived preview IDs are namespaced. This is an
 explicit compatibility boundary, not a second renderer or a silent draft migration.
 
-`types/content.ts`, `parseContentPage`, editor fields/factories and tree operations
+`features/ContentStudio/model/studioDocument.ts`, `parseContentPage`, editor fields/factories and tree operations
 continue to enforce the studio's 100 KB / 100 blocks / five section-level limits.
 The page schema is not exposed wholesale in the editor. Existing citations remain
 safe numeric superscripts and manually aligned ordered references.
@@ -101,3 +101,25 @@ code. `npm test` runs production-build Chrome interaction/accessibility scenario
 across desktop, tablet and mobile.
 
 See [the migration plan](docs/CMS-MIGRATION.md) for scope and completion evidence.
+
+## Folder and component boundaries
+
+`CMS/bundles/` owns bundle implementations, their field editors, views and local
+hooks/models. Checklist, source reference, reading navigation and media views have
+been consolidated here; the studio application remains its specialized feature.
+Generic Dialog, Button, Card and other primitives remain outside the CMS.
+
+`CMS/renderers/` contains BundleRender.tsx, DocumentRenderer.tsx and ContentView.tsx
+as siblings. FrameContent and RichContent are rendering helpers in that same folder.
+`CMS/model/` owns the document contract operations, validation, presentation
+vocabulary, derived reading data and context. `CMS/utils/` owns small utilities
+such as asset URL formatting. There is no generic shared dumping folder.
+
+Each React component is a named export function in its own file. Constants may
+remain alongside a component. DialogClose and TooltipProvider have their own files;
+they are React components even though they wrap library primitives. ESLint checks
+the one-component-per-file convention without prohibiting ordinary constants.
+
+The studio's compatibility types explicitly use StudioBundle / StudioDocument
+names. Normalization now happens in MobilePreview before ContentView; the generic
+CMS renderer accepts only normalized CMS nodes.

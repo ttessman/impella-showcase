@@ -1,7 +1,7 @@
-import { bundles } from "../../model/blockDefinitions";
+import { bundles } from "../../model/bundleDefinitions";
 import { blockLabel } from "../../model/contentTree";
 import { BlockList } from "../BlockList/BlockList";
-import { BlockFields } from "../BlockFields/BlockFields";
+import { BundleFields } from "../BundleFields/BundleFields";
 import type { ContentEditor } from "../../hooks/useContentEditor";
 
 export function PageComposer({ editor }: { editor: ContentEditor }) {
@@ -82,7 +82,7 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
             >
               <h4 id={`properties-heading-${block.id}`}>Block properties</h4>
               <p className="small">Editing: {blockLabel(block)}</p>
-              <BlockFields
+              <BundleFields
                 key={block.id}
                 block={block}
                 onChange={actions.changeBlock}

@@ -1,7 +1,6 @@
 import * as Primitive from "@radix-ui/react-tooltip";
 import type { ReactElement } from "react";
 
-export const TooltipProvider = Primitive.Provider;
 export function Tooltip({
   label,
   children,

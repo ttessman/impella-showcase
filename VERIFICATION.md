@@ -246,3 +246,18 @@ The registry imports each entry point; bundle styles moved alongside their owner
 with the stylesheet cascade order preserved. The authored JSON contract is unchanged.
 Typecheck, lint, CMS checks and production build pass; the complete browser suite
 passes **80 checks with 7 expected skips in 34.3 seconds**.
+
+## Existing bundles and renderer-family organization — October 20, 2026
+
+Consolidated existing implementations and authoring fields into their bundle
+folders. Studio compatibility data/model names are explicit and normalization
+occurs before the generic ContentView boundary. Shared primitives remain separate.
+CMS/renderers now contains BundleRender, DocumentRenderer and ContentView together;
+model and utils hold data operations/context and asset formatting respectively.
+Every React component has its own file; constants remain allowed. DialogClose and
+TooltipProvider are separate components, with the convention checked by ESLint.
+
+Typecheck, lint, CMS verification, formatting and production build passed.
+Browser suite: **80 passed, 7 expected skips in 34.7 seconds**. The final path-only
+renderer grouping preserved both production JavaScript and CSS asset hashes.
+No dependencies, authored content or approved evidence assets changed.

@@ -1,6 +1,6 @@
 @import "tokens.css";
 @import "base.css";
-@import "../components/layout/ReadingHeader/ReadingHeader.css";
+@import "../components/CMS/bundles/ReadingHeader/ReadingHeader.css";
 @import "../components/CMS/bundles/Footer/Footer.css";
 @import "../components/CMS/bundles/Hero/Hero.css";
 @import "../components/CMS/bundles/Section/Section.css";
@@ -16,16 +16,16 @@
 @import "../features/ContentStudio/components/MobilePreview/MobilePreview.css";
 @import "../features/ContentStudio/components/StudioWorkspace/StudioWorkspace.css";
 @import "../features/ContentStudio/components/StudioToolbar/StudioToolbar.css";
-@import "../components/source/SourceReference/SourceReference.css";
+@import "../components/CMS/bundles/SourceReference/SourceReference.css";
 @import "../components/overlays/PreviewPopover/PreviewPopover.css";
 @import "../components/overlays/Tooltip/Tooltip.css";
-@import "../components/layout/ReadingHeader/ReadingNavigation.css";
+@import "../components/CMS/bundles/ReadingHeader/ReadingNavigation.css";
 
 @import "../components/CMS/bundles/Group/PublicEvidence.css";
 @import "../components/CMS/bundles/Grid/ToolGrid.css";
-@import "../features/ContentStudio/components/StudioIsland/StudioIsland.css";
-@import "../components/media/EvidenceScreenshot/EvidenceScreenshot.css";
-@import "../components/forms/Checklist/Checklist.css";
+@import "../components/CMS/bundles/ContentStudio/StudioIsland.css";
+@import "../components/CMS/bundles/Media/EvidenceScreenshot.css";
+@import "../components/CMS/bundles/Checklist/Checklist.css";
 @import "../components/card/Card/Card.css";
 @import "../components/actions/IconButton/IconButton.css";
-@import "../components/content/Document/DocumentDialog.css";
+@import "../components/CMS/bundles/Action/ReaderDialog.css";
