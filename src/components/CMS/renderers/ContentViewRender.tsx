@@ -28,6 +28,7 @@ export type MetadataByBundle = {
     identity: SiteIdentity;
     navigation: PageNavigation;
     skip_label: string;
+    component_library?: { enabled: boolean; label: string; href: string };
   };
   group: {
     variant?: Variant<"group">;
@@ -52,7 +53,7 @@ export type MetadataByBundle = {
     };
     header: { eyebrow?: string; title: string; tags?: string[] };
     content: CmsNode[];
-    actions: NodeOf<"action">[];
+    actions: NodeOf<"button">[];
     aside: CmsNode[];
     footer: CmsNode[];
   };
@@ -85,14 +86,15 @@ export type MetadataByBundle = {
   figure: { variant?: Variant<"figure"> };
   list: { variant?: Variant<"list">; ordered?: boolean };
   list_item: Record<string, never>;
-  action: {
+  button: {
     href: string;
-    variant?: "text" | "primary" | "reader";
+    variant?: "text" | "primary" | "secondary";
+    size?: "small" | "default" | "large";
     new_tab?: boolean;
     action?: "reader" | "image";
     target_id?: string;
   };
-  disclosure: {
+  accordion: {
     label: string;
     variant?: "implementation";
     initially_expanded?: boolean;
@@ -140,7 +142,7 @@ export type MetadataByBundle = {
 };
 export type BundleName = keyof MetadataByBundle;
 type TextBundle = "text" | "reading_header" | "code" | "checklist_option";
-type RichBundle = "heading" | "text_block" | "action";
+type RichBundle = "heading" | "text_block" | "button";
 export type ContentByBundle<B extends BundleName> = B extends TextBundle
   ? string
   : B extends "checklist_rule"

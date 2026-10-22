@@ -18,7 +18,7 @@ main {
 }
 
 .hero-band .summary-strip {
-  color: var(--paper);
+  color: var(--text-on-brand);
 }
 
 .hero-band .hero-detail,
@@ -30,7 +30,7 @@ main {
 .hero-band .hero .primary {
   background: var(--paper);
   color: var(--ink);
-  border-color: var(--paper);
+  border-color: var(--text-on-brand);
 }
 
 .hero-band .hero .primary:hover {
@@ -38,7 +38,7 @@ main {
 }
 
 .hero-band .hero .text-link {
-  color: var(--paper);
+  color: var(--text-on-brand);
 }
 
 .hero-band .summary-strip,
@@ -88,8 +88,8 @@ main {
 }
 
 .decision-grid article + article {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
 }
 
 .decision-grid h3 {
@@ -233,8 +233,8 @@ main {
 }
 
 .json-actions .primary {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
   border-color: var(--ink);
 }
 
@@ -330,4 +330,9 @@ main {
     display: block;
     padding: 0;
   }
+}
+
+.footer-actions .footer-reader-link {
+  margin-top: 0;
+  font-size: 12px;
 }

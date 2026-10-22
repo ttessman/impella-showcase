@@ -49,6 +49,21 @@ export function findBlock(
     }
   }
 }
+/** The direct owning section, or page root. */
+export function blockParent(
+  blocks: StudioBundle[],
+  id: string,
+  parentId: string | null = null,
+): string | null | undefined {
+  for (const block of blocks) {
+    if (block.id === id) return parentId;
+    if (block.bundle === "section") {
+      const parent = blockParent(block.content, id, block.id);
+      if (parent !== undefined) return parent;
+    }
+  }
+}
+
 export function updateBlock(
   blocks: StudioBundle[],
   id: string,

@@ -1,4 +1,7 @@
 import {
+  SunIcon,
+  Half2Icon,
+  MoonIcon,
   ArrowDownIcon,
   ArrowTopRightIcon,
   ArrowUpIcon,
@@ -21,6 +24,9 @@ import {
 
 /** Semantic names and aliases are owned here; callers never choose library components. */
 const ICON_KEYWORDS = [
+  [SunIcon, ["sun", "light-mode"]],
+  [Half2Icon, ["dark-mode"]],
+  [MoonIcon, ["moon"]],
   [Cross2Icon, ["close", "cancel", "remove"]],
   [Pencil1Icon, ["compose", "edit"]],
   [ResetIcon, ["reset-example", "reset", "refresh"]],

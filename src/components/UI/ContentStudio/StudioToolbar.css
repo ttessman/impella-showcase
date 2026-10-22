@@ -1,6 +1,6 @@
 .playground-bar button {
   background: transparent;
-  color: var(--paper);
+  color: var(--text-on-brand);
   border: 1px solid var(--control-border-on-dark);
   padding: 9px var(--space-3);
   font-size: 11px;
@@ -48,8 +48,8 @@
 }
 
 .playground-bar {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
   justify-content: space-between;
   align-items: center;
   padding: var(--space-2-5) var(--space-4);
@@ -80,7 +80,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  color: var(--surface-hover);
+  color: var(--text-on-dark-muted);
   font-size: 10px;
   line-height: 1.5;
 }

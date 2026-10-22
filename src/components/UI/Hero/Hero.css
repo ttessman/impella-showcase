@@ -1,11 +1,11 @@
 .hero-band {
-  background: var(--ink);
-  box-shadow: 0 0 0 100vmax var(--ink);
+  background: var(--brand-surface);
+  box-shadow: 0 0 0 100vmax var(--brand-surface);
   clip-path: inset(0 -100vmax);
 }
 
 .hero-copy {
-  color: var(--paper);
+  color: var(--text-on-brand);
 }
 
 .hero-band .hero h1 em {

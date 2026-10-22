@@ -96,7 +96,7 @@ test("contextual header tracks actual sections, document progress and renderer n
   const heading = (await page.locator("#playground-heading").boundingBox())!;
   const head = (await header.boundingBox())!;
   expect(heading.y).toBeGreaterThanOrEqual(head.y + head.height);
-  await header.getByRole("link", { name: "Overview", exact: true }).click();
+  await header.getByRole("link", { name: "IMPELLA", exact: true }).click();
   await expect(page).toHaveURL(/#top$/);
   await expect(location).toHaveText("01 / Context & ownership");
   expect(Number(await progress.getAttribute("aria-valuenow"))).toBeLessThan(5);

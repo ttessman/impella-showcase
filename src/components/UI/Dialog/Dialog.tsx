@@ -1,4 +1,5 @@
 import * as Primitive from "@radix-ui/react-dialog";
+export { Close as DialogClose } from "@radix-ui/react-dialog";
 import { useRef } from "react";
 import type { ReactNode } from "react";
 

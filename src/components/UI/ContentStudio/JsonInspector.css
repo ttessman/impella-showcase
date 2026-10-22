@@ -29,7 +29,7 @@
   padding: var(--space-2-5);
   resize: none;
   background: var(--code-surface);
-  color: var(--surface-code-help);
+  color: var(--text-on-code);
   font:
     10px/1.75 "SFMono-Regular",
     Consolas,

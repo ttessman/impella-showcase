@@ -16,3 +16,14 @@
   background: var(--surface-icon-hover);
   border-color: var(--accent);
 }
+
+.icon-button.button-primary {
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
+  border-color: transparent;
+}
+
+.icon-button.button-primary:hover {
+  background: var(--accent-hover);
+  border-color: transparent;
+}

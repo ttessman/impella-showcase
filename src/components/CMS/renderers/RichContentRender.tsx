@@ -9,7 +9,7 @@ export function RichContentRender({ node }: { node: CmsNode }) {
     <RichText
       text={node.content}
       block={node.bundle === "text_block" && node.metadata.element === "div"}
-      links={node.bundle !== "action"}
+      links={node.bundle !== "button"}
     />
   ) : (
     <ContentViewRender

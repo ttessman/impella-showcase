@@ -15,8 +15,8 @@
 }
 
 .primary {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
   border: 1px solid var(--ink);
 }
 
@@ -49,4 +49,17 @@
   --button-padding: 10px 16px;
   --button-font-size: 13px;
   --button-gap: 8px;
+}
+
+.button-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--button-gap, var(--space-1-5));
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: var(--button-font-size, 12px);
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }

@@ -62,7 +62,7 @@ try {
   });
   await Promise.all(assets);
   const imageActions = [...index.nodes.values()].filter(
-    (n) => n.bundle === "action" && n.metadata.action === "image",
+    (n) => n.bundle === "button" && n.metadata.action === "image",
   );
   assert.equal(imageActions.length, 2);
   for (const action of imageActions) {
@@ -72,7 +72,7 @@ try {
   }
   const badImageAction = clone(original);
   walkContent(badImageAction, (n) => {
-    if (n.bundle === "action" && n.metadata.action === "image")
+    if (n.bundle === "button" && n.metadata.action === "image")
       n.metadata.target_id = "missing-image";
   });
   assert.throws(() => parseDocument(badImageAction), /matching media target/);
@@ -94,6 +94,17 @@ try {
       `${variant}: direct React and CMS must render the same Card`,
     );
   }
+  const libraryDoc = clone(original);
+  libraryDoc.metadata.component_library = {
+    enabled: true,
+    label: "Browse components",
+    href: "./storybook/",
+  };
+  assert.ok(renderDocument(libraryDoc).includes("Browse components"));
+  libraryDoc.metadata.component_library.enabled = false;
+  assert.ok(!renderDocument(libraryDoc).includes("Browse components"));
+  delete libraryDoc.metadata.component_library;
+  assert.ok(!renderDocument(libraryDoc).includes("component-library-link"));
   const html = renderDocument(fixture);
   for (const bundle of [
     "page",
@@ -105,7 +116,7 @@ try {
     "heading",
     "text_block",
     "media",
-    "action",
+    "button",
     "reading_header",
   ])
     assert.ok(
@@ -151,7 +162,7 @@ try {
       actions: [
         {
           id: "hero-action",
-          bundle: "action",
+          bundle: "button",
           metadata: { href: "https://example.com/evidence" },
           content: "Read the evidence",
         },
@@ -296,6 +307,38 @@ try {
   assert.equal(reordered.sections[0].title, "A newly authored heading");
   assert.equal(reordered.sections[1].number, "02");
   const invalid = [
+    (doc) =>
+      doc.content[1].content.push({
+        id: "bad-button-size",
+        bundle: "button",
+        metadata: { href: "#first-section", size: "huge" },
+        content: "Invalid size",
+      }),
+    (doc) =>
+      doc.content[1].content.push({
+        id: "bad-button-variant",
+        bundle: "button",
+        metadata: { href: "#first-section", variant: "arbitrary-css" },
+        content: "Invalid variant",
+      }),
+    (doc) =>
+      (doc.metadata.component_library = {
+        enabled: "yes",
+        label: "Library",
+        href: "./storybook/",
+      }),
+    (doc) =>
+      (doc.metadata.component_library = {
+        enabled: true,
+        label: "Library",
+        href: "javascript:alert(1)",
+      }),
+    (doc) =>
+      (doc.metadata.component_library = {
+        enabled: true,
+        label: "Library",
+        href: "//external.example/",
+      }),
     (doc) => (doc.extra = true),
     (doc) => (doc.metadata.schema_version = 2),
     (doc) => (doc.content[0].metadata.schema_version = 1),
@@ -318,7 +361,7 @@ try {
     (doc) => {
       doc.content[1].content[0].content.push({
         id: "unsafe-link",
-        bundle: "action",
+        bundle: "button",
         metadata: { href: "javascript:alert(1)" },
         content: "Unsafe",
       });

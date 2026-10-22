@@ -1,3 +1,4 @@
+/** Display text, not a form control; editable fields live in Input. */
 export function Text({
   "data-bundle-name": bundleName,
   children,

@@ -61,8 +61,8 @@
 .dialog-header-actions > button {
   padding: var(--space-2-5);
   font-size: 12px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-surface);
+  color: var(--text-on-brand);
   border: 0;
 }
 

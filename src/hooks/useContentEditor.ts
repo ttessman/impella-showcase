@@ -117,23 +117,31 @@ export function useContentEditor() {
   const drag = useBlockDrag({
     disabled: dirty,
     announce: setMessage,
-    drop: (id, target) => {
-      const blocks = relocateBlock(page.content, id, target);
-      if (blocks === page.content) {
-        setMessage(
-          "Move cancelled. A section cannot move inside itself or its descendants.",
-        );
-        return;
-      }
-      if (
-        commit(
-          { ...page, content: blocks },
-          "Block moved. JSON and preview updated.",
-        )
-      )
-        setSelected(id);
-    },
+    drop: relocate,
   });
+  function relocate(
+    id: string,
+    target: { parentId: string | null; beforeId: string | null },
+  ) {
+    if (dirty) return;
+    const blocks = relocateBlock(page.content, id, target);
+    if (blocks === page.content) {
+      setMessage(
+        "Move cancelled. Choose a destination outside this block's subtree.",
+      );
+      return;
+    }
+    if (
+      commit(
+        { ...page, content: blocks },
+        "Block moved. JSON and preview updated.",
+      )
+    ) {
+      setSelected(id);
+      revealProperties(id);
+    }
+  }
+
   function revealProperties(id: string) {
     requestAnimationFrame(() =>
       document
@@ -254,6 +262,7 @@ export function useContentEditor() {
       selectBlock,
       changeBlock,
       reorder,
+      relocate,
       remove,
       reset,
       editJson,

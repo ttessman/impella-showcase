@@ -144,7 +144,7 @@ export function documentText(index: DocumentIndex) {
 export function publicLinks(index: DocumentIndex) {
   const links = new Set<string>();
   walkContent(index.page, (node) => {
-    if (node.bundle === "action" && /^https?:/.test(node.metadata.href))
+    if (node.bundle === "button" && /^https?:/.test(node.metadata.href))
       links.add(node.metadata.href);
   });
   return [...links];
@@ -185,6 +185,11 @@ const metadata: Record<BundleName, Record<string, Field>> = {
       sections_label: "string",
     },
     skip_label: "string",
+    component_library: optional({
+      enabled: "boolean",
+      label: "string",
+      href: ["./storybook/", "/storybook/"],
+    }),
   },
   group: {
     variant: optional(Object.keys(variants.group)),
@@ -260,14 +265,15 @@ const metadata: Record<BundleName, Record<string, Field>> = {
     ordered: optional("boolean"),
   },
   list_item: {},
-  action: {
+  button: {
     href: "string",
-    variant: optional(["text", "primary", "reader"]),
+    variant: optional(["text", "primary", "secondary"]),
+    size: optional(["small", "default", "large"]),
     new_tab: optional("boolean"),
     action: optional(["reader", "image"]),
     target_id: optional("string"),
   },
-  disclosure: {
+  accordion: {
     label: "string",
     variant: optional(["implementation"]),
     initially_expanded: optional("boolean"),
@@ -370,7 +376,7 @@ export function safeHref(href: string) {
   }
 }
 const leaf = new Set(["text", "reading_header", "code", "checklist_option"]);
-const rich = new Set(["heading", "text_block", "action"]);
+const rich = new Set(["heading", "text_block", "button"]);
 const inline = new Set(["text"]);
 const owner: Record<string, string[]> = {
   list_item: ["list"],
@@ -465,9 +471,9 @@ export function parseDocument(input: unknown): PageDocument {
         (m[area] as unknown[]).forEach((child, i) => {
           if (
             area === "actions" &&
-            (!record(child) || child.bundle !== "action")
+            (!record(child) || child.bundle !== "button")
           )
-            fail(`${path}.metadata.actions[${i}]`, "expected action bundle");
+            fail(`${path}.metadata.actions[${i}]`, "expected button bundle");
           node(child, `${path}.metadata.${area}[${i}]`, depth + 1, bundle);
         });
       }
@@ -532,7 +538,7 @@ export function parseDocument(input: unknown): PageDocument {
       )
         fail(current.id, "documentation asset requires publication permission");
     }
-    if (current.bundle === "action") {
+    if (current.bundle === "button") {
       if (!safeHref(current.metadata.href)) fail(current.id, "unsafe link");
       if (
         current.metadata.href.startsWith("#") &&
@@ -627,7 +633,7 @@ export function parseDocument(input: unknown): PageDocument {
     }
   });
   walkContent(page, (current) => {
-    if (current.bundle !== "action" || current.metadata.action !== "image")
+    if (current.bundle !== "button" || current.metadata.action !== "image")
       return;
     const media = index.nodes.get(current.metadata.target_id ?? "");
     if (

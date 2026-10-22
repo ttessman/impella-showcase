@@ -49,10 +49,24 @@ export function useBlockDrag({
   function hitTarget(x: number, y: number) {
     const element = document.elementFromPoint(x, y);
     if (!element) return null;
-    const container = element.closest<HTMLElement>("[data-drop-container]");
+    let container = element.closest<HTMLElement>("[data-drop-container]");
+    // The indentation rail belongs to the parent list, not the nested list.
+    // Walking rails supports moving out through more than one nesting level.
+    while (
+      container?.dataset.parentId &&
+      x < container.getBoundingClientRect().left + 14
+    ) {
+      container =
+        container.parentElement?.closest<HTMLElement>(
+          "[data-drop-container]",
+        ) ?? null;
+    }
     const item = element.closest<HTMLElement>("li[data-block-id]");
     const row =
-      element.closest<HTMLElement>("[data-drag-row]") ??
+      (element.closest<HTMLElement>("[data-drag-row]")?.parentElement
+        ?.parentElement === container
+        ? element.closest<HTMLElement>("[data-drag-row]")
+        : null) ??
       (item?.parentElement === container
         ? item?.querySelector<HTMLElement>(":scope > [data-drag-row]")
         : null);

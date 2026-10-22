@@ -1,9 +1,9 @@
 import type { StudioBundle } from "../../../utils/studio";
 import { HeadingFields } from "../../CMS/bundles/HeadingBundle/HeadingFields";
-import { TextBlockFields } from "../../CMS/bundles/TextBlockBundle/TextBlockFields";
+import { TextBlockFields } from "../../CMS/bundles/TextBundle/variants/TextBlockFields";
 import { MediaFields } from "../../CMS/bundles/MediaBundle/MediaFields";
-import { SectionFields } from "../../CMS/bundles/SectionBundle/SectionFields";
-import { ReferencesAccordionFields } from "../../CMS/bundles/ReferencesAccordionBundle/ReferencesAccordionFields";
+import { SectionFields } from "../../CMS/bundles/LayoutBundle/SectionFields";
+import { ReferencesAccordionFields } from "../../CMS/bundles/AccordionBundle/variants/ReferencesAccordionFields";
 
 /** The studio selects fields; each bundle owns its authoring component. */
 export function BundleFields({

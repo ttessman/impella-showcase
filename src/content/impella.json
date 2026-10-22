@@ -28,6 +28,11 @@
     "subject": {
       "name": "Impella",
       "publisher": "Abiomed"
+    },
+    "component_library": {
+      "enabled": true,
+      "label": "Explore Storybook",
+      "href": "./storybook/"
     }
   },
   "content": [
@@ -108,16 +113,17 @@
             "actions": [
               {
                 "id": "impella-node-339",
-                "bundle": "action",
+                "bundle": "button",
                 "metadata": {
                   "href": "#playground",
-                  "variant": "primary"
+                  "variant": "primary",
+                  "size": "large"
                 },
                 "content": "Explore the content studio ↓"
               },
               {
                 "id": "impella-node-340",
-                "bundle": "action",
+                "bundle": "button",
                 "metadata": {
                   "href": "#architecture",
                   "variant": "text"
@@ -605,7 +611,7 @@
                 },
                 {
                   "id": "impella-node-141",
-                  "bundle": "action",
+                  "bundle": "button",
                   "metadata": {
                     "href": "#contract",
                     "variant": "text"
@@ -1626,7 +1632,7 @@
                               "content": [
                                 {
                                   "id": "impella-node-210",
-                                  "bundle": "action",
+                                  "bundle": "button",
                                   "metadata": {
                                     "href": "/assets/production/home.png",
                                     "variant": "text",
@@ -1702,7 +1708,7 @@
                               "content": [
                                 {
                                   "id": "impella-node-218",
-                                  "bundle": "action",
+                                  "bundle": "button",
                                   "metadata": {
                                     "href": "/assets/production/apple-home.webp",
                                     "variant": "text",
@@ -1869,7 +1875,7 @@
                             },
                             {
                               "id": "impella-node-249",
-                              "bundle": "disclosure",
+                              "bundle": "accordion",
                               "metadata": {
                                 "label": "How the calculator works",
                                 "variant": "implementation"
@@ -2137,7 +2143,7 @@
                             },
                             {
                               "id": "impella-node-280",
-                              "bundle": "disclosure",
+                              "bundle": "accordion",
                               "metadata": {
                                 "label": "How the checklist works",
                                 "variant": "implementation"
@@ -3304,7 +3310,7 @@
                 },
                 {
                   "id": "impella-node-305",
-                  "bundle": "action",
+                  "bundle": "button",
                   "metadata": {
                     "href": "https://apps.apple.com/us/app/impella-app/id991345042",
                     "variant": "text"
@@ -3313,7 +3319,7 @@
                 },
                 {
                   "id": "impella-node-306",
-                  "bundle": "action",
+                  "bundle": "button",
                   "metadata": {
                     "href": "https://play.google.com/store/apps/details?id=com.abiomed.impella&hl=en_US",
                     "variant": "text"
@@ -3623,11 +3629,11 @@
                 },
                 {
                   "id": "impella-node-410",
-                  "bundle": "action",
+                  "bundle": "button",
                   "metadata": {
                     "action": "reader",
                     "href": "./case-study.txt",
-                    "variant": "reader"
+                    "variant": "text"
                   },
                   "content": "Read case-study summary ↗"
                 }
@@ -3635,7 +3641,7 @@
             },
             {
               "id": "impella-node-412",
-              "bundle": "action",
+              "bundle": "button",
               "metadata": {
                 "href": "#top",
                 "variant": "text"
@@ -3709,7 +3715,7 @@
                           "content": [
                             {
                               "id": "impella-node-384",
-                              "bundle": "action",
+                              "bundle": "button",
                               "metadata": {
                                 "href": "https://apps.apple.com/us/app/impella-app/id991345042",
                                 "variant": "text"
@@ -3764,7 +3770,7 @@
                           "content": [
                             {
                               "id": "impella-node-390",
-                              "bundle": "action",
+                              "bundle": "button",
                               "metadata": {
                                 "href": "https://apps.apple.com/us/app/impella-app/id991345042",
                                 "variant": "text"
@@ -3819,7 +3825,7 @@
                           "content": [
                             {
                               "id": "impella-node-396",
-                              "bundle": "action",
+                              "bundle": "button",
                               "metadata": {
                                 "href": "https://apps.apple.com/us/app/impella-app/id991345042",
                                 "variant": "text"
@@ -3828,7 +3834,7 @@
                             },
                             {
                               "id": "impella-node-397",
-                              "bundle": "action",
+                              "bundle": "button",
                               "metadata": {
                                 "href": "https://play.google.com/store/apps/details?id=com.abiomed.impella&hl=en_US",
                                 "variant": "text"

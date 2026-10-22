@@ -8,6 +8,9 @@
   --sans: Inter, "Helvetica Neue", Arial, sans-serif;
 
   /* Colors: surfaces, text, interaction and feedback. */
+  color-scheme: light;
+  --brand-surface: #12395d;
+  --text-on-brand: #ffffff;
   --text: #172b43;
   --page: #f7f9fc;
   --ink: #12395d;
@@ -21,6 +24,7 @@
   --accent: #0068a8;
   --control-border: #afc0d1;
   --code-surface: #102e4b;
+  --text-on-code: #eff5fc;
   --control-border-soft: #b7c9db;
   --shadow-soft: #12395d12;
   --text-on-dark-muted: #c9dbea;
@@ -60,6 +64,7 @@
   --status-error-text: #8b3025;
   --border-tag-on-dark: #ffffff40;
   --surface-header: #f7f9fcf5;
+  --border-header: transparent;
   --border-checklist: #8ca6be;
   --surface-checklist-pending: #fffdf6;
   --surface-resize: #e7eff7;
@@ -97,4 +102,52 @@
   --radius-medium: 6px;
   --card-header-padding-block: var(--space-3);
   --card-padding-inline: var(--space-6);
+}
+
+/* Theme changes surfaces, not image assets or the brand's navy fields. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #e3eaf2;
+  --page: #101923;
+  --ink: #b4d6f5;
+  --muted: #a7b8ca;
+  --line: #354657;
+  --paper: #182430;
+  --preview-surface: #141e29;
+  --surface-tint: #223344;
+  --surface-section: #142230;
+  --accent: #79bfee;
+  --control-border: #61788e;
+  --control-border-soft: #4b637a;
+  --accent-hover: #075c92;
+  --surface-drag: #294761;
+  --surface-hover: #2b4256;
+  --surface-control-hover: #304b63;
+  --surface-icon-hover: #304b63;
+  --surface-code-tab: #223344;
+  --focus: #edbd70;
+  --gold-text: #e6b953;
+  --surface-resize-hover: #2b4256;
+  --text-caption: #a7b8ca;
+  --control-border-active: #79bfee;
+  --surface-code-help: #223344;
+  --error-border: #ce8179;
+  --error-ring: #ce817933;
+  --border-drag: #4b637a;
+  --surface-block: #1d2c3a;
+  --surface-block-active: #263f55;
+  --surface-block-hover: #304b63;
+  --status-neutral-surface: #22303e;
+  --status-neutral-text: #b7c5d3;
+  --status-success-surface: #18382b;
+  --status-success-text: #a1dfb6;
+  --status-error-surface: #432923;
+  --status-error-text: #f4b4a7;
+  --surface-header: #203246f5;
+  --border-header: #41576c;
+  --surface-checklist-pending: #333024;
+  --surface-resize: #223344;
+  --surface-card: #263545;
+  --surface-card-header: #22303e;
+  --grid-line: #b4d6f508;
 }

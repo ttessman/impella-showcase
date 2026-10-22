@@ -1,8 +1,9 @@
+import { TextArea } from "../Input/TextArea";
 import { EditorFeedback } from "./EditorFeedback";
 import { useAutoSizeTextarea } from "../../../hooks/useAutoSizeTextarea";
 import type { ContentEditor } from "../../../hooks/useContentEditor";
 import { Button } from "../Button/Button";
-import { ActionDropdown } from "../Dropdown/variants/ActionDropdown";
+import { ActionDropdown } from "../Popover/variants/ActionDropdown";
 
 export function JsonInspector({ editor }: { editor: ContentEditor }) {
   const { json, draft, dirty, error, actions } = editor;
@@ -25,7 +26,7 @@ export function JsonInspector({ editor }: { editor: ContentEditor }) {
           </p>
         </div>
         <div className="json-actions">
-          <Button className="primary" onClick={() => actions.validate(true)}>
+          <Button variant="primary" onClick={() => actions.validate(true)}>
             Apply JSON
           </Button>
           <ActionDropdown
@@ -61,7 +62,7 @@ export function JsonInspector({ editor }: { editor: ContentEditor }) {
         <label className="sr-only" htmlFor="json-editor">
           Editable page JSON
         </label>
-        <textarea
+        <TextArea
           id="json-editor"
           className="json-editor"
           ref={field}

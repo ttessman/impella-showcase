@@ -1,4 +1,5 @@
-import { Select } from "../Select/Select";
+import { TextInput } from "../Input/TextInput";
+import { Select } from "../Input/Select";
 import { Button } from "../Button/Button";
 import { Icon } from "../Icon/Icon";
 import type { StudioBundleName } from "../../../utils/studio";
@@ -10,6 +11,7 @@ export const bundles: { value: StudioBundleName; label: string }[] = [
   { value: "references_accordion", label: "References" },
 ];
 
+import { BlockLocation } from "./BlockLocation";
 import { blockLabel } from "../../../utils/studio";
 import { BlockList } from "./BlockList";
 import { BundleFields } from "./BundleFields";
@@ -33,7 +35,7 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
         <legend className="sr-only">Visual authoring controls</legend>
         <label>
           Page title
-          <input
+          <TextInput
             maxLength={5000}
             value={page.metadata.title}
             onChange={(e) => actions.updateTitle(e.target.value)}
@@ -74,9 +76,10 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
         {page.content.length === 0 && <p>No blocks yet. Add one above.</p>}
         <p id="drag-help" className="small drag-help">
           Drag a grip above or below a block. The line marks where it will land.
-          Drag into a section’s block list to nest it. With a grip focused,
-          press Space, use arrow keys to choose a position, then Enter to drop.
-          Escape cancels.
+          Drag into a section’s block list to nest it, or into its left gutter
+          to move out. Use Move to in block properties for a precise
+          destination. With a grip focused, press Space, use arrow keys to
+          choose a position, then Enter to drop. Escape cancels.
         </p>
         <BlockList
           drag={drag}
@@ -90,6 +93,7 @@ export function PageComposer({ editor }: { editor: ContentEditor }) {
             >
               <h4 id={`properties-heading-${block.id}`}>Block properties</h4>
               <p className="small">Editing: {blockLabel(block)}</p>
+              <BlockLocation block={block} editor={editor} />
               <BundleFields
                 key={block.id}
                 block={block}

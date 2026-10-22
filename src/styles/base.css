@@ -56,7 +56,7 @@ summary:focus-visible {
 
 ::selection {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--brand-surface);
 }
 
 h1,

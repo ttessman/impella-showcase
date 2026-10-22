@@ -1,4 +1,5 @@
-import { Select } from "../../../UI/Select/Select";
+import { TextInput } from "../../../UI/Input/TextInput";
+import { Select } from "../../../UI/Input/Select";
 import type { StudioHeadingBundle } from "../../../../utils/studio";
 
 /** Fields for the bounded studio draft of this bundle. */
@@ -13,7 +14,7 @@ export function HeadingFields({
     <>
       <label>
         Heading text
-        <input
+        <TextInput
           maxLength={5000}
           value={block.content}
           onChange={(e) => onChange({ ...block, content: e.target.value })}

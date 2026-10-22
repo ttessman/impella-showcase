@@ -1,8 +1,7 @@
 import { Icon } from "../../Icon/Icon";
 import type { CSSProperties, ReactNode } from "react";
 import { IconButton } from "../../Button/variants/IconButton";
-import { Dialog } from "../Dialog";
-import { DialogClose } from "../DialogClose";
+import { Dialog, DialogClose } from "../Dialog";
 import type { DialogSize, DialogState } from "../Dialog";
 
 export type EvidenceImage = {

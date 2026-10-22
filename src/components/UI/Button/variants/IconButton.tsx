@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { Button } from "../Button";
 import { Tooltip } from "../../Tooltip/Tooltip";
 
-type Props = ComponentProps<typeof Button> & {
+type Props = Extract<ComponentProps<typeof Button>, { href?: never }> & {
   label: string;
   tooltip?: string;
   onEscape?: () => void;

@@ -11,3 +11,6 @@ playwright-report/
 
 # Private working context belongs outside the portfolio repository.
 /AUDIT.md
+
+# Generated component library
+storybook-static/

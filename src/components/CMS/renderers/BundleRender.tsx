@@ -1,27 +1,27 @@
 import type { ComponentType } from "react";
 import type { BundleName, CmsNode, NodeOf } from "./ContentViewRender";
-import { PageBundle } from "../bundles/PageBundle/PageBundle";
-import { GroupBundle } from "../bundles/GroupBundle/GroupBundle";
-import { GridBundle } from "../bundles/GridBundle/GridBundle";
-import { SectionBundle } from "../bundles/SectionBundle/SectionBundle";
+import { PageBundle } from "../bundles/LayoutBundle/PageBundle";
+import { GroupBundle } from "../bundles/LayoutBundle/GroupBundle";
+import { GridBundle } from "../bundles/LayoutBundle/GridBundle";
+import { SectionBundle } from "../bundles/LayoutBundle/SectionBundle";
 import { CardBundle } from "../bundles/CardBundle/CardBundle";
 import { HeaderBundle } from "../bundles/HeaderBundle/HeaderBundle";
 import { FooterBundle } from "../bundles/FooterBundle/FooterBundle";
-import { ReadingHeaderBundle } from "../bundles/ReadingHeaderBundle/ReadingHeaderBundle";
+import { ReadingHeaderBundle } from "../bundles/HeaderBundle/variants/ReadingHeaderBundle";
 import { HeroBundle } from "../bundles/HeroBundle/HeroBundle";
 import { HeadingBundle } from "../bundles/HeadingBundle/HeadingBundle";
 import { TextBundle } from "../bundles/TextBundle/TextBundle";
-import { TextBlockBundle } from "../bundles/TextBlockBundle/TextBlockBundle";
+import { TextBlockBundle } from "../bundles/TextBundle/variants/TextBlockBundle";
 import { MediaBundle } from "../bundles/MediaBundle/MediaBundle";
 import { FigureBundle } from "../bundles/FigureBundle/FigureBundle";
 import { ListBundle } from "../bundles/ListBundle/ListBundle";
-import { ListItemBundle } from "../bundles/ListItemBundle/ListItemBundle";
-import { ActionBundle } from "../bundles/ActionBundle/ActionBundle";
-import { DisclosureBundle } from "../bundles/DisclosureBundle/DisclosureBundle";
+import { ListItemBundle } from "../bundles/ListBundle/ListItemBundle";
+import { ButtonBundle } from "../bundles/ButtonBundle/ButtonBundle";
+import { AccordionBundle } from "../bundles/AccordionBundle/AccordionBundle";
 import { CodeBundle } from "../bundles/CodeBundle/CodeBundle";
-import { SourceReferenceBundle } from "../bundles/SourceReferenceBundle/SourceReferenceBundle";
+import { SourceReferenceBundle } from "../bundles/PopoverBundle/variants/SourceReferenceBundle";
 import { ChecklistBundle } from "../bundles/ChecklistBundle/ChecklistBundle";
-import { ReferencesAccordionBundle } from "../bundles/ReferencesAccordionBundle/ReferencesAccordionBundle";
+import { ReferencesAccordionBundle } from "../bundles/AccordionBundle/variants/ReferencesAccordionBundle";
 import { ContentStudioBundle } from "../bundles/ContentStudioBundle/ContentStudioBundle";
 
 type DataBundle =
@@ -56,8 +56,8 @@ const bundleRegistry: Registry = {
   figure: FigureBundle,
   list: ListBundle,
   list_item: ListItemBundle,
-  action: ActionBundle,
-  disclosure: DisclosureBundle,
+  button: ButtonBundle,
+  accordion: AccordionBundle,
   code: CodeBundle,
   source_reference: SourceReferenceBundle,
   checklist: ChecklistBundle,

@@ -1,4 +1,5 @@
-import { Select } from "../../../UI/Select/Select";
+import { TextInput } from "../../../UI/Input/TextInput";
+import { Select } from "../../../UI/Input/Select";
 import type { StudioMediaBundle } from "../../../../utils/studio";
 export const imageOptions = [
   "assets/demo/field-notes.svg",
@@ -44,7 +45,7 @@ export function MediaFields({
       </label>
       <label>
         Alternative text
-        <input
+        <TextInput
           maxLength={5000}
           value={block.metadata.alt}
           onChange={(e) =>
@@ -57,7 +58,7 @@ export function MediaFields({
       </label>
       <label>
         Image caption
-        <input
+        <TextInput
           maxLength={5000}
           value={block.content[0]?.content ?? ""}
           onChange={(e) =>
